@@ -3,14 +3,16 @@ const path = require('path')
 const moment = require('moment')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const WebpackCleanupPlugin = require('webpack-cleanup-plugin')
+const dependencies = require('../package.json').dependencies
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    vendor: Object.keys(dependencies)
+  },
   output: {
     path: path.join(__dirname, '../build'),
     publicPath: '/',
-    filename: 'main.js'
+    filename: '[name].js'
   },
   module: {
     rules: [{
@@ -73,11 +75,9 @@ module.exports = {
     ]
   },
   plugins: [
-    new WebpackCleanupPlugin({
-      exclude: ['vendor.js']
-    }),
-    new webpack.DllReferencePlugin({
-      manifest: require('../tmp/manifest.json')
+    new webpack.DllPlugin({
+      path: path.join(__dirname, '../tmp', 'manifest.json'),
+      name: '[name]'
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('prod')
