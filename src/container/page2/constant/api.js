@@ -1,0 +1,1 @@
+export const pageInfo = '/api/page2.json'
