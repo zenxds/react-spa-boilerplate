@@ -3,8 +3,6 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const DashboardPlugin = require('webpack-dashboard/plugin')
 
-const publicPath = '/'
-
 module.exports = {
   entry: [
     'react-hot-loader/patch',
@@ -12,7 +10,7 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, '../build'),
-    publicPath,
+    publicPath: '/',
     filename: 'main.js'
   },
   devtool: 'eval-source-map',
@@ -85,8 +83,8 @@ module.exports = {
   ],
   devServer: {
     hot: true,
-    publicPath,
     historyApiFallback: true,
+    publicPath: '/',    
     host: '0.0.0.0',
     disableHostCheck: true
   }

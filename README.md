@@ -9,7 +9,8 @@ config
 src
   component: 展示型组件
   container: 容器组件
-    constant: 常亮定义
+    component: UI组件 or 业务组件
+    constant: 常量定义
     action: action定义
     reducer: reducer定义
   reducer: reducer合并
