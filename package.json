@@ -1,7 +1,7 @@
 {
-  "name": "react-boilerplate",
+  "name": "react-spa-boilerplate",
   "version": "0.1.0",
-  "description": "react-boilerplate",
+  "description": "react-spa-boilerplate",
   "main": "build/main.js",
   "scripts": {
     "start": "webpack-dashboard -- webpack-dev-server -w --open --env=dev",

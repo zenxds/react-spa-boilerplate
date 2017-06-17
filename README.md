@@ -7,13 +7,13 @@ config
   webpack.config.${env}.js
   postcss.config.js
 src
-  actions: action
-  components: 展示型组件
-  containers: 容器组件
-  constants: 常量定义
-  reducers: reducer
+  component: 展示型组件
+  container: 容器组件
+    constant: 常亮定义
+    action: action定义
+    reducer: reducer定义
+  reducer: reducer合并
   store: store配置
-  service: 封装的服务
 ```
 
 ## action规范
