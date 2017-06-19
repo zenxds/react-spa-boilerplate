@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const DashboardPlugin = require('webpack-dashboard/plugin')
 
+const rules = require('./webpack.rules')
 module.exports = {
   entry: [
     'react-hot-loader/patch',
@@ -15,19 +16,11 @@ module.exports = {
   },
   devtool: 'eval-source-map',
   module: {
-    rules: [
+    rules: rules.concat([
       {
         test: /\.jsx?$/,
         loader: ['babel-loader', 'eslint-loader'],
         exclude: /node_modules/
-      },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
-        use: 'url-loader?limit=10000'
-      },
-      {
-        test: /\.(png|jpg|gif)$/,
-        use: 'url-loader?limit=8192&name=image/[hash].[ext]'
       },
       {
         test: /\.css$/,
@@ -65,7 +58,7 @@ module.exports = {
           }
         ]
       }
-    ]
+    ])
   },
   plugins: [
     new HtmlWebpackPlugin({
