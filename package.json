@@ -4,9 +4,9 @@
   "description": "react-spa-boilerplate",
   "main": "build/main.js",
   "scripts": {
-    "start": "webpack-dashboard -- webpack-dev-server -w --open --env=dev",
+    "start": "BABEL_ENV=dev webpack-dashboard -- webpack-dev-server -w --open --env=dev",
     "vendor": "webpack --env=dll",
-    "build": "npm run vendor && webpack --env=prod",
+    "build": "npm run vendor && BABEL_ENV=prod webpack --env=prod",
     "test": "ava"
   },
   "author": {
