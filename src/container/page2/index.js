@@ -11,8 +11,10 @@ class Page extends Component {
   }
 
   componentDidMount() {
-    this.props.actions.getPageInfo().catch((e) => {
-      console.log(e)
+    this.props.actions.getPageInfo().then((action) => {
+      if (action.error) {
+        console.log(action.payload)
+      }
     })
   }
 }
