@@ -10,6 +10,8 @@ import {
 
 import Page1 from './container/page1'
 import Page2 from './container/page2'
+
+import 'normalize.css/normalize.css'
 import './app.less'
 
 export default class App extends Component {
