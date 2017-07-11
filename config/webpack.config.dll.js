@@ -5,7 +5,7 @@ const dependencies = require('../package.json').dependencies
 
 module.exports = {
   entry: {
-    vendor: Object.keys(dependencies)
+    vendor: Object.keys(dependencies).filter(name => !/\.css$/.test(name))
   },
   output: {
     path: path.join(__dirname, '../build'),

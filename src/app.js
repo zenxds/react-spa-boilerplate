@@ -7,19 +7,20 @@ import {
   Link,
   Switch
 } from 'react-router-dom'
+import CSSModules  from 'react-css-modules'
 
 import Page1 from './container/page1'
 import Page2 from './container/page2'
 
 import 'normalize.css/normalize.css'
-import './app.less'
+import styles from './app.less'
 
-export default class App extends Component {
+class App extends Component {
   render() {
     return (
       <Router>
         <div>
-          <ul>
+          <ul styleName="top-nav">
             <li><Link to="/">Home</Link></li>
             <li><Link to="/page1">Page1</Link></li>
             <li><Link to="/page2">Page2</Link></li>
@@ -34,3 +35,5 @@ export default class App extends Component {
     )
   }
 }
+
+export default CSSModules(App, styles)

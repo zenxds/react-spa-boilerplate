@@ -1,5 +1,6 @@
 import { handleActions } from 'redux-actions'
 import actions from '../action'
+import { fromJS } from 'immutable'
 
 const reducer = handleActions({
   [actions.getPageInfo]: (state, action) => {
@@ -7,13 +8,10 @@ const reducer = handleActions({
       return state
     }
 
-    return {
-      ...state,
-      ...action.payload
-    }
+    return state.merge(action.payload)
   }
-}, {
+}, fromJS({
 
-})
+}))
 
 export default reducer

@@ -6,9 +6,6 @@ import { bindActionCreators } from 'redux'
 import actions from './action'
 
 class Page extends Component {
-  render() {
-    return (<div>{ this.props.helloMsg }</div>)
-  }
 
   componentDidMount() {
     this.props.actions.getPageInfo().then((action) => {
@@ -17,10 +14,14 @@ class Page extends Component {
       }
     })
   }
+
+  render() {
+    return (<div>{ this.props.helloMsg }</div>)
+  }
 }
 
 const mapStateToProps = (state) => {
-  return state.page1
+  return state.page1.toJS()
 }
 const mapDispatchToProps = (dispatch) => {
   return {

@@ -20,7 +20,7 @@ class Page extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return state.page2
+  return state.page2.toJS()
 }
 const mapDispatchToProps = (dispatch) => {
   return {
