@@ -10,8 +10,8 @@ const rules = require('./webpack.rules')
 module.exports = {
   entry: './src/index.js',
   output: {
+    // publicPath: '/',    
     path: path.join(__dirname, '../build'),
-    publicPath: '/',
     filename: 'main.js'
   },
   module: {

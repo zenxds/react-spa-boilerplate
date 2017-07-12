@@ -10,8 +10,8 @@ module.exports = {
     './src/index.js'
   ],
   output: {
+    // publicPath: '/',    
     path: path.join(__dirname, '../build'),
-    publicPath: '/',
     filename: 'main.js'
   },
   devtool: 'eval-source-map',
