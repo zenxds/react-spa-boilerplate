@@ -10,7 +10,6 @@ const rules = require('./webpack.rules')
 module.exports = {
   entry: './src/index.js',
   output: {
-    // publicPath: '/',    
     path: path.join(__dirname, '../build'),
     filename: 'main.js'
   },
@@ -83,7 +82,10 @@ module.exports = {
       manifest: require('../tmp/manifest.json')
     }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('prod')
+      'process.env.NODE_ENV': JSON.stringify('production')
+    }),
+    new webpack.ProvidePlugin({
+      'React': 'react'
     }),
     new ExtractTextPlugin({
       disable: false,
@@ -91,7 +93,7 @@ module.exports = {
       filename: '[name].css'
     }),
     new HtmlWebpackPlugin({
-      template: 'template/index.html',
+      template: 'template/index.prod.html',
       hash: true
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),

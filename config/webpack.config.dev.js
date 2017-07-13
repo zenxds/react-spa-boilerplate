@@ -9,8 +9,7 @@ module.exports = {
     'react-hot-loader/patch',
     './src/index.js'
   ],
-  output: {
-    // publicPath: '/',    
+  output: { 
     path: path.join(__dirname, '../build'),
     filename: 'main.js'
   },
@@ -91,9 +90,9 @@ module.exports = {
     })
   ],
   devServer: {
+    contentBase: [path.join(__dirname, '../build'), path.join(__dirname, '..')],    
     hot: true,
-    historyApiFallback: true,
-    publicPath: '/',    
+    historyApiFallback: true, 
     host: '0.0.0.0',
     disableHostCheck: true
   }

@@ -9,12 +9,16 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, '../build'),
-    filename: '[name].js'
+    filename: '[name].js',
+    library: '[name]'
   },
   plugins: [
     new webpack.DllPlugin({
       path: path.join(__dirname, '../tmp', 'manifest.json'),
       name: '[name]'
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
     }),
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.BannerPlugin(`${moment().format('YYYY-MM-DD HH:mm:ss')}`)
