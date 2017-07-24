@@ -44,6 +44,7 @@ module.exports = {
       },
       {
         test: /\.less$/,
+        exclude: /(node_modules|antd)/,
         use: [
           'style-loader',
           {
@@ -67,6 +68,14 @@ module.exports = {
               relativeUrls: false
             }
           }
+        ]
+      },
+      {
+        test: /antd\.less$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'less-loader'
         ]
       },
       {

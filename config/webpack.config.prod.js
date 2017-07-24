@@ -41,6 +41,7 @@ module.exports = {
       },
       {
         test: /\.less$/,
+        exclude: /(node_modules|antd)/,
         use: ExtractTextPlugin.extract([
           {
             loader: 'css-loader',
@@ -63,6 +64,26 @@ module.exports = {
               relativeUrls: false
             }
           }
+        ])
+      },
+      {
+        test: /antd\.less$/,
+        use: ExtractTextPlugin.extract([
+          {
+            loader: 'css-loader',
+            options: {
+              minimize: true
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              config: {
+                path: 'config/postcss.config.js'
+              }
+            }
+          },
+          'less-loader'
         ])
       },
       {

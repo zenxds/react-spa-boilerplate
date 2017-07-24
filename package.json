@@ -47,10 +47,10 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
+    "antd": "^2.12.2",
     "babel-polyfill": "^6.23.0",
     "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
-    "normalize.css": "^7.0.0",
     "react": "^15.6.1",
     "react-css-modules": "^4.5.2",
     "react-dom": "^15.6.1",
