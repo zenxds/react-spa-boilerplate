@@ -11,7 +11,6 @@ const reducer = handleActions({
     return state.merge(action.payload)
   }
 }, fromJS({
-
 }))
 
 export default reducer

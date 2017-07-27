@@ -99,7 +99,11 @@ module.exports = {
     })
   ],
   devServer: {
-    contentBase: [path.join(__dirname, '../build'), path.join(__dirname, '..')],    
+    contentBase: [
+      path.join(__dirname, '../build'),
+      path.join(__dirname, '../api'),
+      path.join(__dirname, '..')
+    ],   
     hot: true,
     historyApiFallback: true, 
     host: '0.0.0.0',
