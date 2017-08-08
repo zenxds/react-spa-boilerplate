@@ -1,6 +1,6 @@
 {
   "success": true,
-  "result": {
+  "data": {
     "helloMsg": "Hello World Page2"
   }
 }
