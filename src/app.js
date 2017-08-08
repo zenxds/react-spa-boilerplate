@@ -9,11 +9,11 @@ import {
 } from 'react-router-dom'
 import CSSModules  from 'react-css-modules'
 
-import Page1 from './container/page1'
-import Page2 from './container/page2'
-
 import './less/antd.less'
 import styles from './less/app.less'
+
+import Page1 from './container/page1'
+import Page2 from './container/page2'
 
 class App extends Component {
   render() {
