@@ -7,6 +7,7 @@
     "start": "BABEL_ENV=dev webpack-dashboard -p 9840 -- webpack-dev-server -w --open --env=dev",
     "vendor": "webpack --env=dll",
     "build": "npm run vendor && BABEL_ENV=prod webpack --env=prod",
+    "container:add": "node script/add.js",
     "test": "ava"
   },
   "author": {
@@ -30,8 +31,11 @@
     "eslint-loader": "^1.8.0",
     "eslint-plugin-import": "^2.3.0",
     "eslint-plugin-react": "^7.1.0",
+    "escodegen": "^1.8.1",
+    "esprima": "^4.0.0",
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",
+    "fs-extra": "^4.0.1",
     "html-webpack-plugin": "^2.28.0",
     "img-loader": "^2.0.0",
     "less": "^2.7.2",
