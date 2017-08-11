@@ -68,3 +68,5 @@ package-lock.json
 .vscode
 tmp
 .yo-rc.json
+
+build

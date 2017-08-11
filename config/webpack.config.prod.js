@@ -11,7 +11,8 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: path.join(__dirname, '../build'),
-    filename: 'main.js'
+    filename: 'main.js',
+    chunkFilename: '[name].[hash].js'
   },
   module: {
     rules: rules.concat([{

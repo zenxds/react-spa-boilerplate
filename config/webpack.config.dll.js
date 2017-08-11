@@ -5,7 +5,7 @@ const dependencies = require('../package.json').dependencies
 
 module.exports = {
   entry: {
-    vendor: Object.keys(dependencies).filter(name => !/\.css$/.test(name))
+    vendor: Object.keys(dependencies).filter(name => name !== 'bundle-loader')
   },
   output: {
     path: path.join(__dirname, '../build'),

@@ -12,8 +12,7 @@ import CSSModules  from 'react-css-modules'
 import './less/antd.less'
 import styles from './less/app.less'
 
-import Page1 from './container/page1'
-import Page2 from './container/page2'
+import Dynamic from './dynamic'
 
 class App extends Component {
   render() {
@@ -26,9 +25,9 @@ class App extends Component {
             <li><Link to="/page2">Page2</Link></li>
           </ul>
           <Switch>
-            <Route exact path="/" component={Page1}/>
-            <Route path="/page1" component={Page1} />
-            <Route path="/page2" component={Page2}/>
+            <Dynamic exact path="/" load={require('bundle-loader?lazy!./container/page1')} />
+            <Dynamic path="/page1" load={require('bundle-loader?lazy!./container/page1')} />
+            <Dynamic path="/page2" load={require('bundle-loader?lazy!./container/page2')} />
           </Switch>
         </div>
       </Router>
