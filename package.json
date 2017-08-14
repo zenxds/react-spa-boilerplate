@@ -6,7 +6,7 @@
   "scripts": {
     "start": "BABEL_ENV=dev webpack-dashboard -p 9840 -- webpack-dev-server -w --open --env=dev",
     "vendor": "webpack --env=dll",
-    "build": "npm run vendor && BABEL_ENV=prod webpack --env=prod",
+    "build": "npm run vendor && BABEL_ENV=production webpack --env=production",
     "container:add": "node script/add.js",
     "test": "ava"
   },
