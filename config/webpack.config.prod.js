@@ -14,6 +14,7 @@ module.exports = {
     filename: 'main.js',
     chunkFilename: '[name].[hash].js'
   },
+  // devtool: 'cheap-module-source-map',
   module: {
     rules: rules.concat([{
         test: /\.jsx?$/,
