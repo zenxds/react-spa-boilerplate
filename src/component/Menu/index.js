@@ -54,6 +54,7 @@ class Menu extends Component {
             menuCfg.map(item => {
               return (
                 <Item key={item.title} pathname={item.link}>
+                  { item.icon ? <Icon type={item.icon} /> : null }
                   <span>{item.title}</span>
                 </Item>
               )
