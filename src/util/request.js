@@ -5,6 +5,12 @@ export default (input, options={}) => {
     credentials: "same-origin"
   }, options)
 
+  if (/post/i.test(options.method)) {
+    options.headers = Object.assign({
+      "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
+    }, options.headers || {})
+  }
+
   return fetch(input, options).then((response) => {
     return response.json()
   }).then((response) => {
