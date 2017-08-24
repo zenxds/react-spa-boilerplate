@@ -6,9 +6,15 @@ export default (input, options={}) => {
   }, options)
 
   if (/post/i.test(options.method)) {
-    options.headers = Object.assign({
-      "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
-    }, options.headers || {})
+    let headers = {}
+
+    if (typeof options.body === 'string') {
+      headers = {
+        "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
+      }
+    }
+
+    options.headers = Object.assign({}, headers, options.headers || {})
   }
 
   return fetch(input, options).then((response) => {
