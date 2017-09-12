@@ -3,10 +3,12 @@
  */
 import 'babel-polyfill'
 import ReactDOM from 'react-dom'
+import { Provider } from 'mobx-react'
 import { useStrict } from 'mobx'
 import { AppContainer } from 'react-hot-loader'
 
 import App from './app'
+import store from './store'
 
 // 不允许在@action之外进行状态的修改
 useStrict(true)
@@ -14,7 +16,9 @@ useStrict(true)
 const render = Component => {
   ReactDOM.render(
     <AppContainer>
-      <Component />
+      <Provider {...store}>
+        <Component />
+      </Provider>
     </AppContainer>,
     document.getElementById('app')
   )

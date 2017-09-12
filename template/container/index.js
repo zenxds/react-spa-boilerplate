@@ -1,17 +1,13 @@
 import { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import { observer, inject } from "mobx-react"
 
-import actions from './action'
-
+@inject('{{ name }}Store')
+@withRouter
+@observer
 class Page extends Component {
-
   constructor(props, context) {
     super(props, context)
-  }
-
-  componentDidMount() {
   }
 
   render() {
@@ -21,13 +17,4 @@ class Page extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return state.{{ name }}.toJS()
-}
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators(actions, dispatch)
-  }
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Page))
+export default Page

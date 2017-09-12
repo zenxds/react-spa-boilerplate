@@ -6,7 +6,7 @@ import {
   Link,
   Switch
 } from 'react-router-dom'
-import CSSModules  from 'react-css-modules'
+import CSSModules from 'react-css-modules'
 
 import './less/antd.less'
 import styles from './less/app.less'
@@ -15,6 +15,7 @@ import Header from './component/Header'
 import Menu from './component/Menu'
 import Dynamic from './dynamic'
 
+@CSSModules(styles)
 class App extends Component {
   render() {
     return (
@@ -37,4 +38,4 @@ class App extends Component {
   }
 }
 
-export default CSSModules(App, styles)
+export default App

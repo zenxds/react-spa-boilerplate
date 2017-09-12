@@ -6,6 +6,7 @@ import {
 
 import styles from './less/styles.less'
 
+@CSSModules(styles)
 class Header extends Component {
   render() {
     return (
@@ -16,4 +17,4 @@ class Header extends Component {
   }
 }
 
-export default CSSModules(Header, styles)
+export default Header

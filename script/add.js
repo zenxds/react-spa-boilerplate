@@ -10,11 +10,11 @@ const ask = require('./util/ask')
 
 const templatePath = path.join(__dirname, '../template/container')
 const containerPath = path.join(__dirname, '../src/container')
-const reducerPath = path.join(__dirname, '../src/reducer/index.js')
+const storePath = path.join(__dirname, '../src/store/index.js')
 
 const start = async() => {
   const container = await ask('请输入container名称:')
-  // 可能是多级目录  
+  // 可能是多级目录
   const containerName = path.basename(container)
   const dest = path.join(containerPath, container)
 
@@ -29,12 +29,9 @@ const start = async() => {
   util.replace(path.join(dest, 'index.js'), {
     name: containerName
   })
-  util.replace(path.join(dest, 'action/index.js'), {
-    name: containerName
-  })
 
   // 修改reducer
-  updateReducer({
+  updateStore({
     container,
     containerName
   })
@@ -42,26 +39,27 @@ const start = async() => {
   process.exit(0)
 }
 
-function updateReducer({
+function updateStore({
   container,
   containerName
 }) {
-  const ast = util.getAstFromCode(fs.readFileSync(reducerPath, 'utf8'))
+  const ast = util.getAstFromCode(fs.readFileSync(storePath, 'utf8'))
   const exportDefaultDeclarationIndex = ast.body.findIndex(item => {
     return item.type === 'ExportDefaultDeclaration'
   })
+  const storeName = `${containerName}Store`
 
   // combine的参数
-  ast.body[exportDefaultDeclarationIndex].declaration.arguments[0].properties.push({
+  ast.body[exportDefaultDeclarationIndex].declaration.properties.push({
     "type": "Property",
     "key": {
       "type": "Identifier",
-      "name": containerName
+      "name": storeName
     },
     "computed": false,
     "value": {
       "type": "Identifier",
-      "name": containerName
+      "name": storeName
     },
     "kind": "init",
     "method": false,
@@ -75,17 +73,17 @@ function updateReducer({
       "type": "ImportDefaultSpecifier",
       "local": {
         "type": "Identifier",
-        "name": containerName
+        "name": storeName
       }
     }],
     "source": {
       "type": "Literal",
-      "value": `../container/${container}/reducer`,
-      "raw": `'../container/${container}/reducer'`
+      "value": `../container/${container}/store`,
+      "raw": `'../container/${container}/store'`
     }
   })
 
-  fs.writeFileSync(reducerPath, util.getCodeFromAst(ast))
+  fs.writeFileSync(storePath, util.getCodeFromAst(ast).replace(/;/g, ''))
 }
 
 start().catch(e => {

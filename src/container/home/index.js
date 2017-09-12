@@ -1,15 +1,16 @@
 import { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { observer } from "mobx-react"
-import homeStore from './store'
+import { observer, inject } from "mobx-react"
 
+@inject('homeStore')
+@withRouter
 @observer
-class Page extends Component {
+class Home extends Component {
   render() {
     return (
-      <div>{ homeStore.msg }</div>
+      <div>{ this.props.homeStore.msg }</div>
     )
   }
 }
 
-export default withRouter(Page)
+export default Home
