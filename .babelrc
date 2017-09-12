@@ -13,10 +13,19 @@
   ],
   "env": {
     "dev": {
-      "plugins": ["transform-object-rest-spread", "react-hot-loader/babel"]
+      "plugins": [
+        "transform-decorators-legacy",
+        "transform-class-properties",
+        "transform-object-rest-spread",
+        "react-hot-loader/babel"
+      ]
     },
     "production": {
-      "plugins": ["transform-object-rest-spread"]
+      "plugins": [
+        "transform-decorators-legacy",
+        "transform-class-properties",
+        "transform-object-rest-spread"
+      ]
     }
   }
 }

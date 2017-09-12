@@ -108,8 +108,8 @@ module.exports = {
     host: '0.0.0.0',
     disableHostCheck: true,
     setup(app){
-      app.all('/api/*', function(req, res) {
-        const p = path.join(__dirname, '..', /\.json$/.test(req.path) ? req.path : req.path + '.json')
+      app.all(/^\/home/, function(req, res) {
+        const p = path.join(__dirname, '../api', /\.json$/.test(req.path) ? req.path : req.path + '.json')
         res.json(require(p))
       })
     }

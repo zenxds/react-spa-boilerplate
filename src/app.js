@@ -1,5 +1,4 @@
 import { Component } from 'react'
-import { connect } from 'react-redux'
 import {
   // BrowserRouter as Router
   HashRouter as Router,
@@ -28,9 +27,7 @@ class App extends Component {
             </div>
             <div className="app-content">
               <Switch>
-                <Dynamic exact path="/" load={require('bundle-loader?lazy!./container/page1')} />
-                <Dynamic path="/page1" load={require('bundle-loader?lazy!./container/page1')} />
-                <Dynamic path="/page2" load={require('bundle-loader?lazy!./container/page2')} />
+                <Dynamic exact path="/" load={require('bundle-loader?lazy!./container/home')} />
               </Switch>
             </div>
           </div>

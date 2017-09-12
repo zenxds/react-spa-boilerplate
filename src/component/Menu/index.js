@@ -17,13 +17,10 @@ const {
 
 const menuCfg = [
   {
-    title: '页面1',
-    link: '/page1'
-  },
-  {
-    title: '页面2',
-    link: '/page2'
-  },
+    title: '首页',
+    link: '/',
+    icon: 'home'
+  }
 ]
 
 class Menu extends Component {
@@ -47,7 +44,7 @@ class Menu extends Component {
         <AntdMenu
           mode="inline"
           theme="dark"
-          defaultSelectedKeys={currentMenu ? [currentMenu.icon] : []}
+          defaultSelectedKeys={currentMenu ? [currentMenu.title] : []}
           onClick={this.handleClick.bind(this)}
         >
           {
