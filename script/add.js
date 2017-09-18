@@ -10,7 +10,7 @@ const ask = require('./util/ask')
 
 const templatePath = path.join(__dirname, '../template/container')
 const containerPath = path.join(__dirname, '../src/container')
-const storePath = path.join(__dirname, '../src/store/index.js')
+const injectPath = path.join(__dirname, '../src/inject/index.js')
 
 const start = async() => {
   const container = await ask('请输入container名称:')
@@ -31,7 +31,7 @@ const start = async() => {
   })
 
   // 修改reducer
-  updateStore({
+  updateInject({
     container,
     containerName
   })
@@ -39,15 +39,16 @@ const start = async() => {
   process.exit(0)
 }
 
-function updateStore({
+function updateInject({
   container,
   containerName
 }) {
-  const ast = util.getAstFromCode(fs.readFileSync(storePath, 'utf8'))
+  const ast = util.getAstFromCode(fs.readFileSync(injectPath, 'utf8'))
   const exportDefaultDeclarationIndex = ast.body.findIndex(item => {
     return item.type === 'ExportDefaultDeclaration'
   })
   const storeName = `${containerName}Store`
+  const actionsName = `${containerName}Actions`
 
   // combine的参数
   ast.body[exportDefaultDeclarationIndex].declaration.properties.push({
@@ -60,6 +61,21 @@ function updateStore({
     "value": {
       "type": "Identifier",
       "name": storeName
+    },
+    "kind": "init",
+    "method": false,
+    "shorthand": true
+  })
+  ast.body[exportDefaultDeclarationIndex].declaration.properties.push({
+    "type": "Property",
+    "key": {
+      "type": "Identifier",
+      "name": actionsName
+    },
+    "computed": false,
+    "value": {
+      "type": "Identifier",
+      "name": actionsName
     },
     "kind": "init",
     "method": false,
@@ -82,8 +98,23 @@ function updateStore({
       "raw": `'../container/${container}/store'`
     }
   })
+  ast.body.splice(exportDefaultDeclarationIndex, 0, {
+    "type": "ImportDeclaration",
+    "specifiers": [{
+      "type": "ImportDefaultSpecifier",
+      "local": {
+        "type": "Identifier",
+        "name": actionsName
+      }
+    }],
+    "source": {
+      "type": "Literal",
+      "value": `../container/${container}/action`,
+      "raw": `'../container/${container}/action'`
+    }
+  })
 
-  fs.writeFileSync(storePath, util.getCodeFromAst(ast).replace(/;/g, ''))
+  fs.writeFileSync(injectPath, util.getCodeFromAst(ast).replace(/;/g, ''))
 }
 
 start().catch(e => {
