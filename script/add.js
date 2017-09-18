@@ -55,12 +55,12 @@ function updateInject({
     "type": "Property",
     "key": {
       "type": "Identifier",
-      "name": storeName
+      "name": actionsName
     },
     "computed": false,
     "value": {
       "type": "Identifier",
-      "name": storeName
+      "name": actionsName
     },
     "kind": "init",
     "method": false,
@@ -70,12 +70,12 @@ function updateInject({
     "type": "Property",
     "key": {
       "type": "Identifier",
-      "name": actionsName
+      "name": storeName
     },
     "computed": false,
     "value": {
       "type": "Identifier",
-      "name": actionsName
+      "name": storeName
     },
     "kind": "init",
     "method": false,
