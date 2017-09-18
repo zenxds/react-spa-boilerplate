@@ -8,7 +8,7 @@ import { useStrict } from 'mobx'
 import { AppContainer } from 'react-hot-loader'
 
 import App from './app'
-import store from './store'
+import injects from './inject'
 
 // 不允许在@action之外进行状态的修改
 useStrict(true)
@@ -16,7 +16,7 @@ useStrict(true)
 const render = Component => {
   ReactDOM.render(
     <AppContainer>
-      <Provider {...store}>
+      <Provider {...injects}>
         <Component />
       </Provider>
     </AppContainer>,
