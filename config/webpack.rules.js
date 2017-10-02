@@ -7,9 +7,7 @@ module.exports = [
     test: /\.svg$/,
     loader: 'svg-inline-loader',
     options: {
-      classPrefix: true,
-      removeTags: true,
-      removingTagAttrs: ['fill']
+      classPrefix: true
     }
   }
 ]
