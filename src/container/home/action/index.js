@@ -1,5 +1,5 @@
 import { action } from 'mobx'
-import request from '../../../util/request'
+import request from 'util/request'
 import store from '../store'
 
 class Actions {
