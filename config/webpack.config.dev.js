@@ -31,7 +31,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
+        loader: [
           'style-loader',
           {
             loader: 'css-loader',
@@ -53,7 +53,7 @@ module.exports = {
       {
         test: /\.less$/,
         exclude: /(node_modules|antd)/,
-        use: [
+        loader: [
           'style-loader',
           {
             loader: 'css-loader',
@@ -80,7 +80,7 @@ module.exports = {
       },
       {
         test: /antd\.less$/,
-        use: [
+        loader: [
           'style-loader',
           'css-loader',
           'less-loader'
@@ -115,7 +115,7 @@ module.exports = {
     historyApiFallback: true,
     host: '0.0.0.0',
     disableHostCheck: true,
-    setup(app){
+    before(app){
       app.use(function(req, res, next) {
         const p = path.join(__dirname, '../api', /\.json$/.test(req.path) ? req.path : req.path + '.json')
         if (fs.existsSync(p)) {

@@ -14,7 +14,6 @@ module.exports = {
     filename: 'main.js',
     chunkFilename: '[name].[hash].js'
   },
-  // devtool: 'cheap-module-source-map',
   resolve: {
     alias: {
       component: resolve('component'),
@@ -30,7 +29,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract([
+        loader: ExtractTextPlugin.extract([
           {
             loader: 'css-loader',
             options: {
@@ -51,7 +50,7 @@ module.exports = {
       {
         test: /\.less$/,
         exclude: /(node_modules|antd)/,
-        use: ExtractTextPlugin.extract([
+        loader: ExtractTextPlugin.extract([
           {
             loader: 'css-loader',
             options: {
@@ -77,7 +76,7 @@ module.exports = {
       },
       {
         test: /antd\.less$/,
-        use: ExtractTextPlugin.extract([
+        loader: ExtractTextPlugin.extract([
           {
             loader: 'css-loader',
             options: {

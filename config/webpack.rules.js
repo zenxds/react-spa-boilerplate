@@ -5,9 +5,7 @@ module.exports = [
   },
   {
     test: /\.svg$/,
-    loader: 'svg-inline-loader',
-    options: {
-      classPrefix: true
-    }
+    loader: 'svg-sprite-loader',
+    options: {}
   }
 ]

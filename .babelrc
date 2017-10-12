@@ -17,6 +17,7 @@
         "transform-decorators-legacy",
         "transform-class-properties",
         "transform-object-rest-spread",
+        ["import", { "libraryName": "antd" }],
         "react-hot-loader/babel"
       ]
     },
@@ -24,7 +25,8 @@
       "plugins": [
         "transform-decorators-legacy",
         "transform-class-properties",
-        "transform-object-rest-spread"
+        "transform-object-rest-spread",
+        ["import", { "libraryName": "antd" }]
       ]
     }
   }
