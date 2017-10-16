@@ -51,7 +51,8 @@
     "url-loader": "^0.5.9",
     "webpack": "^3.7.1",
     "webpack-cleanup-plugin": "^0.5.1",
-    "webpack-dev-server": "^2.9.1"
+    "webpack-dev-server": "^2.9.1",
+    "webpack-monitor": "^1.0.11"
   },
   "dependencies": {
     "antd": "^2.13.5",
