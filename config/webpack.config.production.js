@@ -123,7 +123,8 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: 'template/index.prod.html',
-      hash: true
+      hash: true,
+      random: Math.random().toString().slice(2)
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin(),
