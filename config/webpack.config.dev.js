@@ -2,7 +2,6 @@ const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const WebpackMonitor = require('webpack-monitor')
 
 const rules = require('./webpack.rules')
 module.exports = {
@@ -95,10 +94,6 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'template/index.html'
-    }),
-    new WebpackMonitor({
-      capture: true,
-      launch: true
     }),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
