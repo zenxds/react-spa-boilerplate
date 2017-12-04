@@ -22,4 +22,4 @@ src
 
 ## 其他
 
-* react-css-modules 4.5.2开始会导致一个key的问题，先回退到4.5.0
+* react-css-modules 4.5.2到4.7.1 会导致一个antd tabs组件key的问题，先回退到4.5.0
