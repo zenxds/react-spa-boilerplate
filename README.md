@@ -19,3 +19,7 @@ src
 
 * [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch)
 * babel-polyfill
+
+## 其他
+
+* react-css-modules 4.5.2开始会导致一个key的问题，先回退到4.5.0
