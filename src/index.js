@@ -6,6 +6,11 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'mobx-react'
 import { useStrict } from 'mobx'
 import { AppContainer } from 'react-hot-loader'
+import { LocaleProvider } from 'antd'
+import zhCN from 'antd/lib/locale-provider/zh_CN'
+import moment from 'moment'
+import 'moment/locale/zh-cn'
+moment.locale('zh-cn')
 
 import App from './app'
 import injects from './inject'
@@ -17,7 +22,9 @@ const render = Component => {
   ReactDOM.render(
     <AppContainer>
       <Provider {...injects}>
-        <Component />
+        <LocaleProvider locale={zhCN}>
+          <Component />
+        </LocaleProvider>
       </Provider>
     </AppContainer>,
     document.getElementById('app')
