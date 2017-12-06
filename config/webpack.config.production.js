@@ -15,11 +15,7 @@ module.exports = {
     chunkFilename: '[name].[hash].js'
   },
   resolve: {
-    alias: {
-      component: resolve('component'),
-      util: resolve('util'),
-      less: resolve('less')
-    }
+    modules: ['node_modules', 'src']
   },
   module: {
     rules: rules.concat([{
@@ -130,8 +126,4 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.BannerPlugin(`${moment().format('YYYY-MM-DD HH:mm:ss')}`)
   ]
-}
-
-function resolve(dir) {
-  return path.resolve(__dirname, `../src/${dir}`)
 }

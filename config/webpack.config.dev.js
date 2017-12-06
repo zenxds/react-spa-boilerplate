@@ -15,11 +15,7 @@ module.exports = {
   },
   devtool: 'cheap-module-eval-source-map',
   resolve: {
-    alias: {
-      component: resolve('component'),
-      util: resolve('util'),
-      less: resolve('less')
-    }
+    modules: ['node_modules', 'src']
   },
   module: {
     rules: rules.concat([
@@ -124,8 +120,4 @@ module.exports = {
       })
     }
   }
-}
-
-function resolve(dir) {
-  return path.resolve(__dirname, `../src/${dir}`)
 }
