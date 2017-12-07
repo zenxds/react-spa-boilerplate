@@ -68,7 +68,6 @@ package-lock.json
 .vscode
 tmp
 .yo-rc.json
-monitor
 
 # https://ihatetomatoes.net/how-to-remove-experimentaldecorators-warning-in-vscode/
 # tsconfig.json
