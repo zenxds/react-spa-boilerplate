@@ -5,6 +5,7 @@ import store from '../store'
 class Actions {
   constructor(store) {
     this.store = store
+    this.merge = this.merge.bind(this)
   }
 
   getMsg = () => {
@@ -16,7 +17,7 @@ class Actions {
   }
 
   @action
-  merge = (obj={}) => {
+  merge(obj={}) {
     Object.assign(this.store, obj)
   }
 }
