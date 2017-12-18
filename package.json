@@ -5,8 +5,8 @@
   "main": "build/main.js",
   "scripts": {
     "start": "BABEL_ENV=dev webpack-dev-server -w --open --env=dev",
-    "vendor": "webpack --env=dll",
-    "build": "npm run vendor && BABEL_ENV=production webpack --env=production",
+    "vendor": "webpack --progress --env=dll",
+    "build": "npm run vendor && BABEL_ENV=production webpack --progress --env=production",
     "container:add": "node script/add.js",
     "test": "ava"
   },
