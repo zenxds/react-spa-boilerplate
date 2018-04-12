@@ -1,7 +1,7 @@
 {
   "presets": [
     [
-      "env",
+      "@babel/preset-env",
       {
         "targets": {
           "browsers": ["last 2 versions"]
@@ -9,15 +9,18 @@
         "modules": false
       }
     ],
-    "react"
+    "@babel/preset-react"
   ],
   "env": {
-    "dev": {
+    "development": {
       "plugins": [
         "transform-decorators-legacy",
         "transform-class-properties",
-        "transform-object-rest-spread",
-        ["import", { "libraryName": "antd" }],
+        ["import", {
+          "libraryName": "antd",
+          "libraryDirectory": "es",
+          "style": "css"
+        }],
         "react-hot-loader/babel"
       ]
     },
@@ -25,8 +28,11 @@
       "plugins": [
         "transform-decorators-legacy",
         "transform-class-properties",
-        "transform-object-rest-spread",
-        ["import", { "libraryName": "antd" }]
+        ["import", {
+          "libraryName": "antd",
+          "libraryDirectory": "es",
+          "style": "css"
+        }]
       ]
     }
   }
