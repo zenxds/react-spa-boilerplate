@@ -9,7 +9,10 @@ class Actions {
   }
 
   getMsg = () => {
-    request('/home').then(data => {
+    request({
+      url: '/home'
+    })
+    .then(data => {
       this.merge({
         msg: data.helloMsg
       })
