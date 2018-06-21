@@ -17,7 +17,6 @@ src
 
 ## polyfill
 
-* [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch)
 * babel-polyfill
 
 ## 其他
