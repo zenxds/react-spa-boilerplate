@@ -69,7 +69,8 @@ module.exports = {
           {
             loader: 'less-loader',
             options: {
-              relativeUrls: false
+              relativeUrls: false,
+              javascriptEnabled: true
             }
           }
         ]
