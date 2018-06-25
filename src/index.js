@@ -5,7 +5,6 @@ import 'babel-polyfill'
 import ReactDOM from 'react-dom'
 import { configure } from 'mobx'
 import { Provider } from 'mobx-react'
-import { AppContainer } from 'react-hot-loader'
 
 import { LocaleProvider } from 'antd'
 import zhCN from 'antd/lib/locale-provider/zh_CN'
