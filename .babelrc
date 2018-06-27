@@ -21,7 +21,16 @@
           "libraryDirectory": "es",
           "style": "css"
         }],
-        "react-hot-loader/babel"
+        "react-hot-loader/babel",
+        ["react-css-modules", {
+          "webpackHotModuleReloading": true,
+          "generateScopedName": "[path][name]__[local]--[hash:base64:5]",
+          "filetypes": {
+            ".less": {
+              "syntax": "postcss-less"
+            }
+          }
+        }]
       ]
     },
     "production": {
@@ -32,6 +41,14 @@
           "libraryName": "antd",
           "libraryDirectory": "es",
           "style": "css"
+        }],
+        ["react-css-modules", {
+          "generateScopedName": "[hash:base64]",
+          "filetypes": {
+            ".less": {
+              "syntax": "postcss-less"
+            }
+          }
         }]
       ]
     }

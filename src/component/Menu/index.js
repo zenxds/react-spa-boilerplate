@@ -8,7 +8,6 @@ import {
   Link
 } from 'react-router-dom'
 
-// CSSModules 会导致key变化，在这个模块暂时不使用
 import styles from './less/styles.less'
 
 const {
