@@ -102,7 +102,9 @@ module.exports = {
     new webpack.ProvidePlugin({
       'React': 'react'
     }),
-    new webpack.DefinePlugin({})
+    new webpack.DefinePlugin({
+      API_SERVER_PLACEHOLDER: JSON.stringify('')
+    })
   ],
   devServer: {
     contentBase: [

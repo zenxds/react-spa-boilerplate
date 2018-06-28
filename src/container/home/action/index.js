@@ -1,6 +1,7 @@
 import { action } from 'mobx'
 import request from 'util/request'
 import store from '../store'
+import * as constants from '../constant'
 
 class Actions {
   constructor(store) {
@@ -10,7 +11,7 @@ class Actions {
 
   getMsg = () => {
     request({
-      url: '/home'
+      url: constants.API_HOME
     })
     .then(data => {
       this.merge({

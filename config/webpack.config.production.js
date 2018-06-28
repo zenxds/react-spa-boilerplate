@@ -150,7 +150,9 @@ module.exports = {
     new webpack.DllReferencePlugin({
       manifest: require('../tmp/manifest.json')
     }),
-    new webpack.DefinePlugin({}),
+    new webpack.DefinePlugin({
+      API_SERVER_PLACEHOLDER: JSON.stringify('')
+    }),
     new webpack.ProvidePlugin({
       'React': 'react'
     }),
