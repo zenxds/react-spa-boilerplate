@@ -1,8 +1,8 @@
-.image-set(@url, @suffix: 'png') {
-  background-position: center center;
+.image-set(@url) {
+  @url2: replace(@url, "\.(jpe?g|png)$", "@2x.$1");
   background-repeat: no-repeat;
-  background-image: url("@{url}.@{suffix}");
-  background-image: image-set(url("@{url}.@{suffix}") 1x, url("@{url}@2.@{suffix}") 2x);
+  background-image: url(@url);
+  background-image: image-set(url(@url) 1x, url(@url2) 2x);
 }
 
 .square(@size) {
