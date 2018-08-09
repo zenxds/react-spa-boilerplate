@@ -6,34 +6,34 @@ class Loader extends Component {
     super(props, context)
 
     this.state = {
-      instance: null
+      mod: null
     }
   }
 
   componentDidMount() {
-    this.load()
+    this.bundle()
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.load !== this.props.load) {
-      this.load()
+    if (prevProps.bundle !== this.props.bundle) {
+      this.bundle()
     }
   }
 
-  load() {
+  bundle() {
     this.setState({
-      instance: null
+      mod: null
     })
 
-    this.props.load((instance) => {
+    this.props.bundle((mod) => {
       this.setState({
-        instance: instance.default || instance
+        mod: mod.default || mod
       })
     })
   }
 
   render() {
-    return this.state.instance ? this.props.render(this.state.instance) : null
+    return this.state.mod ? this.props.render(this.state.mod) : null
   }
 }
 
@@ -41,7 +41,7 @@ class Dynamic extends Component {
   render() {
     return (
       <Route {...this.props} render={props => {
-        return <Loader load={this.props.load} render={Component => <Component {...props} />} />
+        return <Loader bundle={this.props.bundle} render={Component => <Component {...props} />} />
       }} />
     )
   }
