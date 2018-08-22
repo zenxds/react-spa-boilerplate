@@ -8420,14 +8420,15 @@ react-dom@^16.3.1:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
-react-hot-loader@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.npmjs.org/react-hot-loader/-/react-hot-loader-4.0.1.tgz#48284350ae5d7ba07dac872bd5bbc6e477352593"
+react-hot-loader@^4.3.4:
+  version "4.3.4"
+  resolved "https://registry.npmjs.org/react-hot-loader/-/react-hot-loader-4.3.4.tgz#4f9bdd55bb20d77a6ae8931fa1c187e5f0ce6279"
   dependencies:
     fast-levenshtein "^2.0.6"
     global "^4.3.0"
     hoist-non-react-statics "^2.5.0"
     prop-types "^15.6.1"
+    react-lifecycles-compat "^3.0.4"
     shallowequal "^1.0.2"
 
 react-lazy-load@^3.0.12:
@@ -8438,6 +8439,10 @@ react-lazy-load@^3.0.12:
     lodash.debounce "^4.0.0"
     lodash.throttle "^4.0.0"
     prop-types "^15.5.8"
+
+react-lifecycles-compat@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.npmjs.org/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
 
 react-router-dom@^4.2.2:
   version "4.2.2"
