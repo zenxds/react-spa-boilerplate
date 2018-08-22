@@ -10382,10 +10382,6 @@ webpack-addons@^1.1.5:
   dependencies:
     jscodeshift "^0.4.0"
 
-webpack-clean-plugin@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.npmjs.org/webpack-clean-plugin/-/webpack-clean-plugin-0.2.3.tgz#ab8f4f717573c40b9ea47a32c9f1c4b2862cd8e3"
-
 webpack-cleanup-plugin@^0.5.1:
   version "0.5.1"
   resolved "https://registry.npmjs.org/webpack-cleanup-plugin/-/webpack-cleanup-plugin-0.5.1.tgz#df2d706bd75364c06e65b051186316d674eb96af"
