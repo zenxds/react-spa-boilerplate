@@ -27,7 +27,7 @@ export function get(url, config={}) {
 
 export function post(url, data, config={}) {
   return request(Object.assign(config, {
-    method: 'get',
+    method: 'post',
     url,
     data
   }))
