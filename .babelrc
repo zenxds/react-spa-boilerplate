@@ -14,8 +14,8 @@
   "env": {
     "development": {
       "plugins": [
-        "transform-decorators-legacy",
-        "transform-class-properties",
+        ["@babel/plugin-proposal-decorators", { "legacy": true }],
+        ["@babel/plugin-proposal-class-properties", { "loose" : true }],
         ["import", {
           "libraryName": "antd",
           "libraryDirectory": "es"
@@ -34,8 +34,8 @@
     },
     "production": {
       "plugins": [
-        "transform-decorators-legacy",
-        "transform-class-properties",
+        ["@babel/plugin-proposal-decorators", { "legacy": true }],
+        ["@babel/plugin-proposal-class-properties", { "loose" : true }],
         ["import", {
           "libraryName": "antd",
           "libraryDirectory": "es"
