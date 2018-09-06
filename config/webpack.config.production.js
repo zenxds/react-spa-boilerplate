@@ -5,6 +5,8 @@ const webpack = require('webpack')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const WebpackCleanupPlugin = require('webpack-cleanup-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 
 const rules = require('./webpack.rules')
 module.exports = {
@@ -14,6 +16,22 @@ module.exports = {
     path: path.join(__dirname, '../build'),
     filename: 'main.js',
     chunkFilename: '[name].[hash].js'
+  },
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          output: {
+            ascii_only: true
+          },
+          compress: {
+            drop_console: true
+          }
+        }
+      }),
+      new OptimizeCSSAssetsPlugin({}),
+      new webpack.BannerPlugin(`${moment().format('YYYY-MM-DD HH:mm:ss')}`)
+    ]
   },
   resolve: {
     modules: ['node_modules', 'src']
@@ -165,7 +183,6 @@ module.exports = {
       template: 'template/index.prod.html',
       hash: true,
       random: Math.random().toString().slice(2)
-    }),
-    new webpack.BannerPlugin(`${moment().format('YYYY-MM-DD HH:mm:ss')}`)
+    })
   ]
 }
