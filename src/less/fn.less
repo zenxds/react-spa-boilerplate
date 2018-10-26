@@ -1,23 +1,23 @@
-.image-set(@url) {
+.fn-image-set(@url) {
   @url2: replace(@url, "\.(jpe?g|png)$", "@2x.$1");
   background-repeat: no-repeat;
   background-image: url(@url);
   background-image: image-set(url(@url) 1x, url(@url2) 2x);
 }
 
-.square(@size) {
+.fn-square(@size) {
   width: @size;
   height: @size;
 }
 
-.center() {
+.fn-center() {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
 
-.hide-text() {
+.fn-hide-text() {
   display: block;
   overflow: hidden;
   text-indent: 100%;
