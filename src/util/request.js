@@ -1,4 +1,8 @@
 import axios from 'axios'
+import isPlainObject from './isPlainObject'
+import { param } from './param'
+
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
 export default function request(config={}) {
   config = Object.assign({
@@ -26,6 +30,10 @@ export function get(url, config={}) {
 }
 
 export function post(url, data, config={}) {
+  if (isPlainObject(data)) {
+    data = param(data)
+  }
+
   return request(Object.assign(config, {
     method: 'post',
     url,
