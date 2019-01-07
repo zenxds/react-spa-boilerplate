@@ -8,6 +8,7 @@
     "vendor": "webpack --progress --env=dll",
     "_build": "BABEL_ENV=production webpack --progress --env=production",
     "build": "npm run vendor && npm run _build",
+    "prettier": "./node_modules/.bin/prettier src/**/*.js src/**/*.jsx --write",
     "test": "jest"
   },
   "author": {
@@ -72,6 +73,7 @@
     "mobx": "^5.1.0",
     "mobx-react": "^5.2.6",
     "moment": "^2.22.2",
+    "prettier": "^1.15.3",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",

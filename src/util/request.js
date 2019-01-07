@@ -2,15 +2,19 @@ import axios from 'axios'
 import isPlainObject from './isPlainObject'
 import { param } from './param'
 
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+axios.defaults.headers.post['Content-Type'] =
+  'application/x-www-form-urlencoded'
 
-export default function request(config={}) {
-  config = Object.assign({
-    withCredentials: true,
-    timeout: 30 * 1000
-  }, config)
+export default function request(config = {}) {
+  config = Object.assign(
+    {
+      withCredentials: true,
+      timeout: 30 * 1000
+    },
+    config
+  )
 
-  return axios(config).then((response) => {
+  return axios(config).then(response => {
     const { success, data, msg } = response.data || {}
 
     if (success) {
@@ -22,21 +26,25 @@ export default function request(config={}) {
 }
 
 // https://github.com/axios/axios/blob/master/lib/core/Axios.js
-export function get(url, config={}) {
-  return request(Object.assign(config, {
-    method: 'get',
-    url
-  }))
+export function get(url, config = {}) {
+  return request(
+    Object.assign(config, {
+      method: 'get',
+      url
+    })
+  )
 }
 
-export function post(url, data, config={}) {
+export function post(url, data, config = {}) {
   if (isPlainObject(data)) {
     data = param(data)
   }
 
-  return request(Object.assign(config, {
-    method: 'post',
-    url,
-    data
-  }))
+  return request(
+    Object.assign(config, {
+      method: 'post',
+      url,
+      data
+    })
+  )
 }
