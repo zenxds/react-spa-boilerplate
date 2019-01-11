@@ -9,7 +9,7 @@
     "_build": "BABEL_ENV=production webpack --progress --env=production",
     "build": "npm run vendor && npm run _build",
     "prettier": "prettier src/**/*.js src/**/*.jsx --write",
-    "test": "jest"
+    "test": "jest ."
   },
   "husky": {
     "hooks": {

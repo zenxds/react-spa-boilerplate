@@ -9,8 +9,7 @@ class Actions {
   }
 
   getMsg() {
-    get(constants.API_HOME)
-    .then(data => {
+    get(constants.API_HOME).then(data => {
       this.merge({
         msg: data.helloMsg
       })
@@ -18,7 +17,7 @@ class Actions {
   }
 
   @action.bound
-  merge(obj={}) {
+  merge(obj = {}) {
     Object.assign(this.store, obj)
   }
 }

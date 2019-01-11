@@ -1,4 +1,4 @@
-import { observable, computed } from "mobx"
+import { observable, computed } from 'mobx'
 
 class Store {
   @observable msg = ''
