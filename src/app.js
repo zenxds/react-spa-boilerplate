@@ -2,14 +2,12 @@ import { Component } from 'react'
 import {
   // BrowserRouter as Router
   HashRouter as Router,
-  Route,
-  Link,
   Switch
 } from 'react-router-dom'
 import { hot } from 'react-hot-loader'
 
 import './less/antd.less'
-import styles from './less/app.less'
+import './less/app.less'
 
 import Header from 'component/Header'
 import Menu from 'component/Menu'
@@ -27,7 +25,11 @@ class App extends Component {
             </div>
             <div className="app-content">
               <Switch>
-                <Dynamic exact path="/" bundle={require('bundle-loader?lazy!./container/home')} />
+                <Dynamic
+                  exact
+                  path="/"
+                  bundle={require('bundle-loader?lazy!./container/home')}
+                />
               </Switch>
             </div>
           </div>

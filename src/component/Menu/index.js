@@ -1,18 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {
-  Menu as AntdMenu,
-  Icon
-} from 'antd'
-import {
-  Link
-} from 'react-router-dom'
+import { Menu as AntdMenu, Icon } from 'antd'
 
-import styles from './less/styles.less'
+import './less/styles.less'
 
-const {
-  Item
-} = AntdMenu
+const { Item } = AntdMenu
 
 const menuCfg = [
   {
@@ -36,7 +28,8 @@ class Menu extends Component {
   render() {
     const router = this.context.router
     const pathname = router.route.location.pathname
-    const currentMenu = menuCfg.find(item => item.link === pathname) || menuCfg[0]
+    const currentMenu =
+      menuCfg.find(item => item.link === pathname) || menuCfg[0]
 
     return (
       <div>
@@ -46,16 +39,14 @@ class Menu extends Component {
           defaultSelectedKeys={currentMenu ? [currentMenu.title] : []}
           onClick={this.handleClick.bind(this)}
         >
-          {
-            menuCfg.map(item => {
-              return (
-                <Item key={item.title} pathname={item.link}>
-                  { item.icon ? <Icon type={item.icon} /> : null }
-                  <span>{item.title}</span>
-                </Item>
-              )
-            })
-          }
+          {menuCfg.map(item => {
+            return (
+              <Item key={item.title} pathname={item.link}>
+                {item.icon ? <Icon type={item.icon} /> : null}
+                <span>{item.title}</span>
+              </Item>
+            )
+          })}
         </AntdMenu>
       </div>
     )
