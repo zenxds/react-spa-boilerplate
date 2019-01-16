@@ -26,11 +26,12 @@ export default function request(config = {}) {
 }
 
 // https://github.com/axios/axios/blob/master/lib/core/Axios.js
-export function get(url, config = {}) {
+export function get(url, params = {}, config = {}) {
   return request(
     Object.assign(config, {
       method: 'get',
-      url
+      url,
+      params
     })
   )
 }
