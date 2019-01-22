@@ -23,6 +23,7 @@
         "react-hot-loader/babel",
         ["react-css-modules", {
           "webpackHotModuleReloading": true,
+          "handleMissingStyleName": "warn",
           "generateScopedName": "[path][name]__[local]--[hash:base64:5]",
           "filetypes": {
             ".less": {
