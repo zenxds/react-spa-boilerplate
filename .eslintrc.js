@@ -28,8 +28,12 @@ module.exports = {
   },
   "rules": {
     "indent": [
-      "error",
-      2
+      "warn",
+      2,
+      {
+        "SwitchCase": 1,
+        "ignoreComments": true
+      }
     ],
     "linebreak-style": [
       "error",

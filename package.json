@@ -8,7 +8,7 @@
     "vendor": "webpack --progress --env=dll",
     "_build": "BABEL_ENV=production webpack --progress --env=production",
     "build": "npm run vendor && npm run _build",
-    "prettier": "prettier src/**/*.js src/**/*.jsx --write",
+    "prettier": "prettier --write 'src/**/*.js' 'src/**/*.jsx'",
     "test": "jest ."
   },
   "husky": {
