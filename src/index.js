@@ -16,7 +16,7 @@ import App from './app'
 import injects from './inject'
 
 // 不允许在动作外部修改状态
-configure({ enforceActions: 'always' })
+configure({ enforceActions: 'observed' })
 
 ReactDOM.render(
   <Provider {...injects}>

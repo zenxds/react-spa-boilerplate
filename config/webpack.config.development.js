@@ -14,7 +14,7 @@ module.exports = {
   },
   devtool: 'cheap-module-eval-source-map',
   resolve: {
-    modules: ['node_modules', 'src']
+    modules: ['src', 'node_modules']
   },
   module: {
     rules: rules.concat([

@@ -34,10 +34,11 @@ module.exports = {
     ]
   },
   resolve: {
-    modules: ['node_modules', 'src']
+    modules: ['src', 'node_modules']
   },
   module: {
-    rules: rules.concat([{
+    rules: rules.concat([
+      {
         test: /\.jsx?$/,
         use: ['babel-loader'],
         exclude: p => {
