@@ -1,0 +1,10 @@
+{
+  "success": true,
+  "data": [
+    {
+      "code": "index",
+      "name": "首页",
+      "path": "/"
+    }
+  ]
+}

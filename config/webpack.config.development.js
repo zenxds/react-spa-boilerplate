@@ -14,20 +14,17 @@ module.exports = {
   },
   devtool: 'cheap-module-eval-source-map',
   resolve: {
-    modules: ['src', 'node_modules']
+    modules: ['src', 'node_modules'],
+    alias: {
+      constants: path.join(__dirname, '../src/constants')
+    }
   },
   module: {
     rules: rules.concat([
       {
         test: /\.jsx?$/,
         use: ['babel-loader', 'eslint-loader'],
-        exclude: p => {
-          if (/dx-lib/.test(p)) {
-            return false
-          }
-
-          return /node_modules/.test(p)
-        }
+        exclude: /node_modules/
       },
       {
         test: /\.css$/,
@@ -112,8 +109,8 @@ module.exports = {
   ],
   devServer: {
     contentBase: [
-      path.join(__dirname, '../build'),
-      path.join(__dirname, '..')
+      path.join(__dirname, '../data'),
+      path.join(__dirname, '../build')
     ],
     hot: true,
     historyApiFallback: true,

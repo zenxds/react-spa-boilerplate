@@ -4,6 +4,10 @@
 @import './variables.less';
 
 :global {
+  input::-webkit-input-placeholder {
+    color: @color25;
+  }
+
   html, body, #app, .app-root {
     height: 100%;
   }
@@ -17,17 +21,23 @@
     display: flex;
     flex: 1;
   }
-  .app-menu {
-    width: 200px;
+
+  .app-header {
+    display: flex;
+    height: @header-height;
     background: @menu-bg-color;
-    padding: 20px 0;
   }
+
+  .app-menu {
+    width: @menu-width;
+    background: @menu-bg-color;
+  }
+
   .app-content {
     position: relative;
     flex: 1;
-    background: #f4f4f4;
+    background: #f5f5f5;
     padding: 20px;
-
     overflow: auto;
   }
 }

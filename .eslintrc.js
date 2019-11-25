@@ -17,7 +17,8 @@ module.exports = {
   },
   "extends": [
     "eslint:recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "prettier"
   ],
   "plugins": [
     "import",
@@ -43,7 +44,7 @@ module.exports = {
       "warn",
       "single"
     ],
-    "no-unused-vars": "warn",
+    "no-unused-vars": "off",
     "no-console": [
       "error",
       {

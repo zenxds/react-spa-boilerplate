@@ -2,11 +2,12 @@
 const path = require('path')
 const moment = require('moment')
 const webpack = require('webpack')
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const WebpackCleanupPlugin = require('webpack-cleanup-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 const rules = require('./webpack.rules')
 module.exports = {
@@ -34,20 +35,17 @@ module.exports = {
     ]
   },
   resolve: {
-    modules: ['src', 'node_modules']
+    modules: ['src', 'node_modules'],
+    alias: {
+      constants: path.join(__dirname, '../src/constants')
+    }
   },
   module: {
     rules: rules.concat([
       {
         test: /\.jsx?$/,
         use: ['babel-loader'],
-        exclude: p => {
-          if (/dx-lib/.test(p)) {
-            return false
-          }
-
-          return /node_modules/.test(p)
-        }
+        exclude: /node_modules/
       },
       {
         test: /\.css$/,
@@ -182,6 +180,9 @@ module.exports = {
     new webpack.ProvidePlugin({
       'React': 'react'
     }),
+    new CopyWebpackPlugin([
+      path.join(__dirname, '../data')
+    ]),
     new MiniCssExtractPlugin({
       chunkFilename: '[name].[hash].css',
       filename: '[name].css'

@@ -1,7 +1,14 @@
-import homeStore from '../container/home/store'
-import homeActions from '../container/home/action'
+// 用户
+import userStore from 'components/User/store'
+import userActions from 'components/User/actions'
+
+// 菜单
+import menuStore from '../components/Menu/store'
+import menuActions from '../components/Menu/actions'
 
 export default {
-  homeStore,
-  homeActions
+  menuStore,
+  menuActions,
+  userStore,
+  userActions
 }

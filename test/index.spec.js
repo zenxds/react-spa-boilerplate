@@ -3,10 +3,17 @@ import {
   MemoryRouter as Router
 } from 'react-router-dom'
 
-import Header from '../src/component/Header'
+import { startsWith } from '../src/utils'
 
-test('header', () => {
-  const wrapper = mount(<Router><Header /></Router>)
+// import Header from '../src/components/Header'
 
-  expect(wrapper.html()).toBeTruthy()
+// test('header', () => {
+//   const wrapper = mount(<Router><Header /></Router>)
+
+//   expect(wrapper.html()).toBeTruthy()
+// })
+
+
+test('startsWith', () => {
+  expect(startsWith('www.taobao.com', 'www.taobao')).toBeTruthy()
 })

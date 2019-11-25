@@ -4,8 +4,10 @@
     "experimentalDecorators": true,
     "baseUrl": ".",
     "paths": {
-      "util/*": ["./src/util/*"],
-      "component/*": ["./src/component/*"],
+      "utils/*": ["./src/utils/*"],
+      "components/*": ["./src/components/*"],
+      "constants/*": ["./src/constants/*"],
+      "decorators/*": ["./src/decorators/*"]
     }
   },
   "exclude": [
