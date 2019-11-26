@@ -6,7 +6,6 @@ import { Menu as AntDMenu, Icon } from 'antd'
 import classnames from 'classnames'
 
 import { startsWith } from 'utils'
-import paths from 'constants/paths'
 import './less/styles.less'
 
 const { Item, SubMenu } = AntDMenu
@@ -39,12 +38,11 @@ class Menu extends Component {
    * 这里是应该高亮的菜单，不是真正的currentPath
    */
   getCurrentPath() {
-    const { location } = this.props
+    const { location, menuStore } = this.props
+    const { pathMap } = menuStore
     const pathname = location.pathname
 
-    for (let i in paths) {
-      const p = paths[i]
-
+    for (let p in pathMap) {
       // 去掉/这种情况
       if (startsWith(pathname, p) && p !== '/') {
         return p
@@ -54,6 +52,7 @@ class Menu extends Component {
     return pathname
   }
 
+  // 一个菜单展开时，它的父菜单也应该展开
   getOpenKeys() {
     const { menuStore } = this.props
     const { parentMap } = menuStore
@@ -75,12 +74,12 @@ class Menu extends Component {
   }
 
   handleClick = e => {
-    const router = this.context.router
-    const pathname = router.route.location.pathname
+    const { location, history } = this.props
+    const pathname = location.pathname
     const target = e.item.props.pathname
 
     if (pathname !== target) {
-      router.history.push(target)
+      history.push(target)
     }
   }
 
@@ -139,6 +138,10 @@ class Menu extends Component {
     const { openKeys } = this.state
     // 当前应当打开的菜单，当前路径的父路径都应该打开
     const defaultOpenKeys = this.getOpenKeys()
+
+    if (!menus.length) {
+      return null
+    }
 
     return (
       <div>

@@ -34,7 +34,7 @@ export default class Login extends React.Component {
       renderer: 'svg',
       loop: true,
       autoplay: false,
-      path: '/json/login.json'
+      path: '/data/json/login.json'
     })
 
     this.handleVisibilityChange()
@@ -72,6 +72,7 @@ export default class Login extends React.Component {
   }
 
   handleKeyUp = e => {
+    // 回车
     if (e.keyCode === 13) {
       this.handleLogin()
     }

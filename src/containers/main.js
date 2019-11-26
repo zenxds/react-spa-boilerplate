@@ -4,14 +4,17 @@ import {
   // BrowserRouter as Router
   HashRouter as Router,
   Switch,
+  Route,
   withRouter
 } from 'react-router-dom'
 
 import '../less/antd.less'
 import '../less/app.less'
 
+import paths from 'constants/paths'
 import Header from 'components/Header'
 import Menu from 'components/Menu'
+import NotFound from 'components/404'
 import Dynamic from './dynamic'
 
 @withRouter
@@ -31,9 +34,10 @@ export default class Main extends Component {
             <Switch>
               <Dynamic
                 exact
-                path="/"
+                path={paths.index}
                 bundle={require('bundle-loader?lazy!./home')}
               />
+              <Route path="/" component={NotFound} />
             </Switch>
           </div>
         </div>

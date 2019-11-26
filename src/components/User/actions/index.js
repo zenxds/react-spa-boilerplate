@@ -21,7 +21,7 @@ class Actions extends BaseActions {
   }
 
   async logout() {
-    await this.get(constants.API_LOGOUT)
+    return await this.get(constants.API_LOGOUT)
   }
 
   async login(data = {}) {

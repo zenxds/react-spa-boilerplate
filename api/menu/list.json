@@ -1,10 +1,348 @@
 {
-  "success": true,
   "data": [
     {
       "code": "index",
-      "name": "首页",
-      "path": "/"
+      "id": 1,
+      "name": "总览",
+      "path": "/index",
+      "writeFlag": 1
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "code": "monitorEvent",
+              "id": 4,
+              "name": "请求事件监控",
+              "path": "/monitor/log/event",
+              "writeFlag": 1
+            },
+            {
+              "code": "deviceCollection",
+              "id": 202,
+              "name": "设备采集监控",
+              "path": "/device/collection",
+              "writeFlag": 1
+            },
+            {
+              "code": "monitorReport",
+              "id": 6,
+              "name": "数据报告管理",
+              "path": "/monitor/log/report",
+              "writeFlag": 1
+            },
+            {
+              "code": "monitorManage",
+              "id": 5,
+              "name": "风险监控管理",
+              "path": "/monitor/log/manage",
+              "writeFlag": 1
+            }
+          ],
+          "code": "logMonitor",
+          "id": 46,
+          "name": "业务监控",
+          "path": "/monitor/log",
+          "writeFlag": 1
+        },
+        {
+          "children": [
+            {
+              "code": "monitorApp",
+              "id": 33,
+              "name": "应用节点监控",
+              "path": "/monitor/health/app",
+              "writeFlag": 1
+            },
+            {
+              "code": "monitorMachine",
+              "id": 34,
+              "name": "服务器性能监控",
+              "path": "/monitor/health/machine",
+              "writeFlag": 1
+            },
+            {
+              "code": "monitorApi",
+              "id": 35,
+              "name": "接口调用监控",
+              "path": "/monitor/health/interface",
+              "writeFlag": 1
+            },
+            {
+              "code": "monitorMiddleWare",
+              "id": 36,
+              "name": "中间件监控",
+              "path": "/monitor/health/middleware",
+              "writeFlag": 1
+            },
+            {
+              "code": "monitorRecordConfig",
+              "id": 48,
+              "name": "监控报警管理",
+              "path": "/monitor/health/config",
+              "writeFlag": 1
+            }
+          ],
+          "code": "healthMonitor",
+          "id": 47,
+          "name": "系统监控",
+          "path": "/monitor/health",
+          "writeFlag": 0
+        }
+      ],
+      "code": "monitor",
+      "id": 3,
+      "name": "监控中心",
+      "path": "/monitor"
+    },
+    {
+      "children": [
+        {
+          "code": "icDashboard",
+          "id": 38,
+          "name": "指标统计",
+          "path": "/ic/dashboard",
+          "writeFlag": 1
+        },
+        {
+          "code": "icIndicator",
+          "id": 41,
+          "name": "指标定义",
+          "path": "/ic/indicator",
+          "writeFlag": 1
+        },
+        {
+          "code": "icMethod",
+          "id": 42,
+          "name": "计算方式管理",
+          "path": "/ic/method",
+          "writeFlag": 1
+        }
+      ],
+      "code": "ic",
+      "id": 37,
+      "name": "指标中心",
+      "path": "/ic"
+    },
+    {
+      "children": [
+        {
+          "code": "ctuEvent",
+          "id": 8,
+          "name": "事件管理",
+          "path": "/ctu/event",
+          "writeFlag": 0
+        },
+        {
+          "code": "ctuPolicy",
+          "id": 9,
+          "name": "策略管理",
+          "path": "/ctu/policy",
+          "writeFlag": 0
+        },
+        {
+          "code": "ctuEventField",
+          "id": 13,
+          "name": "字段管理",
+          "path": "/ctu/field",
+          "writeFlag": 0
+        },
+        {
+          "code": "ctuNameList",
+          "id": 10,
+          "name": "名单管理",
+          "path": "/ctu/nameList",
+          "writeFlag": 0
+        },
+        {
+          "code": "ctuModel",
+          "id": 27,
+          "name": "模型管理",
+          "path": "/ctu/model",
+          "writeFlag": 0
+        },
+        {
+          "code": "riskType",
+          "id": 16,
+          "name": "风险类型管理",
+          "path": "/ctu/risk",
+          "writeFlag": 0
+        },
+        {
+          "code": "hitHandleManager",
+          "id": 54,
+          "name": "命中处置管理",
+          "path": "/ctu/hitDisposal",
+          "writeFlag": 1
+        },
+        {
+          "code": "ctuReview",
+          "id": 15,
+          "name": "上线审核",
+          "path": "/ctu/review",
+          "writeFlag": 1
+        }
+      ],
+      "code": "ctu",
+      "id": 7,
+      "name": "风控配置",
+      "path": "/ctu"
+    },
+    {
+      "children": [
+        {
+          "code": "deviceCount",
+          "id": 209,
+          "name": "数据统计",
+          "path": "/device/count",
+          "writeFlag": 1
+        },
+        {
+          "code": "deviceAnalysis",
+          "id": 210,
+          "name": "设备分析",
+          "path": "/device/analysis",
+          "writeFlag": 1
+        },
+        {
+          "code": "devicePortrait",
+          "id": 211,
+          "name": "设备画像",
+          "path": "/device/portrait",
+          "writeFlag": 1
+        }
+      ],
+      "code": "constantId",
+      "id": 200,
+      "name": "设备指纹",
+      "path": "/constantId"
+    },
+    {
+      "children": [
+        {
+          "code": "policyLab",
+          "id": 18,
+          "name": "策略实验室",
+          "path": "/component/policyLab",
+          "writeFlag": 1
+        }
+      ],
+      "code": "component",
+      "id": 17,
+      "name": "智能组件",
+      "path": "/component"
+    },
+    {
+      "children": [
+        {
+          "code": "requestTrend",
+          "id": 50,
+          "name": "请求趋势统计",
+          "path": "/dataReport/requestTrend",
+          "writeFlag": 1
+        },
+        {
+          "code": "eventPolicyStatistical",
+          "id": 51,
+          "name": "事件策略统计",
+          "path": "/dataReport/eventPolicy",
+          "writeFlag": 1
+        }
+      ],
+      "code": "dataReport",
+      "id": 49,
+      "name": "数据报表",
+      "path": "/dataReport"
+    },
+    {
+      "children": [
+        {
+          "code": "cese_check",
+          "id": 29,
+          "name": "案件核查",
+          "path": "/case/check",
+          "writeFlag": 1
+        },
+        {
+          "code": "case_task",
+          "id": 30,
+          "name": "任务中心",
+          "path": "/case/task",
+          "writeFlag": 1
+        },
+        {
+          "code": "case_lib",
+          "id": 31,
+          "name": "风险案件库",
+          "path": "/case/lib",
+          "writeFlag": 1
+        }
+      ],
+      "code": "case",
+      "id": 26,
+      "name": "案件中心",
+      "path": "/case",
+      "writeFlag": 1
+    },
+    {
+      "children": [
+        {
+          "code": "app",
+          "id": 21,
+          "name": "产品管理",
+          "path": "/system/app",
+          "writeFlag": 1
+        },
+        {
+          "code": "operatorManager",
+          "id": 53,
+          "name": "操作符管理",
+          "path": "/system/operators",
+          "writeFlag": 0
+        },
+        {
+          "code": "account",
+          "id": 22,
+          "name": "账号管理",
+          "path": "/system/account",
+          "writeFlag": 1
+        },
+        {
+          "code": "department",
+          "id": 28,
+          "name": "部门管理",
+          "path": "/system/department",
+          "writeFlag": 1
+        },
+        {
+          "code": "license",
+          "id": 24,
+          "name": "许可授权",
+          "path": "~license",
+          "writeFlag": 1
+        },
+        {
+          "code": "upgrade",
+          "id": 25,
+          "name": "系统升级",
+          "path": "/system/upgrade",
+          "writeFlag": 1
+        },
+        {
+          "code": "email_server",
+          "id": 32,
+          "name": "邮箱服务",
+          "path": "/system/email",
+          "writeFlag": 1
+        }
+      ],
+      "code": "system",
+      "id": 20,
+      "name": "系统管理",
+      "path": "/system"
     }
-  ]
+  ],
+  "retCode": 200,
+  "success": true
 }

@@ -29,13 +29,9 @@ class App extends Component {
     return true
   }
 
-  getUserInfo() {
-    this.props.userActions.getUserInfo()
-  }
-
   componentDidMount() {
     if (this.shouldGetUserInfo()) {
-      this.getUserInfo()
+      this.props.userActions.getUserInfo()
     }
   }
 
@@ -57,8 +53,8 @@ class App extends Component {
     return (
       <Router>
         <Switch>
-          <Route path={paths.login} render={() => <Login />} />
-          <Route path={paths.logout} render={() => <Logout />} />
+          <Route path={paths.login} render={props => <Login {...props} />} />
+          <Route path={paths.logout} render={props => <Logout {...props} />} />
           <Route
             path="/"
             render={props =>

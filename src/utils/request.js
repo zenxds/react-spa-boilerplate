@@ -15,12 +15,12 @@ export default function request(config = {}) {
   )
 
   return axios(config).then(response => {
-    const { success, data, msg } = response.data || {}
+    const { success, data, message } = response.data || {}
 
     if (success) {
       return data
     } else {
-      throw new Error(msg || 'request error')
+      throw new Error(message || '请求失败')
     }
   })
 }

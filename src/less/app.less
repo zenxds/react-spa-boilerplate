@@ -17,19 +17,23 @@
     flex-direction: column;
   }
 
-  .app-wrapper {
-    display: flex;
-    flex: 1;
-  }
-
   .app-header {
     display: flex;
     height: @header-height;
     background: @menu-bg-color;
   }
 
+  .app-wrapper {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+  }
+
   .app-menu {
     width: @menu-width;
+    height: 100%;
+    overflow: auto;
     background: @menu-bg-color;
   }
 
