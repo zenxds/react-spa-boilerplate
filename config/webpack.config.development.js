@@ -7,7 +7,7 @@ const dxMock = require('dx-mock')
 const rules = require('./webpack.rules')
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry: ['react-hot-loader/patch', './src/index.js'],
   output: {
     path: path.join(__dirname, '../build'),
     filename: 'main.js'
