@@ -5,6 +5,7 @@ import {
   HashRouter as Router,
   Switch,
   Route,
+  Redirect,
   withRouter
 } from 'react-router-dom'
 
@@ -34,8 +35,20 @@ export default class Main extends Component {
             <Switch>
               <Dynamic
                 exact
-                path={paths.index}
+                path="/"
                 bundle={require('bundle-loader?lazy!./home')}
+              />
+              {/*
+                <Route
+                  exact
+                  path="/"
+                  render={() => <Redirect to={paths.index} />}
+                />
+              */}
+              <Dynamic
+                exact
+                path={paths.index}
+                bundle={require('bundle-loader?lazy!./dashboard')}
               />
               <Route path="/" component={NotFound} />
             </Switch>
