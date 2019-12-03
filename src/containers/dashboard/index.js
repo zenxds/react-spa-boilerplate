@@ -12,7 +12,7 @@ import store from './store'
 })
 @inject('actions', 'store')
 @observer
-class Home extends Component {
+class Dashboard extends Component {
   componentDidMount() {
     this.props.actions.getMsg()
   }
@@ -22,4 +22,4 @@ class Home extends Component {
   }
 }
 
-export default Home
+export default Dashboard
