@@ -55,7 +55,7 @@ export function jsonPost(url, data = {}, config = {}) {
     Object.assign(config, {
       method: 'post',
       url,
-      body: JSON.stringify(data),
+      data: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json; charset=utf-8'
       }
