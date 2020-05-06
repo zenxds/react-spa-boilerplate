@@ -18,7 +18,7 @@ class Home extends Component {
         if (history.location.pathname !== firstPath) {
           history.push(firstPath)
         }
-      }
+      },
     )
   }
 
