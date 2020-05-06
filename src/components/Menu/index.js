@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
-import { Menu as AntDMenu, Icon } from 'antd'
+import { Menu as AntDMenu } from 'antd'
 import classnames from 'classnames'
 
 import { startsWith } from 'utils'
@@ -18,14 +18,14 @@ class Menu extends Component {
     super(props)
 
     this.state = {
-      openKeys: []
+      openKeys: [],
     }
   }
 
   componentDidMount() {
     this.props.menuActions.getMenu().then(() => {
       this.setState({
-        openKeys: this.getOpenKeys()
+        openKeys: this.getOpenKeys(),
       })
     })
   }
@@ -69,7 +69,7 @@ class Menu extends Component {
 
   handleOpenChange = keys => {
     this.setState({
-      openKeys: keys
+      openKeys: keys,
     })
   }
 
@@ -99,7 +99,7 @@ class Menu extends Component {
                       'menu-icon',
                       'anticon',
                       `menu-icon-${menu.code}`,
-                      { 'menu-icon-active': false }
+                      { 'menu-icon-active': false },
                     )}
                   />
                 ) : null}
@@ -123,7 +123,7 @@ class Menu extends Component {
               className={classnames(
                 'menu-icon',
                 'anticon',
-                `menu-icon-${menu.code}`
+                `menu-icon-${menu.code}`,
               )}
             />
           ) : null}
@@ -162,7 +162,7 @@ class Menu extends Component {
 }
 
 Menu.contextTypes = {
-  router: PropTypes.object
+  router: PropTypes.object,
 }
 
 export default Menu

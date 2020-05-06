@@ -2,7 +2,7 @@ import React from 'react'
 import { inject, observer } from 'mobx-react'
 import { Progress, message } from 'antd'
 
-import paths from 'constants/paths'
+import paths from '@constants/paths'
 import './styles.less'
 
 @inject('userActions', 'userStore')

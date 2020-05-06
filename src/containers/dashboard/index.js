@@ -8,7 +8,7 @@ import store from './store'
 @decorators.errorBoundary
 @decorators.provider({
   actions,
-  store
+  store,
 })
 @inject('actions', 'store')
 @observer

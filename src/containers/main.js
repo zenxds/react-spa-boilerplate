@@ -1,18 +1,21 @@
 import { Component } from 'react'
-import { inject, observer } from 'mobx-react'
+import {
+  // inject,
+  observer,
+} from 'mobx-react'
 import {
   // BrowserRouter as Router
-  HashRouter as Router,
+  // HashRouter as Router,
   Switch,
   Route,
-  Redirect,
-  withRouter
+  // Redirect,
+  withRouter,
 } from 'react-router-dom'
 
 import '../less/antd.less'
 import '../less/app.less'
 
-import paths from 'constants/paths'
+import paths from '@constants/paths'
 import Header from 'components/Header'
 import Menu from 'components/Menu'
 import NotFound from 'components/404'

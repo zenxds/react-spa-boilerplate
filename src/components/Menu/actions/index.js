@@ -7,7 +7,7 @@ class Actions extends BaseActions {
   getMenu = () => {
     return this.get(constants.MENU_INFO).then(data => {
       this.merge({
-        menus: addLevel(data)
+        menus: addLevel(data),
       })
     })
   }

@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
-import { Popover, Badge, Icon, message, Menu, Dropdown } from 'antd'
+import { Icon, Menu, Dropdown } from 'antd'
 
-import paths from 'constants/paths'
+import paths from '@constants/paths'
 import './less/styles.less'
 
 @inject('userStore', 'userActions')

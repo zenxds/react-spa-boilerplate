@@ -1,6 +1,6 @@
 import BaseActions from 'components/BaseActions'
 
-import paths from 'constants/paths'
+import paths from '@constants/paths'
 import * as constants from '../constants'
 import store from '../store'
 

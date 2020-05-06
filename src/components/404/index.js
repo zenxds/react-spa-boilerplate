@@ -2,8 +2,8 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { Button } from 'antd'
 
-import styles from './index.less'
-import paths from 'constants/paths'
+import paths from '@constants/paths'
+import './index.less'
 
 @withRouter
 export default class Component extends React.Component {

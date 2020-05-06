@@ -7,7 +7,7 @@ class Actions extends BaseActions {
     const data = await this.get(constants.API_MSG)
 
     this.merge({
-      msg: data.helloMsg
+      msg: data.helloMsg,
     })
   }
 }

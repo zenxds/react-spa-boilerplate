@@ -10,5 +10,5 @@ export default {
   menuStore,
   menuActions,
   userStore,
-  userActions
+  userActions,
 }

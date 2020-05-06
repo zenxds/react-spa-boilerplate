@@ -5,13 +5,13 @@ import {
   HashRouter as Router,
   Route,
   Switch,
-  Redirect
+  Redirect,
 } from 'react-router-dom'
 import { Spin } from 'antd'
 import { hot } from 'react-hot-loader'
 
 import { getHashPath } from 'utils'
-import paths from 'constants/paths'
+import paths from '@constants/paths'
 import Login from './containers/user/Login'
 import Logout from './containers/user/Logout'
 import Main from './containers/main'

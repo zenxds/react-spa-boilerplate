@@ -14,7 +14,7 @@ class Store {
 
         map[item.path] = {
           path: item.path,
-          name: item.name
+          name: item.name,
         }
       })
     }

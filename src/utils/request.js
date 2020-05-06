@@ -9,9 +9,9 @@ export default function request(config = {}) {
   config = Object.assign(
     {
       withCredentials: true,
-      timeout: 30 * 1000
+      timeout: 30 * 1000,
     },
-    config
+    config,
   )
 
   return axios(config).then(response => {
@@ -31,8 +31,8 @@ export function get(url, params = {}, config = {}) {
     Object.assign(config, {
       method: 'get',
       url,
-      params
-    })
+      params,
+    }),
   )
 }
 
@@ -45,8 +45,8 @@ export function post(url, data, config = {}) {
     Object.assign(config, {
       method: 'post',
       url,
-      data
-    })
+      data,
+    }),
   )
 }
 
@@ -57,8 +57,8 @@ export function jsonPost(url, data = {}, config = {}) {
       url,
       data: JSON.stringify(data),
       headers: {
-        'Content-Type': 'application/json; charset=utf-8'
-      }
-    })
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+    }),
   )
 }

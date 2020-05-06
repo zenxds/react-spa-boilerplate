@@ -16,7 +16,7 @@ export default class Login extends React.Component {
       password: '',
 
       loading: false,
-      loginErrorMsg: ''
+      loginErrorMsg: '',
     }
 
     this.cartoonRef = createRef()
@@ -34,7 +34,7 @@ export default class Login extends React.Component {
       renderer: 'svg',
       loop: true,
       autoplay: false,
-      path: '/data/json/login.json'
+      path: '/data/json/login.json',
     })
 
     this.handleVisibilityChange()
@@ -48,7 +48,7 @@ export default class Login extends React.Component {
 
     document.removeEventListener(
       'visibilitychange',
-      this.handleVisibilityChange
+      this.handleVisibilityChange,
     )
   }
 
@@ -67,7 +67,7 @@ export default class Login extends React.Component {
   handleChange(type, e) {
     this.setState({
       [type]: e.target.value,
-      loginErrorMsg: ''
+      loginErrorMsg: '',
     })
   }
 
@@ -92,24 +92,24 @@ export default class Login extends React.Component {
     }
 
     this.setState({
-      loading: true
+      loading: true,
     })
 
     try {
       await this.props.userActions.login({
         account,
-        password
+        password,
       })
 
       this.setState({
         loading: false,
-        loginErrorMsg: ''
+        loginErrorMsg: '',
       })
       this.props.userActions.loginSuccess()
     } catch (err) {
       this.setState({
         loginErrorMsg: err.message || '登陆失败',
-        loading: false
+        loading: false,
       })
     }
   }

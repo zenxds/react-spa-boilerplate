@@ -7,7 +7,7 @@ const dxMock = require('dx-mock')
 const rules = require('./webpack.rules')
 module.exports = {
   mode: 'development',
-  entry: ['react-hot-loader/patch', './src/index.js'],
+  entry: ['./src/index.js'],
   output: {
     path: path.join(__dirname, '../build'),
     filename: 'main.js'
@@ -16,7 +16,10 @@ module.exports = {
   resolve: {
     modules: ['src', 'node_modules'],
     alias: {
-      constants: path.join(__dirname, '../src/constants')
+      '@constants': resolve('constants'),
+      '@utils': resolve('utils'),
+      '@components': resolve('components'),
+      '@decorators': resolve('decorators'),
     }
   },
   module: {
@@ -120,4 +123,8 @@ module.exports = {
       dxMock(app, { root: path.join(__dirname, '../api')})
     }
   }
+}
+
+function resolve(p) {
+  return path.join(__dirname, '../src', p)
 }

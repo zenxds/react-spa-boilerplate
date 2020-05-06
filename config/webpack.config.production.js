@@ -37,7 +37,10 @@ module.exports = {
   resolve: {
     modules: ['src', 'node_modules'],
     alias: {
-      constants: path.join(__dirname, '../src/constants')
+      '@constants': resolve('constants'),
+      '@utils': resolve('utils'),
+      '@components': resolve('components'),
+      '@decorators': resolve('decorators'),
     }
   },
   module: {
@@ -193,4 +196,8 @@ module.exports = {
       random: Math.random().toString().slice(2)
     })
   ]
+}
+
+function resolve(p) {
+  return path.join(__dirname, '../src', p)
 }

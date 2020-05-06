@@ -7,7 +7,7 @@ export default WrappedComponent => {
       super(props)
 
       this.state = {
-        hasError: false
+        hasError: false,
       }
     }
 
@@ -15,7 +15,7 @@ export default WrappedComponent => {
       this.setState({
         hasError: true,
         error,
-        info
+        info,
       })
     }
 
