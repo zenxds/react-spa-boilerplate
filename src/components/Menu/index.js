@@ -5,7 +5,7 @@ import { inject, observer } from 'mobx-react'
 import { Menu as AntDMenu } from 'antd'
 import classnames from 'classnames'
 
-import { startsWith } from 'utils'
+import { startsWith } from '@utils'
 import './less/styles.less'
 
 const { Item, SubMenu } = AntDMenu

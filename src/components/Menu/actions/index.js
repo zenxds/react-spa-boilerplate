@@ -1,4 +1,4 @@
-import BaseActions from 'components/BaseActions'
+import BaseActions from '@components/BaseActions'
 
 import * as constants from '../constants'
 import store from '../store'

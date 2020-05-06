@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import { observer, inject } from 'mobx-react'
 
-import * as decorators from 'decorators'
+import * as decorators from '@decorators'
 import actions from './actions'
 import store from './store'
 

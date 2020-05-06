@@ -1,4 +1,4 @@
-import BaseActions from 'components/BaseActions'
+import BaseActions from '@components/BaseActions'
 
 import paths from '@constants/paths'
 import * as constants from '../constants'

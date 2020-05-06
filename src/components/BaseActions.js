@@ -1,5 +1,5 @@
 import { action } from 'mobx'
-import { get, post, jsonPost } from 'utils/request'
+import { get, post, jsonPost } from '@utils/request'
 
 export default class BaseActions {
   constructor(store) {

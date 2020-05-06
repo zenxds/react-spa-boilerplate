@@ -10,7 +10,7 @@ import {
 import { Spin } from 'antd'
 import { hot } from 'react-hot-loader'
 
-import { getHashPath } from 'utils'
+import { getHashPath } from '@utils'
 import paths from '@constants/paths'
 import Login from './containers/user/Login'
 import Logout from './containers/user/Logout'
