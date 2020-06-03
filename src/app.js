@@ -16,6 +16,10 @@ import Login from './containers/user/Login'
 import Logout from './containers/user/Logout'
 import Main from './containers/main'
 
+import './less/theme.less'
+import '@dx/xpanda/xpanda.less'
+import './less/app.less'
+
 @inject('userStore', 'userActions')
 @observer
 class App extends Component {

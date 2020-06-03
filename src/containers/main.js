@@ -13,10 +13,6 @@ import {
 } from 'react-router-dom'
 import { Result } from '@dx/xbee'
 
-import '../less/theme.less'
-import '@dx/xpanda/xpanda.less'
-import '../less/app.less'
-
 import paths from '@constants/paths'
 import Header from '@components/Header'
 import Menu from '@components/Menu'
@@ -53,6 +49,11 @@ export default class Main extends Component {
                 exact
                 path={paths.index}
                 bundle={require('bundle-loader?lazy!./dashboard')}
+              />
+              <Dynamic
+                exact
+                path={paths.account}
+                bundle={require('bundle-loader?lazy!./account')}
               />
               <Route path="/" render={() => <Result status="404" />} />
             </Switch>
