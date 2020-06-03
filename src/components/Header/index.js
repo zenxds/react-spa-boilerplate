@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
-import { Icon, Menu, Dropdown } from 'antd'
+import { Icon, Menu, Dropdown } from '@dx/xbee'
 
 import paths from '@constants/paths'
 import './less/styles.less'

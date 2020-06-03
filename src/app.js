@@ -7,7 +7,7 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom'
-import { Spin } from 'antd'
+import { Spin } from '@dx/xbee'
 import { hot } from 'react-hot-loader'
 
 import { getHashPath } from '@utils'

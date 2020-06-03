@@ -11,14 +11,15 @@ import {
   // Redirect,
   withRouter,
 } from 'react-router-dom'
+import { Result } from '@dx/xbee'
 
-import '../less/antd.less'
+import '../less/theme.less'
+import '@dx/xpanda/xpanda.less'
 import '../less/app.less'
 
 import paths from '@constants/paths'
 import Header from '@components/Header'
 import Menu from '@components/Menu'
-import NotFound from '@components/404'
 import Dynamic from './dynamic'
 
 @withRouter
@@ -53,7 +54,7 @@ export default class Main extends Component {
                 path={paths.index}
                 bundle={require('bundle-loader?lazy!./dashboard')}
               />
-              <Route path="/" component={NotFound} />
+              <Route path="/" render={() => <Result status="404" />} />
             </Switch>
           </div>
         </div>

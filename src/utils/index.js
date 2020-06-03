@@ -5,6 +5,4 @@ export function getHashPath(href = window.location.href) {
   return hashIndex === -1 ? '' : href.substring(hashIndex + 1).split('?')[0]
 }
 
-export const startsWith = (str, prefix) => {
-  return str.lastIndexOf(prefix, 0) === 0
-}
+export * from './lang'

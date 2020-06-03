@@ -36,6 +36,7 @@ module.exports = {
   },
   resolve: {
     modules: ['src', 'node_modules'],
+    extensions: ['.js', '.jsx'],
     alias: {
       '@constants': resolve('constants'),
       '@utils': resolve('utils'),
@@ -74,7 +75,7 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        exclude: /(node_modules|antd)/,
+        exclude: /(node_modules|theme|@dx\/xbee|@dx\/xpanda)/,
         use: [
           MiniCssExtractPlugin.loader,
           {
@@ -102,7 +103,7 @@ module.exports = {
         ]
       },
       {
-        test: /antd\.less$/,
+        test: /(theme|xbee|xpanda)\.less$/,
         loader: [
           MiniCssExtractPlugin.loader,
           {
@@ -122,7 +123,7 @@ module.exports = {
           {
             loader: 'less-loader',
             options: {
-              relativeUrls: false,
+              // relativeUrls: false,
               javascriptEnabled: true
             }
           }

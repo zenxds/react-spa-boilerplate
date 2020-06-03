@@ -15,6 +15,7 @@ module.exports = {
   devtool: 'cheap-module-eval-source-map',
   resolve: {
     modules: ['src', 'node_modules'],
+    extensions: ['.js', '.jsx'],
     alias: {
       '@constants': resolve('constants'),
       '@utils': resolve('utils'),
@@ -52,7 +53,7 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        exclude: /(node_modules|antd)/,
+        exclude: /(node_modules|theme|@dx\/xbee|@dx\/xpanda)/,
         use: [
           'style-loader',
           {
@@ -80,7 +81,7 @@ module.exports = {
         ]
       },
       {
-        test: /antd\.less$/,
+        test: /(theme|xbee|xpanda)\.less$/,
         use: [
           'style-loader',
           'css-loader',
@@ -100,7 +101,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'template/index.html'
+      template: fs.existsSync(path.join(__dirname, '../template/index.dev.html')) ? 'template/index.dev.html' : 'template/index.html'
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.ProvidePlugin({
@@ -121,6 +122,12 @@ module.exports = {
     disableHostCheck: true,
     before(app){
       dxMock(app, { root: path.join(__dirname, '../api')})
+    },
+    proxy: {
+      '/dev': {
+        target: '',
+        pathRewrite: { '^/dev': '' },
+      },
     }
   }
 }

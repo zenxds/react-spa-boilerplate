@@ -2,6 +2,7 @@ import { Component } from 'react'
 import { observer, inject } from 'mobx-react'
 
 import * as decorators from '@decorators'
+import { Layout } from '@dx/xbee'
 import actions from './actions'
 import store from './store'
 
@@ -13,12 +14,8 @@ import store from './store'
 @inject('actions', 'store')
 @observer
 class Dashboard extends Component {
-  componentDidMount() {
-    this.props.actions.getMsg()
-  }
-
   render() {
-    return <div>{this.props.store.msg}</div>
+    return <Layout.DxMain title="总览" />
   }
 }
 

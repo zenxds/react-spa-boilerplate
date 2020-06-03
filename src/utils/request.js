@@ -1,6 +1,5 @@
 import axios from 'axios'
-import isPlainObject from './isPlainObject'
-import { param } from './param'
+import { param, isPlainObject } from './lang'
 
 axios.defaults.headers.post['Content-Type'] =
   'application/x-www-form-urlencoded'

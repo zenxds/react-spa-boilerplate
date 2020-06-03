@@ -13,6 +13,7 @@ class Store {
         }
 
         map[item.path] = {
+          code: item.code,
           path: item.path,
           name: item.name,
         }
@@ -29,11 +30,11 @@ class Store {
     function walk(list, parentCode) {
       list.forEach(item => {
         if (item.children) {
-          walk(item.children, item.path)
+          walk(item.children, item.code)
         }
 
         if (parentCode) {
-          map[item.path] = parentCode
+          map[item.code] = parentCode
         }
       })
     }

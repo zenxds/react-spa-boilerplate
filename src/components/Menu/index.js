@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
-import { Menu as AntDMenu } from 'antd'
+import { Menu as AntDMenu } from '@dx/xbee'
 import classnames from 'classnames'
 
 import { startsWith } from '@utils'
@@ -55,13 +55,14 @@ class Menu extends Component {
   // 一个菜单展开时，它的父菜单也应该展开
   getOpenKeys() {
     const { menuStore } = this.props
-    const { parentMap } = menuStore
+    const { pathMap, parentMap } = menuStore
     const openKeys = []
 
-    let current = this.getCurrentPath()
-    while (current) {
-      openKeys.push(current)
-      current = parentMap[current]
+    let current = pathMap[this.getCurrentPath()]
+    let currentCode = current && current.code
+    while (currentCode) {
+      openKeys.push(currentCode)
+      currentCode = parentMap[currentCode]
     }
 
     return openKeys
@@ -90,7 +91,7 @@ class Menu extends Component {
       if (menu.children && menu.children.length) {
         return (
           <SubMenu
-            key={menu.path}
+            key={menu.code}
             title={
               <div>
                 {menu.level == 1 ? (
@@ -114,7 +115,7 @@ class Menu extends Component {
 
       return (
         <Item
-          key={menu.path}
+          key={menu.code}
           pathname={menu.path}
           className={`menu-lv${menu.level}`}
         >

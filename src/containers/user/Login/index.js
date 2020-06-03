@@ -1,6 +1,6 @@
 import React, { createRef } from 'react'
 import { inject, observer } from 'mobx-react'
-import { Alert, Input, Button, message } from 'antd'
+import { Alert, Input, Button, message } from '@dx/xbee'
 import lottie from 'lottie-web'
 
 import './styles.less'

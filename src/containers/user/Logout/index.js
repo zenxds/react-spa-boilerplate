@@ -1,6 +1,6 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react'
-import { Progress, message } from 'antd'
+import { Progress, message } from '@dx/xbee'
 
 import paths from '@constants/paths'
 import './styles.less'

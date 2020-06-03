@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { Alert } from 'antd'
+import { Result } from '@dx/xbee'
 
 export default WrappedComponent => {
   class ErrorBoundary extends Component {
@@ -22,11 +22,13 @@ export default WrappedComponent => {
     render() {
       if (this.state.hasError) {
         return (
-          <Alert
-            message={<pre>{this.state.error + ''}</pre>}
-            type="error"
-            showIcon
-          />
+          <div style={{ padding: 20, height: '100%', background: '#fff' }}>
+            <Result
+              status="error"
+              title="抱歉！系统发生未知错误，请您稍后重试"
+              subTitle={this.state.error + ''}
+            />
+          </div>
         )
       }
 
