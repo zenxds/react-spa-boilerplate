@@ -2,18 +2,19 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
-import { Menu as AntDMenu } from '@dx/xbee'
+import { Icon, Menu } from '@dx/xbee'
 import classnames from 'classnames'
 
 import { startsWith } from '@utils'
+import { menuIconMap } from './constants'
 import './less/styles.less'
 
-const { Item, SubMenu } = AntDMenu
+const { Item, SubMenu } = Menu
 
 @inject('menuStore', 'menuActions', 'userStore', 'userActions')
 @withRouter
 @observer
-class Menu extends Component {
+class PageMenu extends Component {
   constructor(props) {
     super(props)
 
@@ -84,6 +85,16 @@ class Menu extends Component {
     }
   }
 
+  renderIcon(code) {
+    if (menuIconMap[code]) {
+      return <Icon type={menuIconMap[code]} />
+    }
+
+    return (
+      <i className={classnames('menu-icon', 'anticon', `menu-icon-${code}`)} />
+    )
+  }
+
   renderMenu(menus = []) {
     menus = menus.slice()
 
@@ -94,16 +105,7 @@ class Menu extends Component {
             key={menu.code}
             title={
               <div>
-                {menu.level == 1 ? (
-                  <i
-                    className={classnames(
-                      'menu-icon',
-                      'anticon',
-                      `menu-icon-${menu.code}`,
-                      { 'menu-icon-active': false },
-                    )}
-                  />
-                ) : null}
+                {menu.level == 1 ? this.renderIcon(menu.code) : null}
                 <span>{menu.name}</span>
               </div>
             }
@@ -119,15 +121,7 @@ class Menu extends Component {
           pathname={menu.path}
           className={`menu-lv${menu.level}`}
         >
-          {menu.level == 1 ? (
-            <i
-              className={classnames(
-                'menu-icon',
-                'anticon',
-                `menu-icon-${menu.code}`,
-              )}
-            />
-          ) : null}
+          {menu.level == 1 ? this.renderIcon(menu.code) : null}
           <span>{menu.name}</span>
         </Item>
       )
@@ -145,25 +139,23 @@ class Menu extends Component {
     }
 
     return (
-      <div>
-        <AntDMenu
-          mode="inline"
-          theme="dark"
-          selectedKeys={[defaultOpenKeys[0]]}
-          openKeys={openKeys}
-          defaultOpenKeys={defaultOpenKeys}
-          onClick={this.handleClick}
-          onOpenChange={this.handleOpenChange}
-        >
-          {this.renderMenu(menus)}
-        </AntDMenu>
-      </div>
+      <Menu
+        mode="inline"
+        theme="dark"
+        selectedKeys={[defaultOpenKeys[0]]}
+        openKeys={openKeys}
+        defaultOpenKeys={defaultOpenKeys}
+        onClick={this.handleClick}
+        onOpenChange={this.handleOpenChange}
+      >
+        {this.renderMenu(menus)}
+      </Menu>
     )
   }
 }
 
-Menu.contextTypes = {
+PageMenu.contextTypes = {
   router: PropTypes.object,
 }
 
-export default Menu
+export default PageMenu
