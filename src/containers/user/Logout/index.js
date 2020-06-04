@@ -15,9 +15,8 @@ export default class Logout extends React.Component {
   }
 
   async doLogout() {
-    try {
-      await this.props.userActions.logout()
-    } catch (e) {
+    const r = await this.props.userActions.logout()
+    if (r === undefined) {
       message.error('退出登陆失败')
       return
     }

@@ -1,4 +1,4 @@
-import { Component, Fragment } from 'react'
+import { Component } from 'react'
 // import { observer, inject } from 'mobx-react'
 import { Layout } from '@dx/xbee'
 

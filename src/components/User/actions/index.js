@@ -10,14 +10,16 @@ class Actions extends BaseActions {
   }
 
   async getUserInfo() {
-    try {
-      const userInfo = await this.get(constants.API_USER_INFO)
+    const userInfo = await this.get(constants.API_USER_INFO)
+    if (userInfo) {
       this.mergeUserInfo(userInfo)
       this.merge({ isLogin: true })
-    } catch (err) {
+    } else {
       this.merge({ isLogin: false })
       location.href = '#' + paths.login
     }
+
+    return userInfo
   }
 
   async logout() {
@@ -25,17 +27,16 @@ class Actions extends BaseActions {
   }
 
   async login(data = {}) {
-    return await this.post(constants.API_LOGIN, data)
+    return await this.post(constants.API_LOGIN, data, {
+      catchError: false,
+    })
   }
 
   async loginSuccess() {
-    try {
-      await this.getUserInfo()
-    } catch (e) {
-      return
+    const r = await this.getUserInfo()
+    if (r) {
+      location.href = '#' + paths.index
     }
-
-    location.href = '#' + paths.index
   }
 }
 

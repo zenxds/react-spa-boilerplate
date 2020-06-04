@@ -1,4 +1,4 @@
-import { action } from 'mobx'
+import { action, toJS } from 'mobx'
 import BaseActions from '@components/BaseActions'
 import * as apis from '../constant/apis'
 import store from '../store'
@@ -13,7 +13,7 @@ class Actions extends BaseActions {
     const conditions = this.store.conditions
     const newConditions = new this.store.constructor().conditions
 
-    conditions.replace(newConditions.toJSON())
+    conditions.replace(toJS(newConditions))
     this.merge({
       fetchId: new Date().getTime(),
     })

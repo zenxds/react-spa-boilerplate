@@ -1,3 +1,4 @@
+import { message } from '@dx/xbee'
 import axios from 'axios'
 import { param, isPlainObject } from './lang'
 
@@ -7,13 +8,15 @@ axios.defaults.headers.post['Content-Type'] =
 export default function request(config = {}) {
   config = Object.assign(
     {
+      // catchError为自定义配置，是否捕获错误
+      catchError: true,
       withCredentials: true,
       timeout: 30 * 1000,
     },
     config,
   )
 
-  return axios(config).then(response => {
+  const ret = axios(config).then(response => {
     const { success, data, message } = response.data || {}
 
     if (success) {
@@ -22,6 +25,14 @@ export default function request(config = {}) {
       throw new Error(message || '请求失败')
     }
   })
+
+  if (config.catchError) {
+    return ret.catch(err => {
+      message.error(err.message)
+    })
+  }
+
+  return ret
 }
 
 // https://github.com/axios/axios/blob/master/lib/core/Axios.js

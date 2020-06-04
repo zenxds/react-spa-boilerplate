@@ -5,12 +5,13 @@ import paths from '@constants/paths'
 import store from '../store'
 
 class Actions extends BaseActions {
-  getMenu = () => {
-    return this.get(constants.MENU_INFO).then(data => {
+  getMenus = async () => {
+    const menus = await this.get(constants.MENU_INFO)
+    if (menus) {
       this.merge({
-        menus: addInfo(data),
+        menus: addInfo(menus),
       })
-    })
+    }
   }
 }
 

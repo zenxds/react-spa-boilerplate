@@ -23,11 +23,11 @@ class PageMenu extends Component {
     }
   }
 
-  componentDidMount() {
-    this.props.menuActions.getMenu().then(() => {
-      this.setState({
-        openKeys: this.getOpenKeys(),
-      })
+  async componentDidMount() {
+    await this.props.menuActions.getMenus()
+
+    this.setState({
+      openKeys: this.getOpenKeys(),
     })
   }
 

@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import { toJS } from 'mobx'
 import { observer, inject } from 'mobx-react'
 import { Input, Button, message } from '@dx/xbee'
 import { DxFormModal, DxToolbar } from '@dx/xpanda'
@@ -64,6 +65,7 @@ export default class TopBar extends Component {
 
   render() {
     const { store } = this.props
+    const conditions = toJS(store.conditions)
     const { showCreateModal } = this.state
 
     return (
@@ -82,7 +84,7 @@ export default class TopBar extends Component {
               onChange={this.handleChange.bind(this, 'name')}
               onPressEnter={this.handleSearch}
               allowClear
-              value={store.name}
+              value={conditions.name}
               placeholder="请输入名称"
             />
           </DxToolbar.Item>
