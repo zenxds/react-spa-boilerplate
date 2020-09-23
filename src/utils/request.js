@@ -1,7 +1,10 @@
 import { message } from '@dx/xbee'
 import axios from 'axios'
+
+import { API_SERVER } from '@constants'
 import { param, isPlainObject } from './lang'
 
+axios.defaults.baseURL = API_SERVER
 axios.defaults.headers.post['Content-Type'] =
   'application/x-www-form-urlencoded'
 
