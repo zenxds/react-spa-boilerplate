@@ -28,18 +28,6 @@ module.exports = {
     "API_SERVER_PLACEHOLDER": true
   },
   "rules": {
-    "indent": [
-      "warn",
-      2,
-      {
-        "SwitchCase": 1,
-        "ignoreComments": true
-      }
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
     "quotes": [
       "warn",
       "single"
@@ -60,15 +48,6 @@ module.exports = {
       {
         "allowEmptyCatch": true
       }
-    ],
-    "semi": [
-      "warn",
-      "never"
-    ],
-    "eol-last": "warn",
-    "comma-dangle": [
-      "warn",
-      "always-multiline"
     ],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off"

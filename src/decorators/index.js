@@ -1,4 +1,5 @@
 import errorBoundary from './errorBoundary'
 import provider from './provider'
+import permission from './permission'
 
-export { errorBoundary, provider }
+export { errorBoundary, provider, permission }

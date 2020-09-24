@@ -2,12 +2,9 @@
   "compilerOptions": {
     "target": "es2017",
     "experimentalDecorators": true,
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
-      "utils/*": ["./src/utils/*"],
-      "components/*": ["./src/components/*"],
-      "constants/*": ["./src/constants/*"],
-      "decorators/*": ["./src/decorators/*"]
+      "@*": ["*"]
     }
   },
   "exclude": [

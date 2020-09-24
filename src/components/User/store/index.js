@@ -7,6 +7,10 @@ class Store {
   @computed get nickName() {
     return this.user.get('name')
   }
+
+  hasPermission = code => {
+    return !!code
+  }
 }
 
 export default new Store()
