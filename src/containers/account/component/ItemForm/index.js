@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { Form, Input } from 'antd'
+import { Form, Input } from '@dx/xbee'
 
 @Form.create()
 export default class ItemForm extends Component {

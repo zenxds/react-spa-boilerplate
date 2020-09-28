@@ -35,7 +35,7 @@ class Actions extends BaseActions {
   async loginSuccess() {
     const r = await this.getUserInfo()
     if (r) {
-      location.href = '#' + paths.index
+      location.href = '#/'
     }
   }
 }
