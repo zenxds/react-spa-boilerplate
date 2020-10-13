@@ -3,6 +3,7 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const dxMock = require('dx-mock')
+const UnusedWebpackPlugin = require('unused-webpack-plugin')
 
 const rules = require('./webpack.rules')
 module.exports = {
@@ -100,6 +101,13 @@ module.exports = {
     ])
   },
   plugins: [
+    new UnusedWebpackPlugin({
+      directories: [
+        path.join(__dirname, '../src')
+      ],
+      exclude: [],
+      root: path.join(__dirname, '..'),
+    }),
     new HtmlWebpackPlugin({
       template: fs.existsSync(path.join(__dirname, '../template/index.dev.html')) ? 'template/index.dev.html' : 'template/index.html'
     }),
