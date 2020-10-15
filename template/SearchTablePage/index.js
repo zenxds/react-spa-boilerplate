@@ -25,7 +25,7 @@ export default class Page extends Component {
 
   render() {
     return (
-      <Layout.DxMain title="账号管理">
+      <Layout.DxMain title="页面标题">
         <TopBar />
         <Table />
       </Layout.DxMain>
