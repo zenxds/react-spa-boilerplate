@@ -24,7 +24,7 @@ export default class TopBar extends Component {
     const target = event && event.target
     const value = target ? target.value : event
 
-    this.props.actions.mergeConditions({
+    this.props.actions.mergeConditions('page', {
       [type]: value,
     })
   }
@@ -32,7 +32,7 @@ export default class TopBar extends Component {
   // 搜索时才修改store的值触发下面Table的监听
   handleSearch = async () => {
     this.props.actions.merge({
-      fetchId: new Date().getTime(),
+      pageFetchId: new Date().getTime(),
     })
   }
 
@@ -60,12 +60,12 @@ export default class TopBar extends Component {
   }
 
   handleReset = () => {
-    this.props.actions.resetSearch()
+    this.props.actions.resetSearch('page')
   }
 
   render() {
     const { store } = this.props
-    const conditions = toJS(store.conditions)
+    const conditions = toJS(store.pageConditions)
     const { showCreateModal } = this.state
 
     return (
@@ -92,7 +92,7 @@ export default class TopBar extends Component {
 
         {showCreateModal ? (
           <DxFormModal
-            width={600}
+            dxWidthType="min"
             title="新建"
             action={this.props.actions.createItem}
             onSuccess={this.handleCreateSuccess}

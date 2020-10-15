@@ -5,15 +5,10 @@ import * as constants from '../constants'
 import store from '../store'
 
 class Actions extends BaseActions {
-  mergeUserInfo(data = {}) {
-    this.merge(this.store.user, data)
-  }
-
   async getUserInfo() {
     const userInfo = await this.get(constants.API_USER_INFO)
     if (userInfo) {
-      this.mergeUserInfo(userInfo)
-      this.merge({ isLogin: true })
+      this.merge({ isLogin: true, user: userInfo })
     } else {
       this.merge({ isLogin: false })
       location.href = '#' + paths.login

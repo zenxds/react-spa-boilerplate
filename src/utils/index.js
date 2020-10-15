@@ -6,3 +6,4 @@ export function getHashPath(href = window.location.href) {
 }
 
 export * from './lang'
+export * from './getPopupContainer'

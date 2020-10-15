@@ -4,7 +4,7 @@ import { reaction, toJS } from 'mobx'
 import { Table, Tooltip, message } from '@dx/xbee'
 import { DxFormModal, DxTableBtn } from '@dx/xpanda'
 
-import { pick } from '@utils'
+import { pick, compact } from '@utils'
 
 import ItemForm from '../ItemForm'
 
@@ -40,7 +40,7 @@ export default class PageTable extends Component {
     // fetchId变化时重新请求数据
     this.disposer = reaction(
       () => {
-        return store.fetchId
+        return store.pageFetchId
       },
       () => {
         this.fetchData({
@@ -57,7 +57,7 @@ export default class PageTable extends Component {
     const { store, actions } = this.props
 
     query = Object.assign(
-      toJS(store.conditions),
+      toJS(store.pageConditions),
       pick(['pageNo', 'pageSize'], this.state),
       query,
     )
@@ -66,7 +66,7 @@ export default class PageTable extends Component {
       loading: true,
     })
 
-    const data = await actions.getList(query)
+    const data = await actions.getList(compact(query))
 
     actions.merge({
       loading: false,
@@ -103,18 +103,6 @@ export default class PageTable extends Component {
       editItem: null,
     })
   }
-
-  // handleDelete = record => {
-  //   Modal.confirm({
-  //     title: `您确定要删除“${record.name}”吗`,
-  //     okText: '确认',
-  //     cancelText: '取消',
-  //     onOk: () => {
-  //       this.submitDelete(record)
-  //     },
-  //     onCancel: () => {}
-  //   })
-  // }
 
   submitDelete = async record => {
     const r = await this.props.actions.deleteItem({
@@ -194,7 +182,7 @@ export default class PageTable extends Component {
         />
         {this.state.editItem ? (
           <DxFormModal
-            width={600}
+            dxWidthType="min"
             title="编辑"
             action={this.props.actions.editItem}
             onSuccess={this.handleEditSuccess}

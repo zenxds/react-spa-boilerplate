@@ -12,6 +12,7 @@ import moment from 'moment'
 import 'moment/locale/zh-cn'
 moment.locale('zh-cn')
 
+import { getPopupContainer } from '@utils'
 import App from './app'
 import injects from './inject'
 
@@ -20,7 +21,7 @@ configure({ enforceActions: 'observed' })
 
 ReactDOM.render(
   <Provider {...injects}>
-    <ConfigProvider locale={zhCN}>
+    <ConfigProvider locale={zhCN} getPopupContainer={getPopupContainer}>
       <App />
     </ConfigProvider>
   </Provider>,

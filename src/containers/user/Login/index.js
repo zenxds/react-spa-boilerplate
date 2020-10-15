@@ -108,7 +108,7 @@ export default class Login extends React.Component {
       this.props.userActions.loginSuccess()
     } catch (err) {
       this.setState({
-        loginErrorMsg: err.message || '登陆失败',
+        loginErrorMsg: err.message || '登录失败',
         loading: false,
       })
     }

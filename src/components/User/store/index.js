@@ -2,10 +2,10 @@ import { observable, computed } from 'mobx'
 
 class Store {
   @observable isLogin = undefined
-  @observable user = observable.map({})
+  @observable user = {}
 
   @computed get nickName() {
-    return this.user.get('name')
+    return this.user.nickName
   }
 
   hasPermission = code => {
