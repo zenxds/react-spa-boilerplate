@@ -60,7 +60,7 @@ export default class TopBar extends Component {
   }
 
   handleReset = () => {
-    this.props.actions.resetSearch('page')
+    this.props.actions.resetConditions('page')
   }
 
   render() {
