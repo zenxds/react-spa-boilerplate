@@ -111,7 +111,7 @@ export default class PageTable extends Component {
 
     if (r) {
       message.success(`删除${record.name}成功`)
-      this.props.actions.resetSearch()
+      this.props.actions.resetSearch('page')
     }
   }
 
@@ -136,7 +136,16 @@ export default class PageTable extends Component {
   }
 
   getColumns() {
+    const { pageNo, pageSize } = this.state
+
     return [
+      {
+        title: '序号',
+        dataIndex: 'userId',
+        render: (text, record, index) => {
+          return (pageNo - 1) * pageSize + index + 1
+        },
+      },
       {
         title: '名称',
         dataIndex: 'name',
