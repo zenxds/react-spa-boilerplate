@@ -3,7 +3,7 @@ import { Component } from 'react'
 import { Layout } from '@dx/xbee'
 
 import * as decorators from '@decorators'
-import TopBar from './components/TopBar'
+import Toolbar from './components/Toolbar'
 import Table from './components/Table'
 import actions from './action'
 import store from './store'
@@ -26,7 +26,7 @@ export default class Page extends Component {
   render() {
     return (
       <Layout.DxMain title="页面标题">
-        <TopBar />
+        <Toolbar />
         <Table />
       </Layout.DxMain>
     )

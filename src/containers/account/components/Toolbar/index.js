@@ -1,15 +1,17 @@
-import React, { Component, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import { toJS } from 'mobx'
 import { observer, inject } from 'mobx-react'
 import { Input, Button, message } from '@dx/xbee'
 import { DxFormModal, DxToolbar } from '@dx/xpanda'
+
+import Base from '@components/BasePage/SearchTable/Toolbar'
 
 import ItemForm from '../ItemForm'
 import './styles.less'
 
 @inject('actions', 'store')
 @observer
-export default class TopBar extends Component {
+export default class PageToolbar extends Base {
   static propTypes = {}
 
   constructor(props) {
@@ -18,22 +20,6 @@ export default class TopBar extends Component {
     this.state = {
       showCreateModal: false,
     }
-  }
-
-  handleChange = (type, event) => {
-    const target = event && event.target
-    const value = target ? target.value : event
-
-    this.props.actions.mergeConditions('page', {
-      [type]: value,
-    })
-  }
-
-  // 搜索时才修改store的值触发下面Table的监听
-  handleSearch = async () => {
-    this.props.actions.merge({
-      pageFetchId: new Date().getTime(),
-    })
   }
 
   handleShowCreateModal = () => {
@@ -59,10 +45,6 @@ export default class TopBar extends Component {
     this.handleHideCreateModal()
   }
 
-  handleReset = () => {
-    this.props.actions.resetConditions('page')
-  }
-
   render() {
     const { store } = this.props
     const conditions = toJS(store.pageConditions)
@@ -72,6 +54,7 @@ export default class TopBar extends Component {
       <Fragment>
         <DxToolbar
           onSearch={this.handleSearch}
+          onReset={this.handleReset}
           loading={store.loading}
           extra={
             <Button type="primary" onClick={this.handleShowCreateModal}>

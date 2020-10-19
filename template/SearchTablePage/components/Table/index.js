@@ -1,16 +1,17 @@
-import React, { Component, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import { observer, inject } from 'mobx-react'
-import { reaction, toJS } from 'mobx'
+import { toJS } from 'mobx'
 import { Table, Tooltip, message } from '@dx/xbee'
 import { DxFormModal, DxTableBtn } from '@dx/xpanda'
 
+import Base from '@components/BasePage/SearchTable/Table'
 import { pick, compact } from '@utils'
 
 import ItemForm from '../ItemForm'
 
 @inject('actions', 'store')
 @observer
-export default class PageTable extends Component {
+export default class PageTable extends Base {
   static propTypes = {}
 
   constructor(props) {
@@ -24,33 +25,6 @@ export default class PageTable extends Component {
 
       editItem: null,
     }
-  }
-
-  componentDidMount() {
-    this.initReaction()
-  }
-
-  componentWillUnmount() {
-    this.disposer()
-  }
-
-  initReaction() {
-    const { store } = this.props
-
-    // fetchId变化时重新请求数据
-    this.disposer = reaction(
-      () => {
-        return store.pageFetchId
-      },
-      () => {
-        this.fetchData({
-          pageNo: 1,
-        })
-      },
-      {
-        fireImmediately: true,
-      },
-    )
   }
 
   fetchData = async (query = {}) => {
@@ -75,10 +49,6 @@ export default class PageTable extends Component {
     if (data) {
       this.setState(data)
     }
-  }
-
-  handlePageChange = async (pageNo, pageSize) => {
-    return this.fetchData({ pageNo, pageSize })
   }
 
   handleEditSuccess = value => {
@@ -112,26 +82,6 @@ export default class PageTable extends Component {
     if (r) {
       message.success(`删除${record.name}成功`)
       this.props.actions.resetSearch('page')
-    }
-  }
-
-  getDataSource() {
-    const { items } = this.state
-    return items.slice()
-  }
-
-  getPagination() {
-    const { pageNo, pageSize, itemCount } = this.state
-
-    return {
-      size: 'small',
-      current: pageNo,
-      total: itemCount,
-      pageSize: pageSize,
-      showSizeChanger: true,
-      showQuickJumper: true,
-      onChange: this.handlePageChange,
-      onShowSizeChange: this.handlePageChange,
     }
   }
 

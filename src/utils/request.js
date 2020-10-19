@@ -2,7 +2,7 @@ import { message } from '@dx/xbee'
 import axios from 'axios'
 
 import { API_SERVER } from '@constants'
-import { param, isPlainObject } from './lang'
+import { param, isPlainObject, compact } from './lang'
 
 axios.defaults.baseURL = API_SERVER
 axios.defaults.headers.post['Content-Type'] =
@@ -24,7 +24,7 @@ export default function request(config = {}) {
     {
       // catchError为自定义配置，是否捕获错误
       catchError: true,
-      // 是否返回整个response data
+      // 是否返回整个response data，默认返回接口里的data字段
       returnResponseData: false,
       withCredentials: true,
       timeout: 30 * 1000,
@@ -59,14 +59,14 @@ export function get(url, params = {}, config = {}) {
     Object.assign(config, {
       method: 'get',
       url,
-      params,
+      params: compact(params),
     }),
   )
 }
 
 export function post(url, data, config = {}) {
   if (isPlainObject(data)) {
-    data = param(data)
+    data = param(compact(data))
   }
 
   return request(
