@@ -1,7 +1,7 @@
 import { message } from '@dx/xbee'
 import axios from 'axios'
 
-import { API_SERVER } from '@constants'
+import { API_SERVER, API_USER_INFO } from '@constants'
 import { param, isPlainObject, compact } from './lang'
 
 axios.defaults.baseURL = API_SERVER
@@ -13,6 +13,7 @@ const messageMap = {
   'Network Error': '网络出错，请检查您的网络状况',
   'Request failed with status code 502': '服务器出小差了，请稍后重试',
 }
+const loginIgnoreList = [API_USER_INFO]
 
 function handleLoginExpire() {
   message.error('登录已失效，请重新登录')
@@ -38,7 +39,10 @@ export default function request(config = {}) {
     if (success) {
       return config.returnResponseData ? response.data : data
     } else if (code === 403) {
-      handleLoginExpire()
+      // 未登录时，系统一开始获取用户信息是正常调用
+      if (loginIgnoreList.indexOf(config.url) === -1) {
+        handleLoginExpire()
+      }
     } else {
       throw new Error(msg || '请求失败')
     }
