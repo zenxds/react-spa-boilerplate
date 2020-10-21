@@ -1,7 +1,10 @@
 import { Component } from 'react'
+import { observer, inject } from 'mobx-react'
 import { Form, Input } from '@dx/xbee'
 
 @Form.create()
+@inject('actions')
+@observer
 export default class ItemForm extends Component {
   constructor(props) {
     super(props)

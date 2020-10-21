@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react'
 import { Alert, Input, Button, message } from '@dx/xbee'
 import lottie from 'lottie-web'
 
+import { COMPANY_NAME } from '@constants'
 import './styles.less'
 
 @inject('userActions', 'userStore')
@@ -12,10 +13,10 @@ export default class Login extends React.Component {
     super(props)
 
     this.state = {
+      loading: false,
       account: '',
       password: '',
 
-      loading: false,
       loginErrorMsg: '',
     }
 
@@ -125,8 +126,8 @@ export default class Login extends React.Component {
           <div styleName="login-cartoon" ref={this.cartoonRef} />
         </div>
         <div styleName="logo">
-          <a href="/" title="顶象">
-            顶象
+          <a href="/" title={COMPANY_NAME}>
+            {COMPANY_NAME}
           </a>
         </div>
         <div styleName="login-box">

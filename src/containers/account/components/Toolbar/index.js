@@ -12,8 +12,6 @@ import './styles.less'
 @inject('actions', 'store')
 @observer
 export default class PageToolbar extends Base {
-  static propTypes = {}
-
   constructor(props) {
     super(props)
 

@@ -5,10 +5,10 @@ import 'babel-polyfill'
 import ReactDOM from 'react-dom'
 import { configure } from 'mobx'
 import { Provider } from 'mobx-react'
-
 import { ConfigProvider } from '@dx/xbee'
 import zhCN from '@dx/xbee/es/locale/zh_CN'
 import moment from 'moment'
+
 import 'moment/locale/zh-cn'
 moment.locale('zh-cn')
 

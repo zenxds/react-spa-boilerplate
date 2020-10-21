@@ -17,12 +17,6 @@ import './styles.less'
 // @inject('actions')
 // @observer
 export default class Page extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {}
-  }
-
   render() {
     return (
       <Layout.DxMain title="页面标题">

@@ -1,7 +1,7 @@
 import { observable } from 'mobx'
 
 class Store {
-  @observable msg = ''
+  @observable loading = false
 }
 
 export default new Store()

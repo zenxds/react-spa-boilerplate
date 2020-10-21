@@ -8,12 +8,6 @@ import './styles.less'
 @inject('userActions', 'userStore')
 @observer
 export default class Logout extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {}
-  }
-
   async doLogout() {
     const r = await this.props.userActions.logout()
     if (r === undefined) {

@@ -12,8 +12,6 @@ import ItemForm from '../ItemForm'
 @inject('actions', 'store')
 @observer
 export default class PageTable extends Base {
-  static propTypes = {}
-
   constructor(props) {
     super(props)
 
@@ -39,9 +37,7 @@ export default class PageTable extends Base {
     actions.merge({
       loading: true,
     })
-
     const data = await actions.getList(query)
-
     actions.merge({
       loading: false,
     })
