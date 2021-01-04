@@ -127,7 +127,7 @@ export default class Login extends React.Component {
         </div>
         <div styleName="logo">
           <a href="/" title={COMPANY_NAME}>
-            {COMPANY_NAME}
+            <img src="/data/images/logo.png" />
           </a>
         </div>
         <div styleName="login-box">

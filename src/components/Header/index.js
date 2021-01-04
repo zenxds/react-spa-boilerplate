@@ -3,7 +3,6 @@ import { Link, withRouter } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
 import { Icon, Menu, Dropdown } from '@dx/xbee'
 
-import { COMPANY_NAME } from '@constants'
 import paths from '@constants/paths'
 import './less/styles.less'
 
@@ -28,7 +27,7 @@ class Header extends Component {
     return (
       <Fragment>
         <Link to="/" styleName="logo">
-          {COMPANY_NAME}
+          <img src="/data/images/logo.png" />
         </Link>
 
         <div styleName="header-info">
