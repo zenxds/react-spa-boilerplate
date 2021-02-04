@@ -8,7 +8,6 @@ import {
   Redirect,
 } from 'react-router-dom'
 import { Spin } from '@dx/xbee'
-import { hot } from 'react-hot-loader'
 
 import { getHashPath } from '@utils'
 import paths from '@constants/paths'
@@ -71,4 +70,4 @@ class App extends Component {
   }
 }
 
-export default hot(module)(App)
+export default App

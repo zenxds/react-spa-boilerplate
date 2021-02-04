@@ -4,11 +4,12 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const dxMock = require('dx-mock')
 const UnusedWebpackPlugin = require('unused-webpack-plugin')
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 
 const rules = require('./webpack.rules')
 module.exports = {
   mode: 'development',
-  entry: ['./src/index.js'],
+  entry: './src/index.js',
   output: {
     path: path.join(__dirname, '../build'),
     filename: 'main.js'
@@ -112,6 +113,7 @@ module.exports = {
       template: fs.existsSync(path.join(__dirname, '../template/index.dev.html')) ? 'template/index.dev.html' : 'template/index.html'
     }),
     new webpack.HotModuleReplacementPlugin(),
+    new ReactRefreshWebpackPlugin(),
     new webpack.ProvidePlugin({
       'React': 'react'
     }),
@@ -122,7 +124,7 @@ module.exports = {
   devServer: {
     contentBase: [
       path.join(__dirname, '../data'),
-      path.join(__dirname, '../build')
+      path.join(__dirname, '../build'),
     ],
     hot: true,
     historyApiFallback: true,
