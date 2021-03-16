@@ -8,8 +8,10 @@ const WebpackCleanupPlugin = require('webpack-cleanup-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 
 const rules = require('./webpack.rules')
+const { default: CaseSensitivePathsWebpackPlugin } = require('case-sensitive-paths-webpack-plugin')
 module.exports = {
   mode: 'production',
   entry: './src/index.js',
@@ -191,6 +193,7 @@ module.exports = {
       chunkFilename: '[name].[hash].css',
       filename: '[name].css'
     }),
+    new CaseSensitivePathsWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: 'template/index.prod.html',
       hash: true,

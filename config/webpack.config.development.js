@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const dxMock = require('dx-mock')
 const UnusedWebpackPlugin = require('unused-webpack-plugin')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 
 const rules = require('./webpack.rules')
 module.exports = {
@@ -114,6 +115,7 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new ReactRefreshWebpackPlugin(),
+    new CaseSensitivePathsPlugin(),
     new webpack.ProvidePlugin({
       'React': 'react'
     }),
