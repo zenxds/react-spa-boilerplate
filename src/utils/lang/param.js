@@ -1,7 +1,7 @@
 const toString = Object.prototype.toString
 const isArray =
   Array.isArray ||
-  function(val) {
+  function (val) {
     return toString.call(val) === '[object Array]'
   }
 
@@ -17,7 +17,7 @@ const endsWith = (str, suffix) => {
 
 const encode = encodeURIComponent
 
-const decode = function(s) {
+const decode = function (s) {
   try {
     return decodeURIComponent(s.replace(/\+/g, ' '))
   } catch (err) {
@@ -25,7 +25,7 @@ const decode = function(s) {
   }
 }
 
-export const param = function(o, sep, eq, serializeArray) {
+export const param = function (o, sep, eq, serializeArray) {
   sep = sep || '&'
   eq = eq || '='
   if (serializeArray === undefined) {
@@ -71,7 +71,7 @@ export const param = function(o, sep, eq, serializeArray) {
 /**
  * query字符串转为对象
  */
-export const unparam = function(str, sep, eq) {
+export const unparam = function (str, sep, eq) {
   str = str + ''
   sep = sep || '&'
   eq = eq || '='

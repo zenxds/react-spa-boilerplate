@@ -4,19 +4,21 @@ import {
   observer,
 } from 'mobx-react'
 import {
-  // BrowserRouter as Router
-  // HashRouter as Router,
   Switch,
   Route,
   // Redirect,
   withRouter,
 } from 'react-router-dom'
+import loadable from '@loadable/component'
 import { Result } from '@dx/xbee'
 
 import paths from '@constants/paths'
 import Header from '@components/Header'
 import Menu from '@components/Menu'
-import Dynamic from './dynamic'
+
+function load(page) {
+  return loadable(() => import(`./${page}`))
+}
 
 @withRouter
 @observer
@@ -33,29 +35,12 @@ export default class Main extends Component {
           </div>
           <div className="app-content">
             <Switch>
-              <Dynamic
-                exact
-                path="/"
-                bundle={require('bundle-loader?lazy!./home')}
-              />
-              {/*
-                <Route
-                  exact
-                  path="/"
-                  render={() => <Redirect to={paths.index} />}
-                />
-              */}
-              <Dynamic
-                exact
-                path={paths.index}
-                bundle={require('bundle-loader?lazy!./dashboard')}
-              />
-              <Dynamic
-                exact
-                path={paths.account}
-                bundle={require('bundle-loader?lazy!./account')}
-              />
-              <Route path="/" render={() => <Result status="404" />} />
+              <Route exact path="/" component={load('home')} />
+              <Route exact path={paths.index} component={load('dashboard')} />
+              <Route exact path={paths.account} component={load('account')} />
+              <Route path="/">
+                <Result status="404" />
+              </Route>
             </Switch>
           </div>
         </div>

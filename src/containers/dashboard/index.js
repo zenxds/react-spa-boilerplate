@@ -13,10 +13,8 @@ import store from './store'
 })
 @inject('actions', 'store')
 @observer
-class Dashboard extends Component {
+export default class Dashboard extends Component {
   render() {
-    return <Layout.DxMain title="总览" />
+    return <Layout.Main title="总览" />
   }
 }
-
-export default Dashboard

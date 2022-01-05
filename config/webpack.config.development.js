@@ -1,11 +1,12 @@
 const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const dxMock = require('dx-mock')
+const ESLintPlugin = require('eslint-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const UnusedWebpackPlugin = require('unused-webpack-plugin')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
+const CaseSensitivePathsWebpackPlugin = require('case-sensitive-paths-webpack-plugin')
 
 const rules = require('./webpack.rules')
 module.exports = {
@@ -15,7 +16,7 @@ module.exports = {
     path: path.join(__dirname, '../build'),
     filename: 'main.js'
   },
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'inline-source-map',
   resolve: {
     modules: ['src', 'node_modules'],
     extensions: ['.js', '.jsx'],
@@ -30,7 +31,7 @@ module.exports = {
     rules: rules.concat([
       {
         test: /\.jsx?$/,
-        use: ['babel-loader', 'eslint-loader'],
+        use: ['babel-loader'],
         exclude: /node_modules/
       },
       {
@@ -40,15 +41,16 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              modules: true,
-              localIdentName: '[path][name]__[local]--[hash:base64:5]'
+              modules: {
+                localIdentName: '[path][name]__[local]--[hash:base64:5]'
+              }
             }
           },
           {
             loader: 'postcss-loader',
             options: {
-              config: {
-                path: 'config/postcss.config.js'
+              postcssOptions: {
+                config: path.join(__dirname, 'postcss.config.js')
               }
             }
           }
@@ -62,23 +64,27 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              modules: true,
-              localIdentName: '[path][name]__[local]--[hash:base64:5]'
+              modules: {
+                localIdentName: '[path][name]__[local]--[hash:base64:5]'
+              }
             }
           },
           {
             loader: 'postcss-loader',
             options: {
-              config: {
-                path: 'config/postcss.config.js'
+              postcssOptions: {
+                config: path.join(__dirname, 'postcss.config.js')
               }
             }
           },
           {
             loader: 'less-loader',
             options: {
-              relativeUrls: false,
-              javascriptEnabled: true
+              lessOptions: {
+                relativeUrls: false,
+                math: 'always',
+                javascriptEnabled: true
+              }
             }
           }
         ]
@@ -91,15 +97,13 @@ module.exports = {
           {
             loader: 'less-loader',
             options: {
-              javascriptEnabled: true
+              lessOptions: {
+                javascriptEnabled: true
+              }
             }
           }
         ]
       },
-      {
-        test: /\.(png|jpe?g|gif|svg)$/,
-        use: 'url-loader?limit=8192&name=image/[hash].[ext]'
-      }
     ])
   },
   plugins: [
@@ -113,9 +117,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: fs.existsSync(path.join(__dirname, '../template/index.dev.html')) ? 'template/index.dev.html' : 'template/index.html'
     }),
+    new ESLintPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new ReactRefreshWebpackPlugin(),
-    new CaseSensitivePathsPlugin(),
+    new CaseSensitivePathsWebpackPlugin(),
     new webpack.ProvidePlugin({
       'React': 'react'
     }),
@@ -124,16 +129,30 @@ module.exports = {
     })
   ],
   devServer: {
-    contentBase: [
-      path.join(__dirname, '../data'),
-      path.join(__dirname, '../build'),
+    static: [
+      {
+        directory: path.join(__dirname, '../data'),
+      },
+      {
+        directory: path.join(__dirname, '../build'),
+      }
     ],
+    client: {
+      overlay: {
+        errors: true,
+        warnings: false,
+      },
+    },
     hot: true,
     historyApiFallback: true,
     host: '0.0.0.0',
-    disableHostCheck: true,
-    before(app){
-      dxMock(app, { root: path.join(__dirname, '../api')})
+    allowedHosts: 'all',
+    onBeforeSetupMiddleware: function (devServer) {
+      if (!devServer) {
+        throw new Error('webpack-dev-server is not defined');
+      }
+
+      dxMock(devServer.app, { root: path.join(__dirname, '../api')})
     },
     proxy: {
       '/dev': {

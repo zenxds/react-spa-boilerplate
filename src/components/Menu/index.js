@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
-import { Icon, Menu } from '@dx/xbee'
+import { Menu } from '@dx/xbee'
+import { Icon } from '@dx/icons/compatible'
 import classnames from 'classnames'
 
 import { startsWith } from '@utils'
@@ -78,6 +79,7 @@ class PageMenu extends Component {
   handleClick = e => {
     const { location, history } = this.props
     const pathname = location.pathname
+    console.log(e)
     const target = e.item.props.pathname
 
     if (pathname !== target) {
@@ -87,11 +89,11 @@ class PageMenu extends Component {
 
   renderIcon(code) {
     if (menuIconMap[code]) {
-      return <Icon type={menuIconMap[code]} />
+      return menuIconMap[code]
     }
 
     return (
-      <i className={classnames('menu-icon', 'anticon', `menu-icon-${code}`)} />
+      <i className={classnames('anticon', 'menu-icon', `menu-icon-${code}`)} />
     )
   }
 

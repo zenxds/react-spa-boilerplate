@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
-import { Icon, Menu, Dropdown } from '@dx/xbee'
+import { Menu, Dropdown } from '@dx/xbee'
+import { Icon } from '@dx/icons/compatible'
 
 import paths from '@constants/paths'
 import './less/styles.less'
@@ -18,7 +19,7 @@ class Header extends Component {
     const { userStore } = this.props
     const menu = (
       <Menu>
-        <Menu.Item>
+        <Menu.Item key="1">
           <a onClick={this.handleLogout}>安全退出</a>
         </Menu.Item>
       </Menu>

@@ -10,7 +10,7 @@ export const startsWith = (str, prefix) => {
  * array to map by a key attribute
  */
 export function keyBy(array, key) {
-  return array.reduce(function(map, obj) {
+  return array.reduce(function (map, obj) {
     let k = typeof key === 'function' ? key(obj) : obj[key]
     map[k] = obj
     return map
