@@ -10,14 +10,20 @@ import {
   withRouter,
 } from 'react-router-dom'
 import loadable from '@loadable/component'
-import { Result } from '@dx/xbee'
+import { Result, Spin, Layout } from '@dx/xbee'
 
 import paths from '@constants/paths'
 import Header from '@components/Header'
 import Menu from '@components/Menu'
 
 function load(page) {
-  return loadable(() => import(`./${page}`))
+  return loadable(() => import(`./${page}`), {
+    fallback: (
+      <Layout.Main title="">
+        <Spin />
+      </Layout.Main>
+    ),
+  })
 }
 
 @withRouter

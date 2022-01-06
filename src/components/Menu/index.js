@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
 import { Menu } from '@dx/xbee'
-import { Icon } from '@dx/icons/compatible'
 import classnames from 'classnames'
 
 import { startsWith } from '@utils'

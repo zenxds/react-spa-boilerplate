@@ -7,10 +7,10 @@ import { configure } from 'mobx'
 import { Provider } from 'mobx-react'
 import { ConfigProvider } from '@dx/xbee'
 import zhCN from '@dx/xbee/es/locale/zh_CN'
-import moment from 'moment'
 
-import 'moment/locale/zh-cn'
-moment.locale('zh-cn')
+import dayjs from 'dayjs'
+import 'dayjs/locale/zh-cn'
+dayjs.locale('zh-cn')
 
 import { getPopupContainer } from '@utils'
 import App from './app'

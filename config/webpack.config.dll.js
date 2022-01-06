@@ -1,5 +1,5 @@
 const path = require('path')
-const moment = require('moment')
+const dayjs = require('dayjs')
 const webpack = require('webpack')
 const TerserPlugin = require("terser-webpack-plugin")
 
@@ -23,7 +23,7 @@ module.exports = {
   optimization: {
     minimize: true,
     minimizer: [
-      new webpack.BannerPlugin(`${moment().format('YYYY-MM-DD HH:mm:ss')}`),
+      new webpack.BannerPlugin(`${dayjs().format('YYYY-MM-DD HH:mm:ss')}`),
       new TerserPlugin({
         parallel: true,
         extractComments: false,

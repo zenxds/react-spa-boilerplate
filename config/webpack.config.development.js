@@ -118,7 +118,6 @@ module.exports = {
       template: fs.existsSync(path.join(__dirname, '../template/index.dev.html')) ? 'template/index.dev.html' : 'template/index.html'
     }),
     new ESLintPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
     new ReactRefreshWebpackPlugin(),
     new CaseSensitivePathsWebpackPlugin(),
     new webpack.ProvidePlugin({

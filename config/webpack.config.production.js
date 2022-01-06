@@ -1,6 +1,6 @@
 // https://www.maizhiying.me/posts/2017/03/01/webpack-babel-ie8-support.html
 const path = require('path')
-const moment = require('moment')
+const dayjs = require('dayjs')
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin")
@@ -26,6 +26,7 @@ module.exports = {
     // chunkIds: 'named',
     minimize: true,
     minimizer: [
+      new webpack.BannerPlugin(`${dayjs().format('YYYY-MM-DD HH:mm:ss')}`),
       new TerserPlugin({
         parallel: true,
         extractComments: false,
