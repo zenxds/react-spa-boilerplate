@@ -1,56 +1,42 @@
 module.exports = {
-  "parser": "@babel/eslint-parser",
-  "parserOptions": {
-    "sourceType": "module",
-    "ecmaVersion": 7,
-    "ecmaFeatures": {
-      "jsx": true,
-      "legacyDecorators": true,
-      "experimentalObjectRestSpread": true
-    }
+  parser: '@babel/eslint-parser',
+  parserOptions: {
+    sourceType: 'module',
+    ecmaVersion: 7,
+    ecmaFeatures: {
+      jsx: true,
+      legacyDecorators: true,
+      experimentalObjectRestSpread: true,
+    },
   },
-  "env": {
-    "browser": true,
-    "node": true,
-    "es6": true,
-    "jest": true
+  env: {
+    browser: true,
+    node: true,
+    es6: true,
+    jest: true,
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "prettier"
-  ],
-  "plugins": [
-    "import",
-    "react"
-  ],
-  "globals": {
-    "API_SERVER_PLACEHOLDER": true
+  extends: ['eslint:recommended', 'plugin:react/recommended', 'prettier'],
+  plugins: ['import', 'react'],
+  globals: {
+    API_SERVER_PLACEHOLDER: true,
   },
-  "rules": {
-    "quotes": [
-      "warn",
-      "single"
-    ],
-    "no-unused-vars": "warn",
-    "no-console": [
-      "error",
+  rules: {
+    quotes: ['warn', 'single'],
+    'no-unused-vars': 'warn',
+    'no-console': [
+      'error',
       {
-        "allow": [
-          "log",
-          "warn",
-          "error"
-        ]
-      }
+        allow: ['log', 'warn', 'error'],
+      },
     ],
-    "no-empty": [
-      "error",
+    'no-empty': [
+      'error',
       {
-        "allowEmptyCatch": true
-      }
+        allowEmptyCatch: true,
+      },
     ],
-    "react/react-in-jsx-scope": "off",
-    "react/prop-types": "off",
-    "react/display-name": "off"
-  }
+    'react/react-in-jsx-scope': 'off',
+    'react/prop-types': 'off',
+    'react/display-name': 'off',
+  },
 }
