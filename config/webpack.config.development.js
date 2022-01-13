@@ -117,7 +117,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: fs.existsSync(path.join(__dirname, '../template/index.dev.html')) ? 'template/index.dev.html' : 'template/index.html'
     }),
-    new ESLintPlugin(),
+    new ESLintPlugin({
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      failOnError: true,
+    }),
     new ReactRefreshWebpackPlugin(),
     new CaseSensitivePathsWebpackPlugin(),
     new webpack.ProvidePlugin({
