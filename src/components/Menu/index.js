@@ -78,7 +78,6 @@ class PageMenu extends Component {
   handleClick = e => {
     const { location, history } = this.props
     const pathname = location.pathname
-    console.log(e)
     const target = e.item.props.pathname
 
     if (pathname !== target) {
