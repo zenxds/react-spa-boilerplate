@@ -5,7 +5,7 @@ import { Table, Tooltip, message } from '@dx/xbee'
 import { DxFormModal, DxTableBtn } from '@dx/xpanda'
 
 import Base from '@components/BasePage/SearchTable/Table'
-import { pick } from '@utils'
+import { pick, compact, keyBy } from '@utils'
 
 import ItemForm from '../ItemForm'
 
@@ -16,9 +16,9 @@ export default class PageTable extends Base {
     super(props)
 
     this.state = {
-      items: [],
       page: 1,
       pageSize: 10,
+      items: [],
       itemCount: 0,
 
       editItem: null,
@@ -37,13 +37,18 @@ export default class PageTable extends Base {
     actions.merge({
       loading: true,
     })
-    const data = await actions.getList(query)
+    const data = await actions.getList(compact(query))
     actions.merge({
       loading: false,
     })
 
     if (data) {
-      this.setState(data)
+      this.setState({
+        items: data.results,
+        itemCount: data.count,
+        page: query.page,
+        pageSize: query.pageSize,
+      })
     }
   }
 
@@ -76,24 +81,35 @@ export default class PageTable extends Base {
     })
 
     if (r) {
-      message.success(`删除${record.name}成功`)
+      message.success('删除成功')
       this.props.actions.resetConditions('page')
     }
   }
 
   getColumns() {
-    return [
-      {
-        title: '名称',
-        dataIndex: 'name',
-        render: (name, record) => {
-          if (record.desc) {
-            return <Tooltip title={record.desc}>{name}</Tooltip>
+    const { meta } = this.props.store
+    const columns = Object.keys(meta).filter(key => key !== 'id').map(key => {
+      const type = meta[key].type
+      return {
+        dataIndex: key,
+        title: meta[key].label,
+        render: v => {
+          if (type === 'url') {
+            return <a href={v}>链接</a>
           }
 
-          return name
-        },
-      },
+          if (type === 'choice') {
+            const map = keyBy(meta[key].choices, 'value')
+            return map[v] ? map[v].display_name : v
+          }
+
+          return v
+        }
+      }
+    })
+
+    return [
+      ...columns,
       {
         title: '操作',
         dataIndex: 'id',
@@ -103,7 +119,7 @@ export default class PageTable extends Base {
               <DxTableBtn type="edit" onClick={this.handleEdit} />
               <DxTableBtn
                 type="delete"
-                deleteTitle={`您确定要删除“${record.name}”吗`}
+                deleteTitle={'您确定要删除该记录吗'}
                 onClick={this.submitDelete}
               />
             </DxTableBtn.Group>

@@ -97,8 +97,8 @@ export default class Login extends React.Component {
     })
 
     try {
-      await this.props.userActions.login({
-        account,
+      const data = await this.props.userActions.login({
+        username: account,
         password,
       })
 
@@ -106,12 +106,14 @@ export default class Login extends React.Component {
         loading: false,
         loginErrorMsg: '',
       })
-      this.props.userActions.loginSuccess()
+      this.props.userActions.loginSuccess(data)
     } catch (err) {
       this.setState({
-        loginErrorMsg: err.message || '登录失败',
+        // loginErrorMsg: err.message || '登录失败',
         loading: false,
       })
+
+      message.error(err.message || '登录失败')
     }
   }
 

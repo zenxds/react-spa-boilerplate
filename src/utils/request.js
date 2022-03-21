@@ -1,12 +1,11 @@
 import { message } from '@dx/xbee'
 import axios from 'axios'
 
-import { API_SERVER, API_USER_INFO } from '@constants'
-import { param, isPlainObject, compact } from './lang'
+import { API_SERVER, AUTH_KEY, API_USER_INFO } from '@constants'
+import { compact } from './lang'
+// import * as cookie from './cookie'
 
 axios.defaults.baseURL = API_SERVER
-axios.defaults.headers.post['Content-Type'] =
-  'application/x-www-form-urlencoded'
 
 const messageMap = {
   'request error': '请求失败，请稍后重试',
@@ -15,10 +14,18 @@ const messageMap = {
 }
 const loginIgnoreList = [API_USER_INFO]
 
-function handleLoginExpire() {
-  message.error('登录已失效，请重新登录')
-  location.reload()
-}
+
+axios.interceptors.request.use(function(config) {
+  const headers = config.headers || {}
+
+  // headers['X-CSRFToken'] = cookie.get('csrftoken')
+  const token = localStorage.getItem(AUTH_KEY) || ''
+  if (token) {
+    headers['Authorization'] = 'Token ' + localStorage.getItem(AUTH_KEY) || ''
+  }
+
+  return config
+})
 
 export default function request(config = {}) {
   config = Object.assign(
@@ -27,30 +34,33 @@ export default function request(config = {}) {
       catchError: true,
       // 是否返回整个response data，默认返回接口里的data字段
       returnResponseData: false,
-      withCredentials: true,
+      // withCredentials: true,
       timeout: 30 * 1000,
     },
     config,
   )
 
   const ret = axios(config).then(response => {
-    const { success, code, data, msg } = response.data
+    if (config.method.toLowerCase() === 'delete') {
+      return true
+    }
+
+    const { success, data, message } = response.data
 
     if (success) {
       return config.returnResponseData ? response.data : data
-    } else if (code === 403) {
-      // 未登录时，系统一开始获取用户信息是正常调用
-      if (loginIgnoreList.indexOf(config.url) === -1) {
-        handleLoginExpire()
-      }
     } else {
-      throw new Error(msg || '请求失败')
+      throw new Error(message || '请求失败')
     }
   })
 
   if (config.catchError) {
     return ret.catch(err => {
-      message.error(messageMap[err.message] || err.message)
+      const msg = err?.response?.data.message || err.message
+
+      if (loginIgnoreList.indexOf(config.url) === -1) {
+        message.error(messageMap[msg] || msg)
+      }
     })
   }
 
@@ -69,28 +79,11 @@ export function get(url, params = {}, config = {}) {
 }
 
 export function post(url, data, config = {}) {
-  if (isPlainObject(data)) {
-    data = param(compact(data))
-  }
-
   return request(
     Object.assign(config, {
       method: 'post',
       url,
       data,
-    }),
-  )
-}
-
-export function jsonPost(url, data = {}, config = {}) {
-  return request(
-    Object.assign(config, {
-      method: 'post',
-      url,
-      data: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
     }),
   )
 }

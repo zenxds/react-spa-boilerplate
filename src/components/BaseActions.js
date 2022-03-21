@@ -1,5 +1,5 @@
 import { action, toJS } from 'mobx'
-import { get, post, jsonPost } from '@utils/request'
+import request, { get, post } from '@utils/request'
 
 export default class BaseActions {
   constructor(store) {
@@ -38,4 +38,4 @@ export default class BaseActions {
 
 BaseActions.prototype.get = get
 BaseActions.prototype.post = post
-BaseActions.prototype.jsonPost = jsonPost
+BaseActions.prototype.request = request

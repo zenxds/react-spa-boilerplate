@@ -5,7 +5,7 @@ class Store {
   @observable user = {}
 
   @computed get nickName() {
-    return this.user.nickName
+    return this.user.username
   }
 
   hasPermission = code => {

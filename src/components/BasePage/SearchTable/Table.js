@@ -20,7 +20,7 @@ export default class PageTable extends Component {
       },
       () => {
         this.fetchData({
-          pageNo: 1,
+          page: 1,
         })
       },
       {
@@ -29,8 +29,8 @@ export default class PageTable extends Component {
     )
   }
 
-  handlePageChange = async (pageNo, pageSize) => {
-    return this.fetchData({ pageNo, pageSize })
+  handlePageChange = async (page, pageSize) => {
+    return this.fetchData({ page, pageSize })
   }
 
   getDataSource() {
@@ -39,11 +39,11 @@ export default class PageTable extends Component {
   }
 
   getPagination() {
-    const { pageNo, pageSize, itemCount } = this.state
+    const { page, pageSize, itemCount } = this.state
 
     return {
       size: 'small',
-      current: pageNo,
+      current: page,
       total: itemCount,
       pageSize: pageSize,
       showSizeChanger: true,

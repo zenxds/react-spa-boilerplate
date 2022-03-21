@@ -1,1 +1,1 @@
-export const API_MSG = '/msg'
+export const API_MSG = '/api/cartoons/'

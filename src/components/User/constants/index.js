@@ -1,2 +1,2 @@
-export const API_LOGIN = '/user/login'
-export const API_LOGOUT = '/user/logout'
+export const API_LOGIN = '/api-token-auth/'
+// export const API_LOGOUT = '/user/logout'

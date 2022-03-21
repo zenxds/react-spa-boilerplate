@@ -1,5 +1,5 @@
 import BaseActions from '@components/BaseActions'
-import { API_USER_INFO } from '@constants'
+import { API_USER_INFO, AUTH_KEY } from '@constants'
 
 import * as constants from '../constants'
 import store from '../store'
@@ -17,20 +17,22 @@ class Actions extends BaseActions {
   }
 
   async logout() {
-    return await this.get(constants.API_LOGOUT)
+    localStorage.removeItem(AUTH_KEY)
+    return true
   }
 
   async login(data = {}) {
-    return await this.post(constants.API_LOGIN, data, {
-      catchError: false,
-    })
+    return await this.post(constants.API_LOGIN, data)
   }
 
-  async loginSuccess() {
-    const r = await this.getUserInfo()
-    if (r) {
-      location.href = '#/'
+  async loginSuccess(data = {}) {
+    console.log(data)
+    if (data.token) {
+      localStorage.setItem(AUTH_KEY, data.token)
     }
+
+    await this.getUserInfo()
+    location.href = '#/'
   }
 }
 

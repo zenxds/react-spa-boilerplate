@@ -4,5 +4,7 @@ export default {
   login: '/login',
   logout: '/logout',
 
+  overview: '/overview',
+  cartoons: '/cartoons',
   account: '/account/manage',
 }

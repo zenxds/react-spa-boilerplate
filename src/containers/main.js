@@ -42,7 +42,8 @@ export default class Main extends Component {
           <div className="app-content">
             <Switch>
               <Route exact path="/" component={load('home')} />
-              <Route exact path={paths.index} component={load('dashboard')} />
+              <Route exact path={paths.overview} component={load('dashboard')} />
+              <Route exact path={paths.cartoons} component={load('searchTablePage')} />
               <Route exact path={paths.account} component={load('account')} />
               <Route path="/">
                 <Result status="404" />
