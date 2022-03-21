@@ -19,10 +19,10 @@ import './styles.less'
 export default class Page extends Component {
   render() {
     return (
-      <Layout.DxMain title="页面标题">
+      <Layout.Main title="页面标题">
         <Toolbar />
         <Table />
-      </Layout.DxMain>
+      </Layout.Main>
     )
   }
 }
