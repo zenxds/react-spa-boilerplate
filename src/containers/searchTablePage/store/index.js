@@ -11,6 +11,7 @@ class Store {
   @observable code = ''
   @observable menu = {}
   @observable meta = {}
+  @observable filters = []
 }
 
 export default new Store()

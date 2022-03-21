@@ -77,7 +77,7 @@ export default class PageTable extends Base {
 
     if (r) {
       message.success(`删除${record.name}成功`)
-      this.props.actions.resetSearch('page')
+      this.props.actions.resetConditions('page')
     }
   }
 

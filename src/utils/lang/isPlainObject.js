@@ -4,7 +4,7 @@ const isType = type => {
     return toString.call(obj) == '[object ' + type + ']'
   }
 }
-const isObject = isType('Object')
+export const isObject = isType('Object')
 
 // IE10及以上的写法
 export const isPlainObject = obj =>

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { toJS } from 'mobx'
 import { observer, inject } from 'mobx-react'
-import { Input, Button, message } from '@dx/xbee'
+import { Input, Button, Select, message } from '@dx/xbee'
 import { DxFormModal, DxToolbar } from '@dx/xpanda'
 
 import Base from '@components/BasePage/SearchTable/Toolbar'
@@ -45,9 +45,43 @@ export default class PageToolbar extends Base {
     this.handleHideCreateModal()
   }
 
+  getInputComponent(filter, meta) {
+    const store = this.props.store
+    const conditions = toJS(store.pageConditions)
+
+    if (meta.type === 'choice') {
+      return (
+        <Select
+          placeholder="请选择"
+          value={conditions[filter.name]}
+          onChange={this.handleChange.bind(this, filter.name)}
+          allowClear
+        >
+          {
+            meta.choices.map(item => {
+              return (
+                <Select.Option key={item.value} value={item.value}>{item.display_name}</Select.Option>
+              )
+            })
+          }
+        </Select>
+      )
+    }
+
+    return (
+      <Input
+        value={conditions[filter.name]}
+        onChange={this.handleChange.bind(this, filter.name)}
+        onPressEnter={this.handleSearch}
+        allowClear
+        placeholder='请输入'
+      />
+    )
+  }
+
   render() {
     const { store } = this.props
-    const conditions = toJS(store.pageConditions)
+    const { filters, meta } = store
     const { showCreateModal } = this.state
 
     return (
@@ -62,15 +96,15 @@ export default class PageToolbar extends Base {
             </Button>
           }
         >
-          <DxToolbar.Item label="名称">
-            <Input
-              onChange={this.handleChange.bind(this, 'name')}
-              onPressEnter={this.handleSearch}
-              allowClear
-              value={conditions.name}
-              placeholder="请输入名称"
-            />
-          </DxToolbar.Item>
+          {
+            filters.map(item => {
+              return (
+                <DxToolbar.Item key={item.name} label={meta[item.name]?.label}>
+                  { this.getInputComponent(item, meta[item.name] || {}) }
+                </DxToolbar.Item>
+              )
+            })
+          }
         </DxToolbar>
 
         {showCreateModal ? (

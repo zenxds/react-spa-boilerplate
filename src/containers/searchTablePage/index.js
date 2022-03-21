@@ -2,7 +2,7 @@ import { Component } from 'react'
 import { observer, inject } from 'mobx-react'
 import { Layout } from '@dx/xbee'
 
-import { getHashPath } from '@utils'
+import { getHashPath, isObject } from '@utils'
 import * as decorators from '@decorators'
 import Toolbar from './components/Toolbar'
 import Table from './components/Table'
@@ -47,22 +47,43 @@ export default class Page extends Component {
       code: menu.code,
     })
 
-    const meta = await this.getMetaInfo()
+    const metaInfo = await this.getMetaInfo()
     this.setState({
       loading: false,
     })
 
     this.props.actions.merge({
       menu,
-      meta
+      ...metaInfo
     })
   }
 
 
   async getMetaInfo() {
     const meta = await this.props.actions.getMetaInfo()
+    let filters = meta?.filter_fields || []
 
-    return meta?.actions?.POST || {}
+    if (isObject(filters)) {
+      filters = Object.keys(filters).map(item => {
+        return {
+          name: item,
+          lookups: filters[item] || []
+        }
+      })
+    } else {
+      // ['name', 'code']
+      filters = filters.map(item => {
+        return {
+          name: item,
+          lookups: []
+        }
+      })
+    }
+
+    return {
+      meta: meta?.serializer || {},
+      filters: filters,
+    }
   }
 
   render() {
