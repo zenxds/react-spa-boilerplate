@@ -1,22 +1,37 @@
 import BaseActions from '@components/BaseActions'
-import * as apis from '../constants/apis'
+import { REST_API } from '../constants/apis'
 import store from '../store'
 
 class Actions extends BaseActions {
   getList = (params = {}) => {
-    return this.get(apis.API_GET_LIST, params)
+    return this.get(REST_API, params)
   }
 
-  createItem = (params = {}) => {
-    return this.post(apis.API_CREATE_ITEM, params)
+  getMetaInfo = () => {
+    return this.request({
+      method: 'options',
+      url: REST_API
+    })
   }
 
-  editItem = (params = {}) => {
-    return this.post(apis.API_EDIT_ITEM, params)
+  createItem = (data = {}) => {
+    return this.post(REST_API, data)
   }
 
-  deleteItem = (params = {}) => {
-    return this.post(apis.API_DELETE_ITEM, params)
+  editItem = (data = {}) => {
+    return this.request({
+      method: 'patch',
+      url: REST_API + data.id + '/',
+      data
+    })
+  }
+
+  deleteItem = (data = {}) => {
+    return this.request({
+      method: 'delete',
+      url: REST_API + data.id + '/',
+      data
+    })
   }
 }
 

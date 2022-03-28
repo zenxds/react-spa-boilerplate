@@ -48,13 +48,13 @@ export default class Page extends Component {
     })
 
     const metaInfo = await this.getMetaInfo()
-    this.setState({
-      loading: false,
-    })
-
     this.props.actions.merge({
       menu,
       ...metaInfo
+    })
+
+    this.setState({
+      loading: false,
     })
   }
 

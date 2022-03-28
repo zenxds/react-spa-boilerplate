@@ -7,6 +7,9 @@ class Store {
   @observable pageConditions = observable.map({})
 
   @observable loading = false
+
+  @observable meta = {}
+  @observable filters = []
 }
 
 export default new Store()

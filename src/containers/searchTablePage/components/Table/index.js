@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { observer, inject } from 'mobx-react'
 import { toJS } from 'mobx'
-import { Table, Tooltip, message } from '@dx/xbee'
+import { Table, message } from '@dx/xbee'
 import { DxFormModal, DxTableBtn } from '@dx/xpanda'
 
 import Base from '@components/BasePage/SearchTable/Table'
@@ -101,6 +101,10 @@ export default class PageTable extends Base {
           if (type === 'choice') {
             const map = keyBy(meta[key].choices, 'value')
             return map[v] ? map[v].display_name : v
+          }
+
+          if (type === 'boolean') {
+            return v ? '是' : '否'
           }
 
           return v

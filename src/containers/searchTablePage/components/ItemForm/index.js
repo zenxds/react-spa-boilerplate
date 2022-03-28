@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import { observer, inject } from 'mobx-react'
-import { Form, Input, Select } from '@dx/xbee'
+import { Form, Switch, Input, Select } from '@dx/xbee'
 
 @inject('actions', 'store')
 @observer
@@ -23,6 +23,12 @@ export default class ItemForm extends Component {
             })
           }
         </Select>
+      )
+    }
+
+    if (info.type === 'boolean') {
+      return (
+        <Switch defaultChecked disable={!!info.read_only} />
       )
     }
 
@@ -57,6 +63,7 @@ export default class ItemForm extends Component {
                 key={key}
                 label={info.label}
                 name={key}
+                valuePropName={info.type === 'boolean' ? 'checked' : 'value'}
                 rules={[
                   {
                     required: info.required,

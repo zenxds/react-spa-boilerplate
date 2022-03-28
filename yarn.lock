@@ -1220,10 +1220,10 @@
     react-fast-marquee "^1.2.1"
     react-text-loop-next "^0.0.3"
 
-"@dx/xpanda@^0.2.7":
-  version "0.2.7"
-  resolved "https://registry.dingxiang-inc.com/@dx/xpanda/download/@dx/xpanda-0.2.7.tgz#35c22d1772b25ac3fa2605232affe5f61ef92e0e"
-  integrity sha1-NcItF3KyWsP6JgUjKv/l9h75Lg4=
+"@dx/xpanda@0.2.8":
+  version "0.2.8"
+  resolved "https://registry.dingxiang-inc.com/@dx/xpanda/download/@dx/xpanda-0.2.8.tgz#82c4705e8eb70494ab1100ba80dc7ba13939302c"
+  integrity sha1-gsRwXo63BJSrEQC6gNx7oTk5MCw=
   dependencies:
     "@dx/dx-request" "^1.1.6"
     classnames "~2.2.6"

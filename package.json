@@ -113,7 +113,7 @@
   "dependencies": {
     "@dx/icons": "^0.1.0",
     "@dx/xbee": "^4.17.4-release.1",
-    "@dx/xpanda": "^0.2.7",
+    "@dx/xpanda": "0.2.8",
     "@loadable/component": "^5.15.2",
     "axios": "^0.24.0",
     "babel-polyfill": "^6.26.0",
