@@ -8,6 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TerserPlugin = require("terser-webpack-plugin")
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CaseSensitivePathsWebpackPlugin = require('case-sensitive-paths-webpack-plugin')
+const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin')
 
 const rules = require('./webpack.rules')
 module.exports = {
@@ -103,7 +104,9 @@ module.exports = {
             loader: 'less-loader',
             options: {
               lessOptions: {
-                relativeUrls: false
+                relativeUrls: false,
+                math: 'always',
+                javascriptEnabled: true
               }
             }
           }
@@ -162,6 +165,7 @@ module.exports = {
       filename: '[name].css'
     }),
     new CaseSensitivePathsWebpackPlugin(),
+    new AntdDayjsWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: 'template/index.prod.html',
       hash: true,
