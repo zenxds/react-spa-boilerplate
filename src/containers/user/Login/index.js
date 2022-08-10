@@ -35,7 +35,7 @@ export default class Login extends React.Component {
       renderer: 'svg',
       loop: true,
       autoplay: false,
-      path: '/data/json/login.json',
+      path: '/json/login.json',
     })
 
     this.handleVisibilityChange()
@@ -127,7 +127,7 @@ export default class Login extends React.Component {
         </div>
         <div styleName="logo">
           <a href="/" title={COMPANY_NAME}>
-            <img src="/data/images/logo.png" />
+            <img src="/images/logo.png" />
           </a>
         </div>
         <div styleName="login-box">

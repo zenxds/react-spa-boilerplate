@@ -28,7 +28,7 @@ class Header extends Component {
     return (
       <Fragment>
         <Link to="/" styleName="logo">
-          <img src="/data/images/logo.png" />
+          <img src="/images/logo.png" />
         </Link>
 
         <div styleName="header-info">

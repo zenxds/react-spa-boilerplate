@@ -75,3 +75,4 @@ tmp
 template/index.dev.html
 build/
 *.zip
+data/manifest.json

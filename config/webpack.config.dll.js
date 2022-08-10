@@ -32,7 +32,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DllPlugin({
-      path: path.join(__dirname, '../tmp', 'manifest.json'),
+      path: path.join(__dirname, '../data', 'manifest.json'),
       name: '[name]'
     }),
   ]
