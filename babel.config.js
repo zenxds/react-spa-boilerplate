@@ -1,3 +1,7 @@
+const {
+  generateScopedNameFactory,
+} = require('@dr.pogodin/babel-plugin-react-css-modules/utils')
+
 module.exports = {
   presets: [
     [
@@ -11,6 +15,9 @@ module.exports = {
     ],
     '@babel/preset-react',
   ],
+  assumptions: {
+    setPublicClassFields: false,
+  },
   env: {
     test: {
       presets: [
@@ -22,39 +29,28 @@ module.exports = {
             },
           },
         ],
-        ['@babel/preset-react', {
-          runtime: 'automatic'
-        }],
-      ],
-      plugins: [
-        ['@babel/plugin-proposal-decorators', { legacy: true }],
-        '@babel/plugin-proposal-class-properties',
-        '@babel/plugin-syntax-dynamic-import',
         [
-          '@dr.pogodin/react-css-modules',
+          '@babel/preset-react',
           {
-            generateScopedName: '[hash:base64]',
-            filetypes: {
-              '.less': {
-                syntax: 'postcss-less',
-              },
-            },
+            runtime: 'automatic',
           },
         ],
       ],
+      plugins: [],
     },
     development: {
       plugins: [
         ['@babel/plugin-proposal-decorators', { legacy: true }],
-        '@babel/plugin-proposal-class-properties',
-        '@babel/plugin-syntax-dynamic-import',
+        ['@babel/plugin-proposal-class-properties'],
         'react-refresh/babel',
         [
           '@dr.pogodin/react-css-modules',
           {
             webpackHotModuleReloading: true,
             handleMissingStyleName: 'warn',
-            generateScopedName: '[path][name]__[local]--[hash:base64:5]',
+            generateScopedName: generateScopedNameFactory(
+              '[path][name]__[local]--[hash:base64:5]',
+            ),
             filetypes: {
               '.less': {
                 syntax: 'postcss-less',
@@ -67,12 +63,11 @@ module.exports = {
     production: {
       plugins: [
         ['@babel/plugin-proposal-decorators', { legacy: true }],
-        '@babel/plugin-proposal-class-properties',
-        '@babel/plugin-syntax-dynamic-import',
+        ['@babel/plugin-proposal-class-properties'],
         [
           '@dr.pogodin/react-css-modules',
           {
-            generateScopedName: '[hash:base64]',
+            generateScopedName: generateScopedNameFactory('[hash:base64]'),
             filetypes: {
               '.less': {
                 syntax: 'postcss-less',

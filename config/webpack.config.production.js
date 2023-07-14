@@ -7,8 +7,14 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const CaseSensitivePathsWebpackPlugin = require('case-sensitive-paths-webpack-plugin')
-const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin')
+const { getLocalIdent } = require('@dr.pogodin/babel-plugin-react-css-modules/utils')
+
+// https://ant-design.gitee.io/docs/react/migration-v5-cn
+const { theme } = require('antd/lib')
+const { convertLegacyToken } = require('@ant-design/compatible/lib')
+const { defaultAlgorithm, defaultSeed } = theme
+const mapToken = defaultAlgorithm(defaultSeed)
+const v4Token = convertLegacyToken(mapToken)
 
 const rules = require('./webpack.rules')
 module.exports = {
@@ -18,7 +24,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, '../build'),
     filename: 'main.js',
-    chunkFilename: '[name].[hash].js',
+    chunkFilename: '[name].[contenthash].js',
     clean: {
       keep: /vendor/,
     },
@@ -48,7 +54,10 @@ module.exports = {
       '@utils': resolve('utils'),
       '@components': resolve('components'),
       '@decorators': resolve('decorators'),
+      '@stores': resolve('stores'),
+      '@hooks': resolve('hooks'),
     },
+    fallback: require('./webpack.fallback')
   },
   module: {
     rules: rules.concat([
@@ -64,9 +73,10 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              // modules: {
-              //   localIdentName: '[hash:base64]',
-              // },
+              modules: {
+                getLocalIdent,
+                localIdentName: '[hash:base64]',
+              },
             },
           },
           {
@@ -81,13 +91,14 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        exclude: /(node_modules|theme|xbee|xpanda)/,
+        exclude: /node_modules/,
         use: [
           MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
               modules: {
+                getLocalIdent,
                 localIdentName: '[hash:base64]',
               },
             },
@@ -104,34 +115,10 @@ module.exports = {
             loader: 'less-loader',
             options: {
               lessOptions: {
+                modifyVars: v4Token,
                 relativeUrls: false,
                 math: 'always',
-                javascriptEnabled: true,
-              },
-            },
-          },
-        ],
-      },
-      {
-        test: /(theme|xbee|xpanda)\.less$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                config: path.join(__dirname, 'postcss.config.js'),
-              },
-            },
-          },
-          {
-            loader: 'less-loader',
-            options: {
-              lessOptions: {
-                javascriptEnabled: true,
+                javascriptEnabled: true
               },
             },
           },
@@ -164,15 +151,13 @@ module.exports = {
       minChunkSize: 10000,
     }),
     new MiniCssExtractPlugin({
-      chunkFilename: '[name].[hash].css',
+      chunkFilename: '[name].[contenthash].css',
       filename: '[name].css',
     }),
-    new CaseSensitivePathsWebpackPlugin(),
-    new AntdDayjsWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: 'template/index.prod.html',
       hash: true,
-      random: Math.random().toString().slice(2),
+      random: Math.random().toString().slice(2)
     }),
   ],
 }

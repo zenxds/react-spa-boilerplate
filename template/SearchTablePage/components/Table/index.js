@@ -1,35 +1,34 @@
 import React, { Fragment } from 'react'
 import { observer, inject } from 'mobx-react'
-import { toJS } from 'mobx'
-import { Table, Tooltip, message } from '@dx/xbee'
-import { DxFormModal, DxTableBtn } from '@dx/xpanda'
+import dayjs from 'dayjs'
+import {
+  Table,
+  Tooltip,
+  Popconfirm,
+  Button,
+  Space,
+} from 'antd'
+import {
+  EditOutlined,
+  DeleteOutlined,
+  CopyOutlined,
+} from '@ant-design/icons'
 
+import FormModal from '@components/FormModal'
 import Base from '@components/BasePage/SearchTable/Table'
-import { pick, compact } from '@utils'
+import { pick } from '@utils'
 
 import ItemForm from '../ItemForm'
+import './styles.less'
 
-@inject('actions', 'store')
+@inject('store', 'actions')
 @observer
 export default class PageTable extends Base {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      items: [],
-      page: 1,
-      pageSize: 10,
-      itemCount: 0,
-
-      editItem: null,
-    }
-  }
-
   fetchData = async (query = {}) => {
     const { store, actions } = this.props
 
     query = Object.assign(
-      toJS(store.pageConditions),
+      store.conditionsObject,
       pick(['page', 'pageSize'], this.state),
       query,
     )
@@ -37,47 +36,18 @@ export default class PageTable extends Base {
     actions.merge({
       loading: true,
     })
-    const data = await actions.getList(compact(query))
+    const data = await actions.getList(query)
     actions.merge({
       loading: false,
     })
 
     if (data) {
-      this.setState(data)
-    }
-  }
-
-  handleEditSuccess = value => {
-    // 失败被request catch了
-    if (value === undefined) {
-      return
-    }
-
-    message.success('编辑成功')
-    this.handleCancelEdit()
-    this.fetchData()
-  }
-
-  handleEdit = record => {
-    this.setState({
-      editItem: record,
-    })
-  }
-
-  handleCancelEdit = () => {
-    this.setState({
-      editItem: null,
-    })
-  }
-
-  submitDelete = async record => {
-    const r = await this.props.actions.deleteItem({
-      id: record.id,
-    })
-
-    if (r) {
-      message.success(`删除${record.name}成功`)
-      this.props.actions.resetConditions('page')
+      this.setState({
+        itemCount: data.count,
+        items: data.rows,
+        page: query.page,
+        pageSize: query.pageSize,
+      })
     }
   }
 
@@ -96,26 +66,35 @@ export default class PageTable extends Base {
         title: '名称',
         dataIndex: 'name',
         render: (name, record) => {
-          if (record.desc) {
-            return <Tooltip title={record.desc}>{name}</Tooltip>
+          if (record.description) {
+            return <Tooltip title={record.description}>{name}</Tooltip>
           }
 
           return name
         },
       },
       {
+        title: '更新时间',
+        dataIndex: 'updatedAt',
+        render: val => {
+          return dayjs(val).format('YYYY-MM-DD HH:mm:ss')
+        },
+      },
+      {
         title: '操作',
-        dataIndex: 'id',
-        render: (id, record) => {
+        key: 'action',
+        render: (_, record) => {
           return (
-            <DxTableBtn.Group record={record}>
-              <DxTableBtn type="edit" onClick={this.handleEdit} />
-              <DxTableBtn
-                type="delete"
-                deleteTitle={`您确定要删除“${record.name}”吗`}
-                onClick={this.submitDelete}
-              />
-            </DxTableBtn.Group>
+            <Space size="middle" styleName="actions">
+              <EditOutlined onClick={this.handleEdit.bind(this, record)} />
+              <CopyOutlined onClick={this.handleCopy.bind(this, record)} />
+              <Popconfirm
+                title={`您确定要删除“${record.name}”吗`}
+                onConfirm={this.submitDelete.bind(this, record)}
+              >
+                <Button icon={<DeleteOutlined />} type="link" />
+              </Popconfirm>
+            </Space>
           )
         },
       },
@@ -123,12 +102,12 @@ export default class PageTable extends Base {
   }
 
   render() {
-    const { loading } = this.props.store
+    const { store, actions } = this.props
 
     return (
       <Fragment>
         <Table
-          loading={loading}
+          loading={store.loading}
           columns={this.getColumns()}
           size="small"
           rowKey={record => record.id}
@@ -136,15 +115,29 @@ export default class PageTable extends Base {
           pagination={this.getPagination()}
         />
         {this.state.editItem ? (
-          <DxFormModal
-            dxWidthType="min"
+          <FormModal
             title="编辑"
-            action={this.props.actions.editItem}
+            width={600}
+            processor={this.handleValues}
+            action={actions.editItem}
             onSuccess={this.handleEditSuccess}
             onCancel={this.handleCancelEdit}
           >
             <ItemForm data={this.state.editItem} />
-          </DxFormModal>
+          </FormModal>
+        ) : null}
+
+        {this.state.copyItem ? (
+          <FormModal
+            title="新建"
+            width={600}
+            action={actions.createItem}
+            processor={this.handleValues}
+            onSuccess={this.handleCopySuccess}
+            onCancel={this.handleCancelCopy}
+          >
+            <ItemForm data={this.state.copyItem} />
+          </FormModal>
         ) : null}
       </Fragment>
     )

@@ -1,29 +1,27 @@
 /**
  * 入口
  */
-import 'babel-polyfill'
-import ReactDOM from 'react-dom'
-import { configure } from 'mobx'
-import { Provider } from 'mobx-react'
-import { ConfigProvider } from '@dx/xbee'
-import zhCN from '@dx/xbee/es/locale/zh_CN'
+import { createRoot } from 'react-dom/client'
+import { ConfigProvider } from 'antd'
+import zhCN from 'antd/es/locale/zh_CN'
 
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
 dayjs.locale('zh-cn')
 
-import { getPopupContainer } from '@utils'
+import { getPopupContainer, getPublicPath } from '@utils'
+import { StoreProvider } from './stores'
 import App from './app'
-import injects from './inject'
 
 // 不允许在动作外部修改状态
-configure({ enforceActions: 'observed' })
+// configure({ enforceActions: 'observed' })
 
-ReactDOM.render(
-  <Provider {...injects}>
-    <ConfigProvider locale={zhCN} getPopupContainer={getPopupContainer}>
+__webpack_public_path__ = window.PUBLIC_PATH || getPublicPath() || ''
+
+createRoot(document.getElementById('app')).render(
+  <ConfigProvider locale={zhCN} getPopupContainer={getPopupContainer}>
+    <StoreProvider>
       <App />
-    </ConfigProvider>
-  </Provider>,
-  document.getElementById('app'),
+    </StoreProvider>
+  </ConfigProvider>,
 )

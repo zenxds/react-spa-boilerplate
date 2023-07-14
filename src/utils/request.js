@@ -1,23 +1,20 @@
-import { message } from '@dx/xbee'
+import { message, Modal } from 'antd'
 import axios from 'axios'
 
-import { API_SERVER, API_USER_INFO } from '@constants'
+import { API_SERVER } from '@constants'
 import { param, isPlainObject, compact } from './lang'
 
-axios.defaults.baseURL = API_SERVER
-axios.defaults.headers.post['Content-Type'] =
-  'application/x-www-form-urlencoded'
+const instance = axios.create({
+  baseURL: API_SERVER
+})
+
+instance.defaults.headers.common['csrf-token'] = window.csrf || ''
+instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
 const messageMap = {
   'request error': '请求失败，请稍后重试',
   'Network Error': '网络出错，请检查您的网络状况',
   'Request failed with status code 502': '服务器出小差了，请稍后重试',
-}
-const loginIgnoreList = [API_USER_INFO]
-
-function handleLoginExpire() {
-  message.error('登录已失效，请重新登录')
-  location.reload()
 }
 
 export default function request(config = {}) {
@@ -28,29 +25,40 @@ export default function request(config = {}) {
       // 是否返回整个response data，默认返回接口里的data字段
       returnResponseData: false,
       withCredentials: true,
-      timeout: 30 * 1000,
+      timeout: 10 * 60 * 1000,
     },
     config,
   )
 
-  const ret = axios(config).then(response => {
-    const { success, code, data, msg } = response.data
+  const ret = instance(config).then(response => {
+    const { success, data, message } = response.data
 
     if (success) {
-      return config.returnResponseData ? response.data : data
-    } else if (code === 403) {
-      // 未登录时，系统一开始获取用户信息是正常调用
-      if (loginIgnoreList.indexOf(config.url) === -1) {
-        handleLoginExpire()
-      }
+      // 后端有的success没有返回data，默认给个true
+      return config.returnResponseData ? response.data : (data === undefined ? true : data)
     } else {
-      throw new Error(msg || '请求失败')
+      throw new Error(message || '请求失败')
     }
   })
 
   if (config.catchError) {
     return ret.catch(err => {
-      message.error(messageMap[err.message] || err.message)
+      // 以-开头的错误，如-1001
+      if (err.message.charAt(0) === '-') {
+        return new Promise(resolve => {
+          Modal.error({
+            title: err.message,
+            onOk() {
+              resolve()
+            },
+            onCancel() {
+              resolve()
+            },
+          })
+        })
+      } else {
+        message.error(messageMap[err.message] || err.message)
+      }
     })
   }
 
@@ -78,19 +86,6 @@ export function post(url, data, config = {}) {
       method: 'post',
       url,
       data,
-    }),
-  )
-}
-
-export function jsonPost(url, data = {}, config = {}) {
-  return request(
-    Object.assign(config, {
-      method: 'post',
-      url,
-      data: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
     }),
   )
 }

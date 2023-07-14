@@ -1,27 +1,15 @@
-import { action, toJS } from 'mobx'
-import { get, post, jsonPost } from '@utils/request'
+import { action, makeObservable } from 'mobx'
+import { get, post } from '@utils/request'
 
 export default class BaseActions {
   constructor(store) {
     this.store = store
-  }
 
-  mergeConditions = (type, params = {}) => {
-    this.merge(this.store[type + 'Conditions'], params)
-  }
-
-  @action
-  resetConditions(type) {
-    const conditions = this.store[type + 'Conditions']
-    const newConditions = new this.store.constructor()[type + 'Conditions']
-
-    conditions.replace(toJS(newConditions))
-    this.merge({
-      [type + 'FetchId']: new Date().getTime(),
+    makeObservable(this, {
+      merge: action
     })
   }
 
-  @action
   merge(target = {}, src) {
     if (!src) {
       src = target
@@ -34,8 +22,27 @@ export default class BaseActions {
       Object.assign(target, src)
     }
   }
-}
 
-BaseActions.prototype.get = get
-BaseActions.prototype.post = post
-BaseActions.prototype.jsonPost = jsonPost
+  mergeConditions = (params = {}, type) => {
+    this.merge(this.store[type ? `${type}Conditions` : 'conditions'], params)
+  }
+
+  resetConditions(type) {
+    const field = type ? `${type}Conditions` : 'conditions'
+    const conditions = this.store[field]
+    const newConditions = new this.store.constructor()[field]
+
+    conditions.replace(newConditions)
+    this.merge({
+      [type ? `${type}FetchId` : 'fetchId']: new Date().getTime(),
+    })
+  }
+
+  get(...args) {
+    return get(...args)
+  }
+
+  post(...args) {
+    return post(...args)
+  }
+}

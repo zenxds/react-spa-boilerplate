@@ -1,25 +1,30 @@
-import { Component } from 'react'
 import { observer, inject } from 'mobx-react'
-import { Form, Input } from '@dx/xbee'
+import { Form, Input } from 'antd'
 
-@inject('actions')
+import BaseForm from '@components/BasePage/form'
+
+@inject('store', 'actions')
 @observer
-export default class ItemForm extends Component {
+export default class ItemForm extends BaseForm {
   constructor(props) {
     super(props)
+
+    this.state = {
+      type: props.data ? props.data.type : '',
+    }
   }
 
   render() {
-    const { form, data } = this.props
+    const { formRef, data, store } = this.props
 
     return (
       <Form
-        form={form}
+        ref={formRef}
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 19 }}
         initialValues={data}
       >
-        {data && data.id ? (
+        {data?.id ? (
           <Form.Item label="ID" style={{ display: 'none' }} name="id">
             <Input type="hidden" />
           </Form.Item>

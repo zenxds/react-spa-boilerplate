@@ -1,73 +1,72 @@
-import { Component } from 'react'
-import { inject, observer } from 'mobx-react'
 import {
-  // BrowserRouter as Router
-  HashRouter as Router,
-  Route,
-  Switch,
-  Redirect,
+  createHashRouter,
+  RouterProvider,
+  Navigate,
+  useLocation,
 } from 'react-router-dom'
-import { Spin } from '@dx/xbee'
 
-import { getHashPath } from '@utils'
+import { ErrorPage, NotFoundPage } from '@components/Error'
 import paths from '@constants/paths'
-import Login from './containers/user/Login'
-import Logout from './containers/user/Logout'
+import { useStores } from '@stores'
+
+import load from './load'
 import Main from './containers/main'
 
-import './less/theme.less'
-import '@dx/xpanda/xpanda.less'
+import 'antd/dist/reset.css'
 import './less/app.less'
 
-@inject('userStore', 'userActions')
-@observer
-class App extends Component {
-  shouldGetUserInfo() {
-    const path = getHashPath()
+const containerMap = {
+  [paths.login]: 'user/login',
+  [paths.register]: 'user/register',
+}
+const container = containerMap[location.pathname]
 
-    if (path === paths.login || path === paths.logout) {
-      return false
-    }
+function RequireAuth({ children }) {
+  const { userStore } = useStores()
+  const location = useLocation()
 
-    return true
+  if (!userStore.isLogin) {
+    return <Navigate to={paths.login} state={{ from: location }} replace />
   }
 
-  componentDidMount() {
-    if (this.shouldGetUserInfo()) {
-      this.props.userActions.getUserInfo()
-    }
-  }
-
-  renderLoading() {
-    return (
-      <div style={{ padding: 50, textAlign: 'center' }}>
-        <Spin />
-      </div>
-    )
-  }
-
-  render() {
-    const { isLogin } = this.props.userStore
-
-    if (this.shouldGetUserInfo() && isLogin === undefined) {
-      return this.renderLoading()
-    }
-
-    return (
-      <Router>
-        <Switch>
-          <Route path={paths.login} render={props => <Login {...props} />} />
-          <Route path={paths.logout} render={props => <Logout {...props} />} />
-          <Route
-            path="/"
-            render={props =>
-              isLogin ? <Main {...props} /> : <Redirect to={paths.login} />
-            }
-          />
-        </Switch>
-      </Router>
-    )
-  }
+  return children
 }
 
-export default App
+/**
+ * loader 获取数据，然后在组件里用useLoaderData访问数据
+ */
+const router = createHashRouter([
+  {
+    path: paths.login,
+    element: load('user/login'),
+  },
+  {
+    path: paths.register,
+    element: load('user/register'),
+  },
+  {
+    path: '/',
+    element: container ? (
+      load(container)
+    ) : (
+      <RequireAuth>
+        <Main />
+      </RequireAuth>
+    ),
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: load('home'),
+      },
+    ],
+  },
+  {
+    path: '*',
+    element: <NotFoundPage />,
+  },
+])
+
+export default function App() {
+  return <RouterProvider router={router} />
+}

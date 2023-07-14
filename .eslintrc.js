@@ -15,9 +15,16 @@ module.exports = {
     es6: true,
     jest: true,
   },
-  extends: ['eslint:recommended', 'plugin:react/recommended', 'prettier'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'prettier',
+  ],
   plugins: ['import', 'react'],
   globals: {
+    _dx: true,
+    __webpack_public_path__: true,
     API_SERVER_PLACEHOLDER: true,
   },
   rules: {
@@ -35,6 +42,7 @@ module.exports = {
         allowEmptyCatch: true,
       },
     ],
+    'react/no-unknown-property': ['error', { ignore: ['styleName'] }],
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
     'react/display-name': 'off',

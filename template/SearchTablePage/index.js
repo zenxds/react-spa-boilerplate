@@ -1,28 +1,19 @@
-import { Component } from 'react'
-// import { observer, inject } from 'mobx-react'
-import { Layout } from '@dx/xbee'
+import { observer } from 'mobx-react'
 
-import * as decorators from '@decorators'
+import LayoutMain from '@components/Layout/Main'
+
+import { ContextProvider } from './context'
 import Toolbar from './components/Toolbar'
 import Table from './components/Table'
-import actions from './action'
-import store from './store'
 import './styles.less'
 
-@decorators.errorBoundary
-@decorators.provider({
-  actions,
-  store,
-})
-// @inject('actions')
-// @observer
-export default class Page extends Component {
-  render() {
-    return (
-      <Layout.Main title="页面标题">
+export default observer(() => {
+  return (
+    <LayoutMain title="页面标题">
+      <ContextProvider>
         <Toolbar />
         <Table />
-      </Layout.Main>
-    )
-  }
-}
+      </ContextProvider>
+    </LayoutMain>
+  )
+})

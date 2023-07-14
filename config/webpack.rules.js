@@ -1,16 +1,16 @@
 module.exports = [
   {
     test: /\.(woff|woff2|eot|ttf|otf)$/,
-    type: 'asset',
+    type: 'asset/resource',
     generator: {
-      filename: 'assets/fonts/[hash][ext]',
+      filename: 'assets/fonts/[contenthash][ext]',
     },
   },
   {
     test: /\.(png|jpe?g|gif|svg)$/,
-    type: 'asset',
+    type: 'asset/resource',
     generator: {
-      filename: 'assets/images/[hash][ext]',
+      filename: 'assets/images/[contenthash][ext]',
     },
   }
 ]

@@ -1,12 +1,21 @@
-import { observable } from 'mobx'
+import { makeAutoObservable, observable, toJS } from 'mobx'
+
 
 class Store {
   // 触发获取数据用
-  @observable pageFetchId = 0
+  fetchId = 0
   // 查询条件
-  @observable pageConditions = observable.map({})
+  conditions = observable.map({})
 
-  @observable loading = false
+  loading = false
+
+  constructor() {
+    makeAutoObservable(this)
+  }
+
+  get conditionsObject() {
+    return Object.fromEntries(toJS(this.conditions))
+  }
 }
 
 export default new Store()

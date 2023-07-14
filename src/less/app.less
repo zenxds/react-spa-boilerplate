@@ -1,47 +1,75 @@
 /*
  * 全局样式
  */
+
 @import './variables.less';
+@import './fn.less';
 
 :global {
-  html, body, #app, .app-root {
-    height: 100%;
-  }
-
   body {
-    min-width: 1000px;
-    overflow: auto;
+    background: #fff;
   }
 
-  .app-root {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .app-header {
-    display: flex;
-    height: @header-height;
-    background: @menu-bg-color;
-  }
-
-  .app-wrapper {
-    display: flex;
-    flex: 1;
+  html,
+  body,
+  #app,
+  #app>.ant-layout {
     height: 100%;
-    overflow: hidden;
   }
 
   .app-menu {
     width: @menu-width;
+    padding-top: @header-height;
     height: 100%;
-    overflow: auto;
-    background: @menu-bg-color;
+    overflow-y: auto;
+    background: @menu-dark-bg;
+  }
+
+  .app-header {
+    position: relative;
+    z-index: 1;
+    height: @header-height;
+    background: #fff;
+    padding: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.09);
   }
 
   .app-content {
     position: relative;
     flex: 1;
-    background: #f5f5f5;
-    overflow: auto;
+    overflow-y: auto;
+  }
+
+  .page-loading {
+    .fn-center();
+    text-align: center;
+  }
+
+  .page-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 12px;
+
+    .ant-row {
+      flex: 1;
+    }
+
+    .ant-form-item {
+      margin-bottom: 0;
+    }
+
+    .ant-btn {
+      margin-left: 12px;
+    }
+  }
+}
+
+:global {
+  @media screen and (max-width: 576px) {
+    .page-header {
+      .ant-btn {
+        margin-left: 6px;
+      }
+    }
   }
 }

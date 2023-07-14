@@ -1,49 +1,39 @@
-import React, { Component, Fragment } from 'react'
-import { Link, withRouter } from 'react-router-dom'
-import { inject, observer } from 'mobx-react'
-import { Menu, Dropdown } from '@dx/xbee'
-import { Icon } from '@dx/icons/compatible'
+import React, { Fragment } from 'react'
+import { observer } from 'mobx-react'
+import { Dropdown } from 'antd'
+import { DownOutlined } from '@ant-design/icons'
+
+import { useStores } from '@stores'
 
 import paths from '@constants/paths'
 import './less/styles.less'
 
-@inject('userStore', 'userActions')
-@withRouter
-@observer
-class Header extends Component {
-  handleLogout = () => {
-    this.props.history.push(paths.logout)
-  }
-
-  render() {
-    const { userStore } = this.props
-    const menu = (
-      <Menu>
-        <Menu.Item key="1">
-          <a onClick={this.handleLogout}>安全退出</a>
-        </Menu.Item>
-      </Menu>
-    )
-
-    return (
-      <Fragment>
-        <Link to="/" styleName="logo">
-          <img src="/images/logo.png" />
-        </Link>
-
-        <div styleName="header-info">
-          <Dropdown overlay={menu} placement="bottomLeft">
-            <div styleName="user-info">
-              <a styleName="user-name" title={userStore.nickName}>
-                {userStore.nickName}
-                <Icon type="down" style={{ marginLeft: '3px' }} />
-              </a>
-            </div>
-          </Dropdown>
-        </div>
-      </Fragment>
-    )
-  }
+const handleLogout = () => {
+  location.href = paths.logout
 }
 
-export default Header
+const items = [
+  {
+    label: <a onClick={handleLogout}>安全退出</a>,
+    key: 'logout',
+  }
+]
+
+export default observer(() => {
+  const { userStore } = useStores()
+
+  return (
+    <Fragment>
+      <div styleName="header-info">
+        <Dropdown menu={{ items }} placement="bottomLeft">
+          <div styleName="user-info">
+            <a styleName="user-name" title={userStore.username}>
+              {userStore.username}
+              <DownOutlined style={{ marginLeft: '3px' }} />
+            </a>
+          </div>
+        </Dropdown>
+      </div>
+    </Fragment>
+  )
+})
