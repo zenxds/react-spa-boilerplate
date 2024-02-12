@@ -23,7 +23,6 @@ module.exports = {
   ],
   plugins: ['import', 'react'],
   globals: {
-    _dx: true,
     __webpack_public_path__: true,
     API_SERVER_PLACEHOLDER: true,
   },
