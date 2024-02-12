@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx'
-import { ScheduleOutlined, UserOutlined, WechatOutlined } from '@ant-design/icons'
+import { ScheduleOutlined } from '@ant-design/icons'
 
 import paths from '@constants/paths'
 
@@ -20,22 +20,12 @@ function normalize(arr = [], level = 1) {
   })
 }
 
-class Store {
+class MenuStore {
   menus = [
     {
-      label: '任务配置',
+      label: '首页',
       code: 'index',
       icon: <ScheduleOutlined />,
-    },
-    {
-      label: '通知配置',
-      code: 'notificationConfig',
-      icon: <WechatOutlined />,
-    },
-    {
-      label: '登录配置',
-      code: 'loginConfig',
-      icon: <UserOutlined />,
     },
   ]
 
@@ -88,4 +78,4 @@ class Store {
   }
 }
 
-export default new Store()
+export default new MenuStore()

@@ -4,7 +4,9 @@ const webpack = require('webpack')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
-const { getLocalIdent } = require('@dr.pogodin/babel-plugin-react-css-modules/utils')
+const {
+  getLocalIdent,
+} = require('@dr.pogodin/babel-plugin-react-css-modules/utils')
 
 // https://ant-design.gitee.io/docs/react/migration-v5-cn
 const { theme } = require('antd/lib')
@@ -27,10 +29,12 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     alias: {
       '@constants': resolve('constants'),
-      '@utils': resolve('utils'),
       '@components': resolve('components'),
       '@decorators': resolve('decorators'),
+      '@utils': resolve('utils'),
       '@stores': resolve('stores'),
+      '@contexts': resolve('contexts'),
+      '@services': resolve('services'),
       '@hooks': resolve('hooks'),
     },
   },

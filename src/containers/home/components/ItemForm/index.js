@@ -2,7 +2,6 @@ import { Component } from 'react'
 import { observer, inject } from 'mobx-react'
 import { Form, Input } from 'antd'
 
-@inject('store', 'actions')
 @observer
 export default class ItemForm extends Component {
   render() {

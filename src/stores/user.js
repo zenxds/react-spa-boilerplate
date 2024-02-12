@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 
-class Store {
+class UserStore {
   isLogin = !!window.user
   user = window.user ? JSON.parse(window.user) : {}
 
@@ -13,4 +13,4 @@ class Store {
   }
 }
 
-export default new Store()
+export default new UserStore()

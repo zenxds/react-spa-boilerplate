@@ -1,19 +1,13 @@
-import { makeAutoObservable, observable, toJS } from 'mobx'
+import { observable } from 'mobx'
 
-class Store {
-  loading = false
+import BaseStore from '@components/BaseStore'
+
+class Store extends BaseStore {
+  @observable loading = false
   // 触发获取数据用
-  fetchId = 0
+  @observable fetchId = 0
   // 查询条件
-  conditions = observable.map({})
-
-  constructor() {
-    makeAutoObservable(this)
-  }
-
-  get conditionsObject() {
-    return Object.fromEntries(toJS(this.conditions))
-  }
+  @observable conditions = observable.map({})
 }
 
 export default new Store()

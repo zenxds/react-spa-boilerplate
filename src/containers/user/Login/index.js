@@ -8,8 +8,8 @@ import {
   EyeTwoTone,
 } from '@ant-design/icons'
 
+import * as services from '@services'
 import { isUsername, isPassword, isDisabled } from '@utils/validator'
-import { useActions } from '@stores'
 import { useLocalStore } from './store'
 import '../common.less'
 import './styles.less'
@@ -17,11 +17,10 @@ import './styles.less'
 const Password = observer(() => {
   const localStore = useLocalStore()
   const [form] = Form.useForm()
-  const { userActions } = useActions()
 
   const handleFieldsChange = () => {
     localStore.merge({
-      disabled: isDisabled(form)
+      disabled: isDisabled(form),
     })
   }
 
@@ -29,16 +28,16 @@ const Password = observer(() => {
     const { username, password } = values
 
     localStore.merge({
-      loading: true
+      loading: true,
     })
 
-    const res = await userActions.login({
+    const res = await services.login({
       username,
       password,
     })
 
     localStore.merge({
-      loading: false
+      loading: false,
     })
 
     if (res) {
@@ -100,7 +99,6 @@ const Password = observer(() => {
     </Form>
   )
 })
-
 
 const Extra = observer(() => {
   const localStore = useLocalStore()

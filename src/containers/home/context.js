@@ -1,18 +1,15 @@
-import { createContext } from 'react'
-import { Provider } from 'mobx-react'
+import { createContext, useContext } from 'react'
 
-import actions from './actions'
 import store from './store'
 
-export default createContext({
-  actions,
+const LocalContext = createContext({
   store,
 })
 
-export const ContextProvider = ({ children }) => {
+export const useLocalContext = () => useContext(LocalContext)
+
+export const LocalContextProvider = ({ children }) => {
   return (
-    <Provider store={store} actions={actions}>
-      {children}
-    </Provider>
+    <LocalContext.Provider value={{ store }}>{children}</LocalContext.Provider>
   )
 }

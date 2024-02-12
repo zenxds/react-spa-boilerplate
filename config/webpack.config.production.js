@@ -7,7 +7,9 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const { getLocalIdent } = require('@dr.pogodin/babel-plugin-react-css-modules/utils')
+const {
+  getLocalIdent,
+} = require('@dr.pogodin/babel-plugin-react-css-modules/utils')
 
 // https://ant-design.gitee.io/docs/react/migration-v5-cn
 const { theme } = require('antd/lib')
@@ -51,13 +53,15 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     alias: {
       '@constants': resolve('constants'),
-      '@utils': resolve('utils'),
       '@components': resolve('components'),
       '@decorators': resolve('decorators'),
+      '@utils': resolve('utils'),
       '@stores': resolve('stores'),
+      '@contexts': resolve('contexts'),
+      '@services': resolve('services'),
       '@hooks': resolve('hooks'),
     },
-    fallback: require('./webpack.fallback')
+    fallback: require('./webpack.fallback'),
   },
   module: {
     rules: rules.concat([
@@ -118,7 +122,7 @@ module.exports = {
                 modifyVars: v4Token,
                 relativeUrls: false,
                 math: 'always',
-                javascriptEnabled: true
+                javascriptEnabled: true,
               },
             },
           },
@@ -157,7 +161,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'template/index.prod.html',
       hash: true,
-      random: Math.random().toString().slice(2)
+      random: Math.random().toString().slice(2),
     }),
   ],
 }
