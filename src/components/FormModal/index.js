@@ -1,66 +1,55 @@
-import { Component, cloneElement, createRef } from 'react'
-import { Modal } from 'antd'
+import { cloneElement, useState, useCallback } from 'react'
+import { Modal, Form } from 'antd'
 import { observer } from 'mobx-react'
 
-@observer
-export default class FormModal extends Component {
-  constructor(props) {
-    super(props)
+export default observer(
+  ({ children, processor, validator, service, onSuccess, ...props }) => {
+    const [loading, setLoading] = useState(false)
+    const [form] = Form.useForm()
 
-    this.state = {
-      loading: false
-    }
-    this.formRef = createRef()
-  }
+    const handleOk = useCallback(async () => {
+      let values = {}
 
-  handleOk = async () => {
-    const { action, onSuccess, processor, validator } = this.props
-    let values = await this.formRef.current.validateFields()
-
-    if (validator) {
-      const validated = validator(values)
-      if (!validated) {
+      try {
+        values = await form.validateFields()
+      } catch (err) {
         return
       }
-    }
 
-    if (processor) {
-      values = processor(values)
-    }
+      // 额外的校验
+      if (validator) {
+        const valid = validator(values)
+        if (!valid) {
+          return
+        }
+      }
 
-    this.setState({
-      loading: true
-    })
+      if (processor) {
+        values = processor(values)
+      }
 
-    const res = await action(values)
+      setLoading(true)
 
-    this.setState({
-      loading: false
-    })
+      const res = await service(values)
+      setLoading(false)
 
-    if (res) {
-      if (onSuccess) {
+      if (res && onSuccess) {
         onSuccess(res, values)
       }
-    }
-  }
-
-  render() {
-    const { loading } = this.state
-    const { children } = this.props
+    }, [form, processor, validator, service, onSuccess])
 
     return (
       <Modal
         open={true}
         confirmLoading={loading}
         destroyOnClose={true}
-        onOk={this.handleOk}
-        {...this.props}
+        onOk={handleOk}
+        {...props}
       >
         {cloneElement(children, {
-          formRef: this.formRef
+          form,
         })}
       </Modal>
     )
-  }
-}
+  },
+)

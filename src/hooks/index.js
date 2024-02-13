@@ -1,1 +1,1 @@
-export * from './searchTable'
+export * from './modal'

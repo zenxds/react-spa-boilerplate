@@ -1,4 +1,4 @@
-import { get, post } from '@utils/request'
+import { post } from '@utils/request'
 
 export const login = (data = {}) => {
   return post('/user/api/login', data)

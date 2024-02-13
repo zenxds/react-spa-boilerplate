@@ -1,5 +1,6 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext, useCallback, useMemo } from 'react'
 import { observable, makeObservable, computed, toJS } from 'mobx'
+import { Form } from 'antd'
 
 import BaseStore from '@components/BaseStore'
 
@@ -40,10 +41,33 @@ export const useDataSourceStore = () => {
 }
 
 export const DataSourceStoreProvider = ({ children, initialConditions }) => {
-  const store = new DataSourceStore({ initialConditions })
+  const [form] = Form.useForm()
+  const store = useMemo(
+    () => new DataSourceStore({ initialConditions }),
+    [initialConditions],
+  )
+
+  const handleSearch = useCallback(() => {
+    store.merge({
+      fetchId: Date.now(),
+    })
+  }, [store])
+
+  const handleReset = useCallback(() => {
+    store.resetConditions()
+    form.setFieldsValue(store.conditionsObject)
+
+    handleSearch()
+  }, [store, form, handleSearch])
+
+  const handleChange = useCallback(() => {
+    store.mergeConditions(form.getFieldsValue())
+  }, [form, store])
 
   return (
-    <DataSourceContext.Provider value={store}>
+    <DataSourceContext.Provider
+      value={{ form, store, handleChange, handleSearch, handleReset }}
+    >
       {children}
     </DataSourceContext.Provider>
   )
