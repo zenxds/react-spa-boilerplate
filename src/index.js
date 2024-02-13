@@ -10,7 +10,7 @@ import 'dayjs/locale/zh-cn'
 dayjs.locale('zh-cn')
 
 import { getPopupContainer, getPublicPath } from '@utils'
-import { StoreProvider } from './stores'
+import { GlobalStoreProvider } from './stores'
 import App from './app'
 
 // 不允许在动作外部修改状态
@@ -20,8 +20,8 @@ __webpack_public_path__ = window.PUBLIC_PATH || getPublicPath() || ''
 
 createRoot(document.getElementById('app')).render(
   <ConfigProvider locale={zhCN} getPopupContainer={getPopupContainer}>
-    <StoreProvider>
+    <GlobalStoreProvider>
       <App />
-    </StoreProvider>
+    </GlobalStoreProvider>
   </ConfigProvider>,
 )

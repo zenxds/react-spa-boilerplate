@@ -5,12 +5,14 @@ import menuStore from './menu'
 
 const StoreContext = createContext()
 
-export const useStores = () => useContext(StoreContext)
+export const useGlobalStores = () => useContext(StoreContext)
 
-export const StoreProvider = ({ children }) => {
+export const GlobalStoreProvider = ({ children }) => {
   return (
     <StoreContext.Provider value={{ userStore, menuStore }}>
       {children}
     </StoreContext.Provider>
   )
 }
+
+export * from './dataSource'

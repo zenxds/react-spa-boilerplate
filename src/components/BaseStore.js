@@ -15,6 +15,6 @@ export default class Store {
 
   @action
   resetConditions() {
-    this.conditions = observable.map({})
+    this.conditions.replace(this.initialConditions || {})
   }
 }

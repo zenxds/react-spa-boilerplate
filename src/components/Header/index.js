@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { Dropdown } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 
-import { useStores } from '@stores'
+import { useGlobalStores } from '@stores'
 
 import paths from '@constants/paths'
 import './less/styles.less'
@@ -16,11 +16,11 @@ const items = [
   {
     label: <a onClick={handleLogout}>安全退出</a>,
     key: 'logout',
-  }
+  },
 ]
 
 export default observer(() => {
-  const { userStore } = useStores()
+  const { userStore } = useGlobalStores()
 
   return (
     <Fragment>

@@ -7,7 +7,7 @@ import {
 
 import { ErrorPage, NotFoundPage } from '@components/Error'
 import paths from '@constants/paths'
-import { useStores } from '@stores'
+import { useGlobalStores } from '@stores'
 
 import load from './load'
 import Main from './containers/main'
@@ -22,7 +22,7 @@ const containerMap = {
 const container = containerMap[location.pathname]
 
 function RequireAuth({ children }) {
-  const { userStore } = useStores()
+  const { userStore } = useGlobalStores()
   const location = useLocation()
 
   if (!userStore.isLogin) {

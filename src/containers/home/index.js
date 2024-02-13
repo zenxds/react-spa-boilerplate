@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 
 import LayoutMain from '@components/Layout/Main'
 
-import { LocalContextProvider } from './context'
+import { DataSourceStoreProvider } from '@stores'
 import Toolbar from './components/Toolbar'
 import Table from './components/Table'
 import './styles.less'
@@ -10,10 +10,10 @@ import './styles.less'
 export default observer(() => {
   return (
     <LayoutMain title="首页">
-      <LocalContextProvider>
+      <DataSourceStoreProvider initialConditions={{ name: 'aaa' }}>
         <Toolbar />
         <Table />
-      </LocalContextProvider>
+      </DataSourceStoreProvider>
     </LayoutMain>
   )
 })

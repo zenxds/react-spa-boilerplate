@@ -155,6 +155,18 @@ module.exports = {
         pathRewrite: { '^/dev': '' },
       },
     },
+
+    onBeforeSetupMiddleware: function (devServer) {
+      devServer.app.use(function (req, res, next) {
+        const file = path.join(__dirname, '..', req.path + '.json')
+
+        if (fs.existsSync(file)) {
+          res.json(JSON.parse(fs.readFileSync(file, 'utf-8')))
+        } else {
+          next()
+        }
+      })
+    },
   },
 }
 

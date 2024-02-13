@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Menu } from 'antd'
 
-import { useStores } from '@stores'
+import { useGlobalStores } from '@stores'
 import './less/styles.less'
 
 /**
@@ -16,7 +16,7 @@ import './less/styles.less'
 function useCurrentPath() {
   const location = useLocation()
   const pathname = location.pathname
-  const { menuStore } = useStores()
+  const { menuStore } = useGlobalStores()
   const { pathMap } = menuStore
 
   for (let p in pathMap) {
@@ -31,7 +31,7 @@ function useCurrentPath() {
 
 // 一个菜单展开时，它的父菜单也应该展开
 function useOpenKeys() {
-  const { menuStore } = useStores()
+  const { menuStore } = useGlobalStores()
   const { pathMap, parentMap } = menuStore
   const currentPath = useCurrentPath()
   const current = pathMap[currentPath]
@@ -47,7 +47,7 @@ function useOpenKeys() {
 }
 
 export default observer(() => {
-  const { menuStore } = useStores()
+  const { menuStore } = useGlobalStores()
   const menus = menuStore.normalized
   const defaultOpenKeys = useOpenKeys()
   const [openKeys, setOpenKeys] = useState(defaultOpenKeys)
