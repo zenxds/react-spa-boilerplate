@@ -7,6 +7,7 @@ import {
   EyeInvisibleOutlined,
   EyeTwoTone,
 } from '@ant-design/icons'
+import { Link } from 'react-router-dom'
 
 import * as services from '@services'
 import { isUsername, isPassword, isDisabled } from '@utils/validator'
@@ -105,9 +106,9 @@ const Extra = observer(() => {
 
   return (
     <div styleName="more">
-      <a styleName="link" href={localStore.registerUrl}>
+      <Link styleName="link" to={localStore.registerUrl}>
         注册账号
-      </a>
+      </Link>
     </div>
   )
 })

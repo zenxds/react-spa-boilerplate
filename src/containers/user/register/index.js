@@ -7,6 +7,7 @@ import {
   UserOutlined,
   LockOutlined,
 } from '@ant-design/icons'
+import { Link } from 'react-router-dom'
 
 import * as services from '@services'
 import { isUsername, isPassword, isDisabled } from '@utils/validator'
@@ -129,9 +130,9 @@ const Extra = observer(() => {
 
   return (
     <div styleName="more">
-      <a styleName="link" href={localStore.loginUrl}>
+      <Link styleName="link" to={localStore.loginUrl}>
         登录已有账号
-      </a>
+      </Link>
     </div>
   )
 })
