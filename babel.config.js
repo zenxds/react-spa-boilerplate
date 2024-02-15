@@ -15,14 +15,11 @@ module.exports = {
     ],
     '@babel/preset-react',
   ],
-  // assumptions: {
-  //   setPublicClassFields: false,
-  // },
   env: {
     development: {
       plugins: [
-        ['@babel/plugin-proposal-decorators', { legacy: true }],
-        ['@babel/plugin-proposal-class-properties'],
+        // ['@babel/plugin-proposal-decorators', { legacy: true }],
+        // ['@babel/plugin-proposal-class-properties'],
         'react-refresh/babel',
         [
           '@dr.pogodin/react-css-modules',
@@ -43,8 +40,8 @@ module.exports = {
     },
     production: {
       plugins: [
-        ['@babel/plugin-proposal-decorators', { legacy: true }],
-        ['@babel/plugin-proposal-class-properties'],
+        // ['@babel/plugin-proposal-decorators', { legacy: true }],
+        // ['@babel/plugin-proposal-class-properties'],
         [
           '@dr.pogodin/react-css-modules',
           {

@@ -8,8 +8,8 @@
     "vendor": "webpack --progress --env env=dll",
     "_build": "cross-env BABEL_ENV=production webpack --progress --env env=production",
     "build": "npm run vendor && npm run _build",
+    "lint": "eslint ./src --ext ts,tsx",
     "deploy": "scp -r build/* ../server/app/public",
-    "prettier": "prettier --write 'src/**/*.js' 'src/**/*.jsx'",
     "test": "jest ."
   },
   "husky": {
@@ -18,11 +18,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx}": [
-      "yarn test",
-      "yarn prettier",
-      "git add"
-    ]
+    "src/**/*.{ts,tsx}": []
   },
   "author": {
     "name": ""
@@ -32,49 +28,14 @@
     "type": "git",
     "url": ""
   },
-  "jest": {
-    "testPathIgnorePatterns": [
-      "node_modules/",
-      "src/",
-      "test/__mocks__/"
-    ],
-    "transformIgnorePatterns": [
-      "node_modules/(?!(@babel|antd|@?ant-|rc-|@dx))"
-    ],
-    "moduleDirectories": [
-      "node_modules",
-      "src"
-    ],
-    "moduleNameMapper": {
-      "@utils": "<rootDir>/src/utils",
-      "@utils/(.+)": "<rootDir>/src/utils/$1",
-      "@constants": "<rootDir>/src/constants",
-      "@components/(.+)": "<rootDir>/src/components/$1",
-      "@decorators": "<rootDir>/src/decorators"
-    },
-    "transform": {
-      "\\.jsx?$": "babel-jest",
-      "\\.(css|styl|less|sass|scss)$": "<rootDir>/test/__mocks__/file.js",
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/__mocks__/file.js"
-    },
-    "globals": {
-      "API_SERVER_PLACEHOLDER": ""
-    },
-    "setupFilesAfterEnv": [
-      "<rootDir>/test/setup.js"
-    ],
-    "testEnvironment": "jsdom"
-  },
+  "jest": {},
   "devDependencies": {
     "@babel/core": "^7.23.9",
-    "@babel/eslint-parser": "^7.23.10",
-    "@babel/plugin-proposal-class-properties": "^7.18.6",
-    "@babel/plugin-proposal-decorators": "^7.23.9",
     "@babel/preset-env": "^7.23.9",
     "@babel/preset-react": "^7.23.3",
-    "@babel/register": "^7.23.7",
     "@dr.pogodin/babel-plugin-react-css-modules": "^6.12.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.11",
+    "@types/loadable__component": "^5.13.8",
     "@types/react": "^18.2.55",
     "@types/react-css-modules": "^4.6.8",
     "@types/react-dom": "^18.2.19",
@@ -90,7 +51,6 @@
     "css-minimizer-webpack-plugin": "^6.0.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
@@ -128,10 +88,5 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.13.0"
-  },
-  "resolutions": {
-    "strip-ansi": "6.0.1",
-    "string-width": "4.2.2",
-    "wrap-ansi": "7.0.0"
   }
 }
