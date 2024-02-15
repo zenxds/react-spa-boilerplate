@@ -8,100 +8,84 @@ const {
   getLocalIdent,
 } = require('@dr.pogodin/babel-plugin-react-css-modules/utils')
 
-// https://ant-design.gitee.io/docs/react/migration-v5-cn
-const { theme } = require('antd/lib')
-const { convertLegacyToken } = require('@ant-design/compatible/lib')
-const { defaultAlgorithm, defaultSeed } = theme
-const mapToken = defaultAlgorithm(defaultSeed)
-const v4Token = convertLegacyToken(mapToken)
-
 const rules = require('./webpack.rules')
+
+function getCSSLoaders(modules = false) {
+  return [
+    'style-loader',
+    {
+      loader: 'css-loader',
+      options: modules
+        ? {
+            modules: {
+              getLocalIdent,
+              localIdentName: '[path][name]__[local]--[hash:base64:5]',
+            },
+          }
+        : {},
+    },
+    {
+      loader: 'postcss-loader',
+      options: {
+        postcssOptions: {
+          config: path.join(__dirname, 'postcss.config.js'),
+        },
+      },
+    },
+  ]
+}
+
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry: './src/index.tsx',
   output: {
     path: path.join(__dirname, '../build'),
-    filename: 'main.js',
+    filename: 'index.js',
   },
   devtool: 'inline-source-map',
   resolve: {
     modules: ['src', 'node_modules'],
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    extensionAlias: {
+      '.js': ['.js', '.ts'],
+      '.cjs': ['.cjs', '.cts'],
+      '.mjs': ['.mjs', '.mts'],
+    },
     alias: {
-      '@constants': resolve('constants'),
-      '@components': resolve('components'),
-      '@decorators': resolve('decorators'),
-      '@utils': resolve('utils'),
-      '@stores': resolve('stores'),
-      '@contexts': resolve('contexts'),
-      '@services': resolve('services'),
-      '@hooks': resolve('hooks'),
+      '@/constants': resolve('constants'),
+      '@/components': resolve('components'),
+      '@/hooks': resolve('hooks'),
+      '@/utils': resolve('utils'),
+      '@/stores': resolve('stores'),
+      '@/contexts': resolve('contexts'),
+      '@/services': resolve('services'),
     },
   },
   module: {
     rules: rules.concat([
       {
-        test: /\.jsx?$/,
-        use: ['babel-loader'],
+        test: /\.([cm]?ts|tsx)$/,
+        use: ['babel-loader', 'ts-loader'],
         exclude: /node_modules/,
       },
       {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              modules: {
-                getLocalIdent,
-                localIdentName: '[path][name]__[local]--[hash:base64:5]',
-              },
-            },
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                config: path.join(__dirname, 'postcss.config.js'),
-              },
-            },
-          },
-        ],
+        use: getCSSLoaders(true),
       },
       {
         test: /\.less$/,
         exclude: /node_modules/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              modules: {
-                getLocalIdent,
-                localIdentName: '[path][name]__[local]--[hash:base64:5]',
-              },
-            },
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                config: path.join(__dirname, 'postcss.config.js'),
-              },
-            },
-          },
+        use: getCSSLoaders().concat([
           {
             loader: 'less-loader',
             options: {
               lessOptions: {
-                modifyVars: v4Token,
-                relativeUrls: false,
                 math: 'always',
                 javascriptEnabled: true,
               },
             },
           },
-        ],
+        ]),
       },
     ]),
   },
@@ -113,14 +97,11 @@ module.exports = {
         ? 'template/index.dev.html'
         : 'template/index.html',
     }),
-    new ESLintPlugin({
-      extensions: ['.js', '.jsx', '.ts', '.tsx'],
-      failOnError: true,
-    }),
+    // new ESLintPlugin({
+    //   extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    //   failOnError: true,
+    // }),
     new ReactRefreshWebpackPlugin(),
-    new webpack.ProvidePlugin({
-      React: 'react',
-    }),
     new webpack.DefinePlugin({
       API_SERVER_PLACEHOLDER: JSON.stringify(''),
     }),
@@ -149,14 +130,14 @@ module.exports = {
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
-    proxy: {
-      '/dev': {
-        target: '',
-        pathRewrite: { '^/dev': '' },
-      },
-    },
+    // proxy: {
+    //   '/dev': {
+    //     target: '',
+    //     pathRewrite: { '^/dev': '' },
+    //   },
+    // },
 
-    onBeforeSetupMiddleware: function (devServer) {
+    setupMiddlewares: function (middlewares, devServer) {
       devServer.app.use(function (req, res, next) {
         const file = path.join(__dirname, '..', req.path + '.json')
 
@@ -166,6 +147,8 @@ module.exports = {
           next()
         }
       })
+
+      return middlewares
     },
   },
 }

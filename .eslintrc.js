@@ -1,19 +1,13 @@
 module.exports = {
-  parser: '@babel/eslint-parser',
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    sourceType: 'module',
-    ecmaVersion: 7,
     ecmaFeatures: {
       jsx: true,
-      legacyDecorators: true,
-      experimentalObjectRestSpread: true,
     },
   },
   env: {
     browser: true,
-    node: true,
-    es6: true,
-    jest: true,
+    es2016: true,
   },
   extends: [
     'eslint:recommended',
@@ -21,29 +15,16 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'prettier',
   ],
-  plugins: ['import', 'react'],
+  plugins: ['react-refresh'],
   globals: {
     __webpack_public_path__: true,
     API_SERVER_PLACEHOLDER: true,
   },
   rules: {
-    quotes: ['warn', 'single'],
-    'no-unused-vars': 'warn',
-    'no-console': [
-      'error',
-      {
-        allow: ['log', 'warn', 'error'],
-      },
+    'react-refresh/only-export-components': [
+      'warn',
+      { allowConstantExport: true },
     ],
-    'no-empty': [
-      'error',
-      {
-        allowEmptyCatch: true,
-      },
-    ],
-    'react/no-unknown-property': ['error', { ignore: ['styleName'] }],
-    'react/react-in-jsx-scope': 'off',
-    'react/prop-types': 'off',
-    'react/display-name': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
   },
 }

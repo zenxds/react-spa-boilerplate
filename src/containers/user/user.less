@@ -1,0 +1,48 @@
+@import 'antd/es/style/themes/default.less';
+@import '@/styles/variables.less';
+@import '@/styles/fn.less';
+
+.center-form {
+  .fn-center-horizontal();
+  top: 60px;
+  z-index: 800;
+  width: 340px;
+
+  .ant-input-affix-wrapper>input.ant-input {
+    padding: 0 10px;
+  }
+
+  .ant-btn-primary[disabled],
+  .ant-btn-primary[disabled]:hover,
+  .ant-btn-primary[disabled]:focus,
+  .ant-btn-primary[disabled]:active {
+    background: fade(@color-D500, 40);
+    border-color: transparent;
+    color: #fff;
+  }
+
+  &-title {
+    position: relative;
+    margin-bottom: 12px;
+    font-size: 36px;
+    line-height: 50px;
+    text-align: center;
+    font-weight: 600;
+    color: @color-D500;
+  }
+
+  .submit-btn {
+    width: 100%;
+  }
+
+  .more {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    color: fade(@color-D500, 75);
+
+    a {
+      color: @primary-color;
+    }
+  }
+}

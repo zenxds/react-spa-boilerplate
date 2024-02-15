@@ -50,24 +50,28 @@ module.exports = {
   },
   resolve: {
     modules: ['src', 'node_modules'],
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    extensionAlias: {
+      '.js': ['.js', '.ts'],
+      '.cjs': ['.cjs', '.cts'],
+      '.mjs': ['.mjs', '.mts'],
+    },
     alias: {
-      '@constants': resolve('constants'),
-      '@components': resolve('components'),
-      '@decorators': resolve('decorators'),
-      '@utils': resolve('utils'),
-      '@stores': resolve('stores'),
-      '@contexts': resolve('contexts'),
-      '@services': resolve('services'),
-      '@hooks': resolve('hooks'),
+      '@/constants': resolve('constants'),
+      '@/components': resolve('components'),
+      '@/hooks': resolve('hooks'),
+      '@/utils': resolve('utils'),
+      '@/stores': resolve('stores'),
+      '@/contexts': resolve('contexts'),
+      '@/services': resolve('services'),
     },
     fallback: require('./webpack.fallback'),
   },
   module: {
     rules: rules.concat([
       {
-        test: /\.jsx?$/,
-        use: ['babel-loader'],
+        test: /\.([cm]?ts|tsx)$/,
+        use: ['babel-loader', 'ts-loader'],
         exclude: /node_modules/,
       },
       {

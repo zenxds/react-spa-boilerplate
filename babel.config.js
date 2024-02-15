@@ -4,45 +4,26 @@ const {
 
 module.exports = {
   presets: [
-    [
-      '@babel/preset-env',
-      {
-        targets: {
-          browsers: ['> 1%', 'last 2 versions'],
-        },
-        modules: false,
-      },
-    ],
-    '@babel/preset-react',
+    // [
+    //   '@babel/preset-env',
+    //   {
+    //     targets: {
+    //       browsers: ['> 1%', 'last 2 versions'],
+    //     },
+    //     modules: false,
+    //   },
+    // ],
+    // '@babel/preset-react',
   ],
-  assumptions: {
-    setPublicClassFields: false,
-  },
+  // assumptions: {
+  //   setPublicClassFields: false,
+  // },
   env: {
-    test: {
-      presets: [
-        [
-          '@babel/preset-env',
-          {
-            targets: {
-              node: true,
-            },
-          },
-        ],
-        [
-          '@babel/preset-react',
-          {
-            runtime: 'automatic',
-          },
-        ],
-      ],
-      plugins: [],
-    },
     development: {
       plugins: [
-        ['@babel/plugin-proposal-decorators', { legacy: true }],
-        ['@babel/plugin-proposal-class-properties'],
-        'react-refresh/babel',
+        // ['@babel/plugin-proposal-decorators', { legacy: true }],
+        // ['@babel/plugin-proposal-class-properties'],
+        // 'react-refresh/babel',
         [
           '@dr.pogodin/react-css-modules',
           {
@@ -62,8 +43,8 @@ module.exports = {
     },
     production: {
       plugins: [
-        ['@babel/plugin-proposal-decorators', { legacy: true }],
-        ['@babel/plugin-proposal-class-properties'],
+        // ['@babel/plugin-proposal-decorators', { legacy: true }],
+        // ['@babel/plugin-proposal-class-properties'],
         [
           '@dr.pogodin/react-css-modules',
           {
