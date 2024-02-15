@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { Menu } from 'antd'
 
 import { useGlobalStores } from '@/stores'
-import './styles.less'
 
 /**
  * 进入一些菜单之外的页面
@@ -19,7 +18,7 @@ function useCurrentPath() {
   const { menuStore } = useGlobalStores()
   const { pathMap } = menuStore
 
-  for (let p in pathMap) {
+  for (const p in pathMap) {
     // 去掉/这种情况
     if (pathname.startsWith(p) && p !== '/') {
       return p

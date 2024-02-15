@@ -11,28 +11,18 @@ import { ErrorPage, NotFoundPage } from '@/components/Error'
 import { paths } from '@/constants'
 import { useGlobalStores } from '@/stores'
 
-import Home from './containers/home'
-import Login from './containers/user/login'
-import Register from './containers/user/register'
-
-import Main from './containers/main'
+import MainLayout from './components/Layout/Main'
 
 function load(page: string) {
-  const map: Record<string, any> = {
-    home: Home,
-    'user/login': Login,
-    'user/register': Register,
-  }
+  const Com = loadable(() => import(`./containers/${page}`), {
+    fallback: (
+      <div className="page-loading">
+        <Spin />
+      </div>
+    ),
+  })
 
-  // const Com = loadable(() => import(`./containers/${page}`), {
-  //   fallback: (
-  //     <div className="page-loading">
-  //       <Spin />
-  //     </div>
-  //   ),
-  // })
-
-  const Com = map[page]
+  // const Com = map[page]
   return <Com />
 }
 
@@ -73,7 +63,7 @@ const router = createHashRouter([
       load(container)
     ) : (
       <RequireAuth>
-        <Main />
+        <MainLayout />
       </RequireAuth>
     ),
     errorElement: <ErrorPage />,

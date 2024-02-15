@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { reaction, toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import dayjs from 'dayjs'
@@ -6,12 +6,6 @@ import { Table, Tooltip, Popconfirm, Button, Space, message } from 'antd'
 import { EditOutlined, DeleteOutlined, CopyOutlined } from '@ant-design/icons'
 
 import type { TableProps } from 'antd'
-interface RecordType {
-  key: string
-  id: string
-  name: string
-  description?: string
-}
 
 import { useDataSourceStore } from '@/stores'
 import * as services from '@/services'
@@ -20,7 +14,13 @@ import FormModal from '@/components/FormModal'
 // import Base from '@components/BasePage/SearchTable/Table'
 
 import ItemForm from '../ItemForm'
-import './styles.less'
+
+interface RecordType {
+  key: string
+  id: string
+  name: string
+  description?: string
+}
 
 interface FetchDataParamsType {
   pageNo?: number
@@ -93,13 +93,14 @@ export default observer(() => {
 
   const handleTableChange = React.useCallback<
     Required<TableProps<RecordType>>['onChange']
-  >((pagination, filters, sorter) => {
+  >((pagination) => {
+    // filters, sorter
     store.merge({
       fetchId: Date.now(),
       pageNo: pagination.current,
       pageSize: pagination.pageSize,
     })
-  }, [])
+  }, [store])
 
   const submitDelete = React.useCallback(
     async (record: any) => {

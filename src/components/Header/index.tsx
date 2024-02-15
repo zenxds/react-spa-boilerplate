@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { useCallback } from 'react'
 import { observer } from 'mobx-react'
 import { Dropdown } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
@@ -8,22 +8,21 @@ import { useGlobalStores } from '@/stores'
 import { paths } from '@/constants'
 import './styles.less'
 
-const handleLogout = () => {
-  location.href = paths.logout
-}
-
-const items = [
-  {
-    label: <a onClick={handleLogout}>安全退出</a>,
-    key: 'logout',
-  },
-]
-
 export default observer(() => {
   const { userStore } = useGlobalStores()
+  const handleLogout = useCallback(() => {
+    location.href = paths.logout
+  }, [])
+
+  const items = [
+    {
+      label: <a onClick={handleLogout}>安全退出</a>,
+      key: 'logout',
+    },
+  ]
 
   return (
-    <Fragment>
+    <>
       <div styleName="header-info">
         <Dropdown menu={{ items }} placement="bottomLeft">
           <div styleName="user-info">
@@ -34,6 +33,6 @@ export default observer(() => {
           </div>
         </Dropdown>
       </div>
-    </Fragment>
+    </>
   )
 })

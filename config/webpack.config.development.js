@@ -110,10 +110,10 @@ module.exports = {
         ? 'template/index.dev.html'
         : 'template/index.html',
     }),
-    // new ESLintPlugin({
-    //   extensions: ['.js', '.jsx', '.ts', '.tsx'],
-    //   failOnError: true,
-    // }),
+    new ESLintPlugin({
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      failOnError: true,
+    }),
     new ReactRefreshWebpackPlugin(),
     new webpack.ProvidePlugin({
       React: 'react',

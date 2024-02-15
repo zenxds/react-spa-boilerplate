@@ -1,21 +1,23 @@
-import React from 'react'
+import { Outlet } from 'react-router-dom'
+import { Layout } from 'antd'
 
-import './styles.less'
+import Header from '@/components/Header'
+import Menu from '@/components/Menu'
 
-interface PropsType {
-  title: string
-  children: React.ReactNode
-}
-
-export default ({ title, children }: PropsType) => {
+export default function Main() {
   return (
-    <div styleName="layout">
-      <div styleName="header">
-        <h2>{title}</h2>
-      </div>
-      <div styleName="wrapper">
-        <div styleName="content">{children}</div>
-      </div>
-    </div>
+    <Layout>
+      <Layout.Sider className="app-menu" breakpoint="xs" collapsedWidth={80}>
+        <Menu />
+      </Layout.Sider>
+      <Layout>
+        <Layout.Header className="app-header">
+          <Header />
+        </Layout.Header>
+        <Layout.Content className="app-content">
+          <Outlet />
+        </Layout.Content>
+      </Layout>
+    </Layout>
   )
 }

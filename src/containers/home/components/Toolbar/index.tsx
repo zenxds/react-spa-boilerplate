@@ -1,7 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import { Button, Input, Form, message } from 'antd'
-import type { FormInstance } from 'antd'
 
 import SearchFormLayout from '@/components/SearchFormLayout'
 import FormModal from '@/components/FormModal'
@@ -10,7 +9,6 @@ import { useDataSourceStore } from '@/stores'
 import * as services from '@/services'
 
 import ItemForm from '../ItemForm'
-import './styles.less'
 
 const formItemLayout = {
   labelCol: { span: 8 },
