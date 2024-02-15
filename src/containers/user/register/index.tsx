@@ -12,7 +12,7 @@ import { isUsername, isPassword, isDisabled } from '@/utils/validator'
 import { useLocalStore } from './store'
 
 import type { UserRegisterDataType } from '@/types'
-import '../user.less'
+import '../user.global.less'
 
 const Password = observer(() => {
   const localStore = useLocalStore()

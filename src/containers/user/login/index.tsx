@@ -13,7 +13,7 @@ import { useLocalStore } from './store'
 
 import type { UserLoginDataType } from '@/types'
 
-import '../user.less'
+import '../user.global.less'
 
 const Password = observer(() => {
   const localStore = useLocalStore()
