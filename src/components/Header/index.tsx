@@ -6,7 +6,7 @@ import { DownOutlined } from '@ant-design/icons'
 import { useGlobalStores } from '@/stores'
 
 import { paths } from '@/constants'
-import './less/styles.less'
+import './styles.less'
 
 const handleLogout = () => {
   location.href = paths.logout

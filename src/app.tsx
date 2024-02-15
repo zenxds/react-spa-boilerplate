@@ -11,21 +11,32 @@ import { ErrorPage, NotFoundPage } from '@/components/Error'
 import { paths } from '@/constants'
 import { useGlobalStores } from '@/stores'
 
+import Home from './containers/home'
+import Login from './containers/user/login'
+import Register from './containers/user/register'
+
 import Main from './containers/main'
 
 function load(page: string) {
-  const Com = loadable(() => import(`../containers/${page}`), {
-    fallback: (
-      <div className="page-loading">
-        <Spin />
-      </div>
-    ),
-  })
+  const map: Record<string, any> = {
+    home: Home,
+    'user/login': Login,
+    'user/register': Register,
+  }
 
+  // const Com = loadable(() => import(`./containers/${page}`), {
+  //   fallback: (
+  //     <div className="page-loading">
+  //       <Spin />
+  //     </div>
+  //   ),
+  // })
+
+  const Com = map[page]
   return <Com />
 }
 
-import './less/app.less'
+import './styles/global.less'
 
 const containerMap = {
   [paths.login]: 'user/login',

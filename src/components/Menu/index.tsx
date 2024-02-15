@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { Menu } from 'antd'
 
 import { useGlobalStores } from '@/stores'
-import './less/styles.less'
+import './styles.less'
 
 /**
  * 进入一些菜单之外的页面

@@ -76,8 +76,10 @@
     "@dr.pogodin/babel-plugin-react-css-modules": "^6.12.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.11",
     "@types/react": "^18.2.55",
+    "@types/react-css-modules": "^4.6.8",
     "@types/react-dom": "^18.2.19",
     "@types/webpack-env": "^1.18.4",
+    "@typescript-eslint/eslint-plugin": "^7.0.1",
     "@typescript-eslint/parser": "^7.0.1",
     "antd-dayjs-webpack-plugin": "^1.0.6",
     "autoprefixer": "^10.4.17",
@@ -126,5 +128,10 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.13.0"
+  },
+  "resolutions": {
+    "strip-ansi": "6.0.1",
+    "string-width": "4.2.2",
+    "wrap-ansi": "7.0.0"
   }
 }

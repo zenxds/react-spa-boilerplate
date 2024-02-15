@@ -91,6 +91,16 @@ export default observer(() => {
     fetchData()
   }, [copyModal, fetchData])
 
+  const handleTableChange = React.useCallback<
+    Required<TableProps<RecordType>>['onChange']
+  >((pagination, filters, sorter) => {
+    store.merge({
+      fetchId: Date.now(),
+      pageNo: pagination.current,
+      pageSize: pagination.pageSize,
+    })
+  }, [])
+
   const submitDelete = React.useCallback(
     async (record: any) => {
       const result = await services.deleteHomeItem({
@@ -104,6 +114,14 @@ export default observer(() => {
     },
     [handleReset],
   )
+
+  const pagination = React.useMemo(() => {
+    return {
+      current: store.pageNo,
+      pageSize: store.pageSize,
+      total: store.total,
+    }
+  }, [store.pageNo, store.pageSize, store.total])
 
   useEffect(() => {
     const disposer = reaction(
@@ -177,7 +195,8 @@ export default observer(() => {
         size="small"
         rowKey={(record) => record.id}
         dataSource={toJS(store.dataSource)}
-        pagination={false}
+        pagination={pagination}
+        onChange={handleTableChange}
       />
 
       {editModal.open ? (

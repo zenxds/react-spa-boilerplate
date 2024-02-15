@@ -3,7 +3,7 @@ const path = require('path')
 const dayjs = require('dayjs')
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const CSSMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -11,18 +11,37 @@ const {
   getLocalIdent,
 } = require('@dr.pogodin/babel-plugin-react-css-modules/utils')
 
-// https://ant-design.gitee.io/docs/react/migration-v5-cn
-const { theme } = require('antd/lib')
-const { convertLegacyToken } = require('@ant-design/compatible/lib')
-const { defaultAlgorithm, defaultSeed } = theme
-const mapToken = defaultAlgorithm(defaultSeed)
-const v4Token = convertLegacyToken(mapToken)
-
 const rules = require('./webpack.rules')
+
+function getCSSLoaders(modules = false) {
+  return [
+    MiniCssExtractPlugin.loader,
+    {
+      loader: 'css-loader',
+      options: modules
+        ? {
+            modules: {
+              getLocalIdent,
+              localIdentName: '[hash:base64]',
+            },
+          }
+        : {},
+    },
+    {
+      loader: 'postcss-loader',
+      options: {
+        postcssOptions: {
+          config: path.join(__dirname, 'postcss.config.js'),
+        },
+      },
+    },
+  ]
+}
+
 module.exports = {
   mode: 'production',
   target: 'web',
-  entry: './src/index.js',
+  entry: './src/index.tsx',
   output: {
     path: path.join(__dirname, '../build'),
     filename: 'main.js',
@@ -45,7 +64,7 @@ module.exports = {
           },
         },
       }),
-      new CssMinimizerPlugin(),
+      new CSSMinimizerPlugin(),
     ],
   },
   resolve: {
@@ -76,61 +95,36 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              modules: {
-                getLocalIdent,
-                localIdentName: '[hash:base64]',
-              },
-            },
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                config: path.join(__dirname, 'postcss.config.js'),
-              },
-            },
-          },
-        ],
+        use: getCSSLoaders(),
       },
       {
         test: /\.less$/,
-        exclude: /node_modules/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              modules: {
-                getLocalIdent,
-                localIdentName: '[hash:base64]',
-              },
-            },
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                config: path.join(__dirname, 'postcss.config.js'),
-              },
-            },
-          },
+        exclude: /global\.less$/,
+        use: getCSSLoaders(true).concat([
           {
             loader: 'less-loader',
             options: {
               lessOptions: {
-                modifyVars: v4Token,
-                relativeUrls: false,
                 math: 'always',
                 javascriptEnabled: true,
               },
             },
           },
-        ],
+        ]),
+      },
+      {
+        test: /global\.less$/,
+        use: getCSSLoaders().concat([
+          {
+            loader: 'less-loader',
+            options: {
+              lessOptions: {
+                math: 'always',
+                javascriptEnabled: true,
+              },
+            },
+          },
+        ]),
       },
     ]),
   },

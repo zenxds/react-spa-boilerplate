@@ -19,7 +19,7 @@ function getCSSLoaders(modules = false) {
         ? {
             modules: {
               getLocalIdent,
-              localIdentName: '[path][name]__[local]--[hash:base64:5]',
+              localIdentName: '[path]__[name]__[local]__[hash:base64:6]',
             },
           }
         : {},
@@ -66,15 +66,28 @@ module.exports = {
       {
         test: /\.([cm]?ts|tsx)$/,
         use: ['babel-loader', 'ts-loader'],
-        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
-        use: getCSSLoaders(true),
+        use: getCSSLoaders(),
       },
       {
         test: /\.less$/,
-        exclude: /node_modules/,
+        exclude: /global\.less$/,
+        use: getCSSLoaders(true).concat([
+          {
+            loader: 'less-loader',
+            options: {
+              lessOptions: {
+                math: 'always',
+                javascriptEnabled: true,
+              },
+            },
+          },
+        ]),
+      },
+      {
+        test: /global\.less$/,
         use: getCSSLoaders().concat([
           {
             loader: 'less-loader',
@@ -102,6 +115,9 @@ module.exports = {
     //   failOnError: true,
     // }),
     new ReactRefreshWebpackPlugin(),
+    new webpack.ProvidePlugin({
+      React: 'react',
+    }),
     new webpack.DefinePlugin({
       API_SERVER_PLACEHOLDER: JSON.stringify(''),
     }),
