@@ -20,12 +20,12 @@ export default observer(() => {
     useDataSourceStore()
   const createModal = useModal(false)
 
-  const handleCreateSuccess = React.useCallback(() => {
+  const handleCreateSuccess = () => {
     message.success('新建成功')
 
     handleReset()
     createModal.handleClose()
-  }, [handleReset, createModal])
+  }
 
   return (
     <>

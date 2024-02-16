@@ -11,7 +11,6 @@ import { useDataSourceStore } from '@/stores'
 import * as services from '@/services'
 import { useModal } from '@/hooks'
 import FormModal from '@/components/FormModal'
-// import Base from '@components/BasePage/SearchTable/Table'
 
 import ItemForm from '../ItemForm'
 
@@ -22,23 +21,67 @@ interface RecordType {
   description?: string
 }
 
-interface FetchDataParamsType {
-  pageNo?: number
-  pageSize?: number
-}
-
 export default observer(() => {
-  const { store, handleReset } = useDataSourceStore()
+  const { store, handleSearch, handleReset } = useDataSourceStore()
   const editModal = useModal(false)
   const copyModal = useModal(false)
 
-  const fetchData = React.useCallback(
-    async (params: FetchDataParamsType = {}) => {
-      params = {
+  const handleEdit = (record: any) => {
+    editModal.handleOpen(record)
+  }
+
+  const handleEditSuccess = () => {
+    message.success('编辑成功')
+    editModal.handleClose()
+    handleSearch()
+  }
+
+  const handleCopy = (record: any) => {
+    const copyItem = Object.assign({}, record)
+    delete copyItem.id
+    copyModal.handleOpen(copyItem)
+  }
+
+  const handleCopySuccess = () => {
+    message.success('新建成功')
+    copyModal.handleClose()
+    handleSearch()
+  }
+
+  const handleTableChange: TableProps<RecordType>['onChange'] = (
+    pagination,
+  ) => {
+    // filters, sorter
+    store.merge({
+      pageNo: pagination.current,
+      pageSize: pagination.pageSize,
+    })
+    handleSearch()
+  }
+
+  const submitDelete = async (record: any) => {
+    const result = await services.deleteHomeItem({
+      id: record.id,
+    })
+    if (result) {
+      message.success(`删除${record.name}成功`)
+
+      handleReset()
+    }
+  }
+
+  const pagination = {
+    current: store.pageNo,
+    pageSize: store.pageSize,
+    total: store.total,
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const params = {
         pageNo: store.pageNo,
         pageSize: store.pageSize,
         ...store.conditionsObject,
-        ...params,
       }
 
       store.merge({
@@ -59,72 +102,8 @@ export default observer(() => {
           loading: false,
         })
       }
-    },
-    [store],
-  )
-
-  const handleEdit = React.useCallback(
-    (record: any) => {
-      editModal.handleOpen(record)
-    },
-    [editModal],
-  )
-
-  const handleEditSuccess = React.useCallback(() => {
-    message.success('编辑成功')
-    editModal.handleClose()
-    fetchData()
-  }, [editModal, fetchData])
-
-  const handleCopy = React.useCallback(
-    (record: any) => {
-      const copyItem = Object.assign({}, record)
-      delete copyItem.id
-      copyModal.handleOpen(copyItem)
-    },
-    [copyModal],
-  )
-
-  const handleCopySuccess = React.useCallback(() => {
-    message.success('新建成功')
-    copyModal.handleClose()
-    fetchData()
-  }, [copyModal, fetchData])
-
-  const handleTableChange = React.useCallback<
-    Required<TableProps<RecordType>>['onChange']
-  >((pagination) => {
-    // filters, sorter
-    store.merge({
-      fetchId: Date.now(),
-      pageNo: pagination.current,
-      pageSize: pagination.pageSize,
-    })
-  }, [store])
-
-  const submitDelete = React.useCallback(
-    async (record: any) => {
-      const result = await services.deleteHomeItem({
-        id: record.id,
-      })
-      if (result) {
-        message.success(`删除${record.name}成功`)
-
-        handleReset()
-      }
-    },
-    [handleReset],
-  )
-
-  const pagination = React.useMemo(() => {
-    return {
-      current: store.pageNo,
-      pageSize: store.pageSize,
-      total: store.total,
     }
-  }, [store.pageNo, store.pageSize, store.total])
 
-  useEffect(() => {
     const disposer = reaction(
       () => {
         return store.fetchId
@@ -140,7 +119,7 @@ export default observer(() => {
     return () => {
       disposer()
     }
-  }, [store, fetchData])
+  }, [store])
 
   const columns: TableProps<RecordType>['columns'] = [
     {

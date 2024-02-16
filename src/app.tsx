@@ -7,11 +7,11 @@ import {
 import loadable from '@loadable/component'
 import { Spin } from 'antd'
 
+import MainLayout from '@/components/Layout/Main'
 import { ErrorPage, NotFoundPage } from '@/components/Error'
 import { paths } from '@/constants'
 import { useGlobalStores } from '@/stores'
 
-import MainLayout from './components/Layout/Main'
 
 function load(page: string) {
   const Com = loadable(() => import(`./containers/${page}`), {

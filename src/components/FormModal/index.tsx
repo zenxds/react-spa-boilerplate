@@ -1,6 +1,5 @@
 import React, { cloneElement, useState, useCallback } from 'react'
 import { Modal, Form } from 'antd'
-import { observer } from 'mobx-react'
 
 import type { ReactElement } from 'react'
 import type { ModalProps } from 'antd'
@@ -13,7 +12,7 @@ interface PropsType extends ModalProps {
   onSuccess?: (res: any, data: any) => void
 }
 
-export default observer(
+export default
   ({
     children,
     processor,
@@ -47,11 +46,10 @@ export default observer(
       }
 
       setLoading(true)
-
       const res = await service(values)
       setLoading(false)
 
-      if (res && onSuccess) {
+      if (res !== undefined && onSuccess) {
         onSuccess(res, values)
       }
     }, [form, processor, validator, service, onSuccess])
@@ -69,5 +67,4 @@ export default observer(
         })}
       </Modal>
     )
-  },
-)
+  }

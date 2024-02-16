@@ -77,6 +77,9 @@ export const DataSourceStoreProvider = ({
 
   const handleReset = useCallback(() => {
     store.resetConditions()
+    store.merge({
+      pageNo: 1,
+    })
     form.setFieldsValue(store.conditionsObject)
 
     handleSearch()
