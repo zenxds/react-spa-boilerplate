@@ -1,12 +1,12 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useState, useMemo } from 'react'
 
 export function useModal(initialOpen = false) {
   const [open, setOpen] = useState(initialOpen)
   const [data, setData] = useState(null)
 
-  const handleOpen = useCallback((data: any) => {
+  const handleOpen = useCallback((openData: any) => {
     setOpen(true)
-    setData(data)
+    setData(openData)
   }, [])
 
   const handleClose = useCallback(() => {
@@ -14,10 +14,12 @@ export function useModal(initialOpen = false) {
     setData(null)
   }, [])
 
-  return {
-    open,
-    data,
-    handleOpen,
-    handleClose,
-  }
+  return useMemo(() => {
+    return {
+      open,
+      data,
+      handleOpen,
+      handleClose,
+    }
+  }, [open, data, handleOpen, handleClose])
 }
