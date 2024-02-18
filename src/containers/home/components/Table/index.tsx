@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { reaction, toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import dayjs from 'dayjs'
+import { useRequest } from 'ahooks'
 import { Table, Tooltip, Popconfirm, Button, Space, message } from 'antd'
 import { EditOutlined, DeleteOutlined, CopyOutlined } from '@ant-design/icons'
 
@@ -22,66 +23,16 @@ interface RecordType {
 }
 
 export default observer(() => {
-  const { store, handleSearch, handleReset } = useDataSourceStore()
+  const { store } = useDataSourceStore()
   const editModal = useModal(false)
   const copyModal = useModal(false)
-
-  const handleEdit = (record: any) => {
-    editModal.handleOpen(record)
-  }
-
-  const handleEditSuccess = () => {
-    message.success('编辑成功')
-    editModal.handleClose()
-    handleSearch()
-  }
-
-  const handleCopy = (record: any) => {
-    const copyItem = Object.assign({}, record)
-    delete copyItem.id
-    copyModal.handleOpen(copyItem)
-  }
-
-  const handleCopySuccess = () => {
-    message.success('新建成功')
-    copyModal.handleClose()
-    handleSearch()
-  }
-
-  const handleTableChange: TableProps<RecordType>['onChange'] = (
-    pagination,
-  ) => {
-    // filters, sorter
-    store.merge({
-      pageNo: pagination.current,
-      pageSize: pagination.pageSize,
-    })
-    handleSearch()
-  }
-
-  const submitDelete = async (record: any) => {
-    const result = await services.deleteHomeItem({
-      id: record.id,
-    })
-    if (result) {
-      message.success(`删除${record.name}成功`)
-
-      handleReset()
-    }
-  }
-
-  const pagination = {
-    current: store.pageNo,
-    pageSize: store.pageSize,
-    total: store.total,
-  }
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const params = {
+  const { runAsync: fetchData } = useRequest(
+    async (params?: any) => {
+      params = {
         pageNo: store.pageNo,
         pageSize: store.pageSize,
         ...store.conditionsObject,
+        ...params,
       }
 
       store.merge({
@@ -102,8 +53,71 @@ export default observer(() => {
           loading: false,
         })
       }
-    }
+    },
+    {
+      manual: true,
+    },
+  )
 
+  const handleEdit = (record: any) => {
+    editModal.handleOpen(record)
+  }
+
+  const handleEditSuccess = () => {
+    message.success('编辑成功')
+    editModal.handleClose()
+    fetchData()
+  }
+
+  const handleCopy = (record: any) => {
+    const copyItem = Object.assign({}, record)
+    delete copyItem.id
+    copyModal.handleOpen(copyItem)
+  }
+
+  const handleCopySuccess = () => {
+    message.success('新建成功')
+    copyModal.handleClose()
+    fetchData({
+      pageNo: 1,
+    })
+  }
+
+  const handleTableChange: TableProps<RecordType>['onChange'] = (
+    pagination,
+  ) => {
+    // filters, sorter
+    fetchData({
+      pageNo: pagination.current,
+      pageSize: pagination.pageSize,
+    })
+  }
+
+  const submitDelete = async (record: any) => {
+    const result = await services.deleteHomeItem({
+      id: record.id,
+    })
+    if (result) {
+      message.success(`删除${record.name}成功`)
+
+      // 当前页全部删除了，切到第一页
+      if (store.dataSource.length === 1) {
+        fetchData({
+          pageNo: 1,
+        })
+      } else {
+        fetchData()
+      }
+    }
+  }
+
+  const pagination = {
+    current: store.pageNo,
+    pageSize: store.pageSize,
+    total: store.total,
+  }
+
+  useEffect(() => {
     const disposer = reaction(
       () => {
         return store.fetchId
@@ -119,7 +133,7 @@ export default observer(() => {
     return () => {
       disposer()
     }
-  }, [store])
+  }, [store, fetchData])
 
   const columns: TableProps<RecordType>['columns'] = [
     {
