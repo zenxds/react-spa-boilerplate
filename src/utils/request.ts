@@ -11,6 +11,12 @@ interface RequestConfig extends AxiosRequestConfig {
   returnResponseData?: boolean
 }
 
+const messageMap: Record<string, string> = {
+  'request error': '请求失败，请稍后重试',
+  'Network Error': '网络出错，请检查您的网络状况',
+  'Request failed with status code 502': '服务器出小差了，请稍后重试',
+}
+
 const instance = axios.create({
   baseURL: API_SERVER,
 })
@@ -47,7 +53,7 @@ export default function request<T>(
 
   if (config.catchError) {
     return ret.catch((err: Error) => {
-      message.error(err.message)
+      message.error(messageMap[err.message] || err.message)
     })
   }
 

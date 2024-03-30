@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { Row, Col, Button } from 'antd'
 
-import './styles.less'
+import './styles.module.less'
 
 interface PropsType {
   column?: number
@@ -18,7 +18,7 @@ export default ({
 }: PropsType) => {
   const childrenNodes = useMemo(() => {
     if (Array.isArray(children)) {
-      return [...children].filter((child) => !!child)
+      return [...children].filter(child => !!child)
     }
 
     return [children]

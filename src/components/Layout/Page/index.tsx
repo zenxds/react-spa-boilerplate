@@ -1,13 +1,13 @@
 import React from 'react'
 
-import './styles.less'
+import './styles.module.less'
 
 interface PropsType {
   title: string
   children: React.ReactNode
 }
 
-export default ({ title, children }: PropsType) => {
+export default function Page({ title, children }: PropsType) {
   return (
     <div styleName="layout">
       <div styleName="header">

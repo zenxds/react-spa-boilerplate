@@ -26,7 +26,7 @@ export default observer(() => {
   const { store } = useDataSourceStore()
   const editModal = useModal(false)
   const copyModal = useModal(false)
-  const { runAsync: fetchData } = useRequest(
+  const { run: fetchData } = useRequest(
     async (params?: any) => {
       params = {
         pageNo: store.pageNo,

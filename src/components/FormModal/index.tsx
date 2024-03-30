@@ -12,59 +12,58 @@ interface PropsType extends ModalProps {
   onSuccess?: (res: any, data: any) => void
 }
 
-export default
-  ({
-    children,
-    processor,
-    validator,
-    service,
-    onSuccess,
-    ...modalProps
-  }: PropsType) => {
-    const [loading, setLoading] = useState(false)
-    const [form] = Form.useForm()
+export default function FormModal({
+  children,
+  processor,
+  validator,
+  service,
+  onSuccess,
+  ...modalProps
+}: PropsType) {
+  const [loading, setLoading] = useState(false)
+  const [form] = Form.useForm()
 
-    const handleOk = useCallback(async () => {
-      let values = {}
+  const handleOk = useCallback(async () => {
+    let values = {}
 
-      try {
-        values = await form.validateFields()
-      } catch (err) {
+    try {
+      values = await form.validateFields()
+    } catch (err) {
+      return
+    }
+
+    // 额外的校验
+    if (validator) {
+      const valid = validator(values)
+      if (!valid) {
         return
       }
+    }
 
-      // 额外的校验
-      if (validator) {
-        const valid = validator(values)
-        if (!valid) {
-          return
-        }
-      }
+    if (processor) {
+      values = processor(values)
+    }
 
-      if (processor) {
-        values = processor(values)
-      }
+    setLoading(true)
+    const res = await service(values)
+    setLoading(false)
 
-      setLoading(true)
-      const res = await service(values)
-      setLoading(false)
+    if (res !== undefined && onSuccess) {
+      onSuccess(res, values)
+    }
+  }, [form, processor, validator, service, onSuccess])
 
-      if (res !== undefined && onSuccess) {
-        onSuccess(res, values)
-      }
-    }, [form, processor, validator, service, onSuccess])
-
-    return (
-      <Modal
-        open={true}
-        confirmLoading={loading}
-        destroyOnClose={true}
-        onOk={handleOk}
-        {...modalProps}
-      >
-        {cloneElement(children, {
-          form,
-        })}
-      </Modal>
-    )
-  }
+  return (
+    <Modal
+      open={true}
+      confirmLoading={loading}
+      destroyOnClose={true}
+      onOk={handleOk}
+      {...modalProps}
+    >
+      {cloneElement(children, {
+        form,
+      })}
+    </Modal>
+  )
+}

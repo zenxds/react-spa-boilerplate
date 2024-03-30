@@ -6,7 +6,7 @@ import { DownOutlined } from '@ant-design/icons'
 import { useGlobalStores } from '@/stores'
 
 import { paths } from '@/constants'
-import './styles.less'
+import './styles.module.less'
 
 export default observer(() => {
   const { userStore } = useGlobalStores()

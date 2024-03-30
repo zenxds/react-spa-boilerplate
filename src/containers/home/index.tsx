@@ -5,7 +5,7 @@ import { DataSourceStoreProvider } from '@/stores'
 
 import Toolbar from './components/Toolbar'
 import Table from './components/Table'
-import './styles.less'
+import './styles.module.less'
 
 export default observer(() => {
   return (
