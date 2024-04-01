@@ -13,5 +13,4 @@ export function getHashPath(href = window.location.href) {
 }
 
 export * from './getPublicPath'
-export * from './getPopupContainer'
 export * from './validator'

@@ -5,19 +5,17 @@ import {
   useLocation,
 } from 'react-router-dom'
 import loadable from '@loadable/component'
-import { Spin } from 'antd'
+import { DotLoading } from 'antd-mobile'
 
 import MainLayout from '@/components/Layout/Main'
-import { ErrorPage, NotFoundPage } from '@/components/Error'
 import { paths } from '@/constants'
 import { useGlobalStores } from '@/stores'
-
 
 function load(page: string) {
   const Com = loadable(() => import(`./containers/${page}`), {
     fallback: (
       <div className="page-loading">
-        <Spin />
+        <DotLoading />
       </div>
     ),
   })
@@ -66,7 +64,7 @@ const router = createHashRouter([
         <MainLayout />
       </RequireAuth>
     ),
-    errorElement: <ErrorPage />,
+    // errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -74,10 +72,10 @@ const router = createHashRouter([
       },
     ],
   },
-  {
-    path: '*',
-    element: <NotFoundPage />,
-  },
+  // {
+  //   path: '*',
+  //   element: <NotFoundPage />,
+  // },
 ])
 
 export default function App() {

@@ -1,19 +1,11 @@
-import { observer } from 'mobx-react'
+import { Button } from 'antd-mobile'
 
-import PageLayout from '@/components/Layout/Page'
-import { DataSourceStoreProvider } from '@/stores'
-
-import Toolbar from './components/Toolbar'
-import Table from './components/Table'
 import './styles.module.less'
 
-export default observer(() => {
+export default function Page() {
   return (
-    <PageLayout title="首页">
-      <DataSourceStoreProvider initialConditions={{ name: 'aaa' }}>
-        <Toolbar />
-        <Table />
-      </DataSourceStoreProvider>
-    </PageLayout>
+    <div>
+      <Button color="primary">按钮</Button>
+    </div>
   )
-})
+}

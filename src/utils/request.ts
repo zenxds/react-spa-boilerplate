@@ -1,4 +1,4 @@
-import { message } from 'antd'
+import { Toast } from 'antd-mobile'
 import axios from 'axios'
 
 import { API_SERVER } from '@/constants'
@@ -36,7 +36,7 @@ export default function request<T>(
     config,
   )
 
-  const ret = instance(config).then((response) => {
+  const ret = instance(config).then(response => {
     const { success, data, message } = response.data as CommonResponse<T>
 
     if (success) {
@@ -53,7 +53,10 @@ export default function request<T>(
 
   if (config.catchError) {
     return ret.catch((err: Error) => {
-      message.error(messageMap[err.message] || err.message)
+      Toast.show({
+        icon: 'fail',
+        content: messageMap[err.message] || err.message,
+      })
     })
   }
 
@@ -78,7 +81,7 @@ export function get<T>(
 export function post<T>(url: string, data: any, config: RequestConfig = {}) {
   const formDate = new FormData()
 
-  Object.keys(data).forEach((key) => {
+  Object.keys(data).forEach(key => {
     if (data[key] !== undefined) {
       formDate.append(key, data[key])
     }
