@@ -8451,10 +8451,10 @@ webpack-cli@^5.1.4:
     rechoir "^0.8.0"
     webpack-merge "^5.7.3"
 
-webpack-dev-middleware@^7.1.0:
-  version "7.2.0"
-  resolved "https://registry.npmmirror.com/webpack-dev-middleware/-/webpack-dev-middleware-7.2.0.tgz#ef46564a1db0767380d4c6359c7f9da886642d8f"
-  integrity sha512-VLzmsjJrf+3UVf3QsT3E7xZ9F9bdhUhQFGRxyl6bmYR+W519UWnK6/teZeqAFFjWEtpVs+JqNPCVqB/s7P4tGg==
+webpack-dev-middleware@7.1.1, webpack-dev-middleware@^7.1.0:
+  version "7.1.1"
+  resolved "https://registry.npmmirror.com/webpack-dev-middleware/-/webpack-dev-middleware-7.1.1.tgz#29aefd73720a03889e1c5c8dd7e552c4d333d572"
+  integrity sha512-NmRVq4AvRQs66dFWyDR4GsFDJggtSi2Yn38MXLk0nffgF9n/AIP4TFBg2TQKYaRAN4sHuKOTiz9BnNCENDLEVA==
   dependencies:
     colorette "^2.0.10"
     memfs "^4.6.0"
@@ -8463,7 +8463,7 @@ webpack-dev-middleware@^7.1.0:
     range-parser "^1.2.1"
     schema-utils "^4.0.0"
 
-webpack-dev-server@^5.0.2:
+webpack-dev-server@^5.0.4:
   version "5.0.4"
   resolved "https://registry.npmmirror.com/webpack-dev-server/-/webpack-dev-server-5.0.4.tgz#cb6ea47ff796b9251ec49a94f24a425e12e3c9b8"
   integrity sha512-dljXhUgx3HqKP2d8J/fUMvhxGhzjeNVarDLcbO/EWMSgRizDkxHQDZQaLFL5VJY9tRBj2Gz+rvCEYYvhbqPHNA==
@@ -8723,10 +8723,10 @@ yocto-queue@^1.0.0:
   resolved "https://registry.npmmirror.com/yocto-queue/-/yocto-queue-1.0.0.tgz"
   integrity sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==
 
-zenxds-cli@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.npmjs.org/zenxds-cli/-/zenxds-cli-0.1.0.tgz#6dca89d45ad5a0d2c0f11befc47c0c3c9f43ca1b"
-  integrity sha512-r/bB2jDM33BSAgTbQplOnv6hCf6FZvjXCEaNzGe1H2flQzMhxt+lfGIEqCoCCE0Mm72IZjw9F7SGOfG0d4pTwg==
+zenxds-cli@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.npmmirror.com/zenxds-cli/-/zenxds-cli-0.2.0.tgz#fed6fa9a4038c1fd7ac1484676996dcc1a55b90a"
+  integrity sha512-/JnIJw5gP6fOKeatAOBcOQf3vy0f98VtvokYySfAFVdFytTgGYMMaww1murZ2CrtBfXTcHNC33tLIfRg988gOQ==
   dependencies:
     "@babel/core" "^7.24.3"
     "@babel/preset-env" "^7.24.3"
@@ -8765,4 +8765,4 @@ zenxds-cli@^0.1.0:
     typescript "^5.3.3"
     webpack "^5.90.3"
     webpack-cli "^5.1.4"
-    webpack-dev-server "^5.0.2"
+    webpack-dev-server "^5.0.4"
