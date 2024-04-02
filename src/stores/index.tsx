@@ -21,7 +21,7 @@ export const GlobalStoreProvider = ({
     <StoreContext.Provider
       value={{
         userStore: {
-          isLogin: true,
+          isLogin: false,
         },
       }}
     >

@@ -13,9 +13,6 @@ import { getPublicPath } from '@/utils'
 import { GlobalStoreProvider } from './stores'
 import App from './app'
 
-// 不允许在动作外部修改状态
-// configure({ enforceActions: 'observed' })
-
 __webpack_public_path__ = window.PUBLIC_PATH || getPublicPath() || ''
 
 createRoot(document.getElementById('app') as HTMLElement).render(

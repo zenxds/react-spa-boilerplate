@@ -8,6 +8,34 @@ body {
 html,
 body,
 #app,
-#app>.ant-layout {
+.app-layout {
   height: 100%;
+}
+
+.app-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 64px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.app-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 64px;
+  text-align: center;
+  border-top: 1px solid #e8e8e8;
+}
+
+.app-content {
+  flex: 1;
+  padding: 12px;
+  overflow: auto;
 }
