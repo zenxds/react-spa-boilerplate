@@ -3,16 +3,6 @@ export default {
     mobile: true,
   },
 
-  lint: config => {
-    config.rules = {
-      ...config.rules,
-
-      // '@typescript-eslint/no-unused-vars': 'off'
-    }
-
-    return config
-  },
-
   webpack: (env, config) => {
     return config
   },
