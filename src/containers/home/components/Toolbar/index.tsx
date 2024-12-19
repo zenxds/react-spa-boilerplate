@@ -1,11 +1,10 @@
 import React from 'react'
-import { observer } from 'mobx-react'
 import { Button, Input, Form, message } from 'antd'
+import { useAntdTableContext } from '@zenxds/utils'
 
 import SearchFormLayout from '@/components/SearchFormLayout'
 import FormModal from '@/components/FormModal'
 import { useModal } from '@/hooks'
-import { useDataSourceStore } from '@/stores'
 import * as services from '@/services'
 
 import ItemForm from '../ItemForm'
@@ -15,15 +14,14 @@ const formItemLayout = {
   wrapperCol: { span: 16 },
 }
 
-export default observer(() => {
-  const { store, form, handleSearch, handleReset, handleChange } =
-    useDataSourceStore()
+export default () => {
+  const { form, search } = useAntdTableContext()
   const createModal = useModal(false)
 
   const handleCreateSuccess = () => {
     message.success('新建成功')
 
-    handleReset()
+    search?.reset()
     createModal.handleClose()
   }
 
@@ -33,12 +31,14 @@ export default observer(() => {
         <Form
           // {...formItemLayout}
           form={form}
-          onValuesChange={handleChange}
-          initialValues={store.conditionsObject}
         >
           <SearchFormLayout
-            handleSearch={handleSearch}
-            handleReset={handleReset}
+            handleSearch={() => {
+              search?.submit()
+            }}
+            handleReset={() => {
+              search?.reset()
+            }}
           >
             <Form.Item label="关键字" name="name">
               <Input />
@@ -47,7 +47,12 @@ export default observer(() => {
         </Form>
 
         <div className="page-header-actions">
-          <Button type="primary" onClick={createModal.handleOpen}>
+          <Button
+            type="primary"
+            onClick={() => {
+              createModal.handleOpen()
+            }}
+          >
             新建
           </Button>
         </div>
@@ -66,4 +71,4 @@ export default observer(() => {
       ) : null}
     </>
   )
-})
+}

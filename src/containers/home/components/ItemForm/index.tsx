@@ -1,4 +1,3 @@
-import { observer } from 'mobx-react'
 import { Form, Input } from 'antd'
 
 import type { FormInstance } from 'antd'
@@ -8,7 +7,7 @@ interface PropsType {
   form?: FormInstance
 }
 
-export default observer(({ data, form }: PropsType) => {
+export default ({ data, form }: PropsType) => {
   return (
     <Form
       labelCol={{ span: 4 }}
@@ -36,4 +35,4 @@ export default observer(({ data, form }: PropsType) => {
       </Form.Item>
     </Form>
   )
-})
+}

@@ -1,15 +1,13 @@
 import { useCallback } from 'react'
-import { observer } from 'mobx-react'
 import { Dropdown } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 
-import { useGlobalStores } from '@/stores'
-
+import { useGlobalContext } from '@/context'
 import { paths } from '@/constants'
 import './styles.module.less'
 
-export default observer(() => {
-  const { userStore } = useGlobalStores()
+export default () => {
+  const { user } = useGlobalContext()
   const handleLogout = useCallback(() => {
     location.href = paths.logout
   }, [])
@@ -26,8 +24,8 @@ export default observer(() => {
       <div styleName="header-info">
         <Dropdown menu={{ items }} placement="bottomLeft">
           <div styleName="user-info">
-            <a styleName="user-name" title={userStore.username}>
-              {userStore.username}
+            <a styleName="user-name" title={user?.username}>
+              {user?.username}
               <DownOutlined style={{ marginLeft: '3px' }} />
             </a>
           </div>
@@ -35,4 +33,4 @@ export default observer(() => {
       </div>
     </>
   )
-})
+}

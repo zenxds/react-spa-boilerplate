@@ -10,8 +10,7 @@ import { Spin } from 'antd'
 import MainLayout from '@/components/Layout/Main'
 import { ErrorPage, NotFoundPage } from '@/components/Error'
 import { paths } from '@/constants'
-import { useGlobalStores } from '@/stores'
-
+import { useGlobalContext } from '@/context'
 
 function load(page: string) {
   const Com = loadable(() => import(`./containers/${page}`), {
@@ -35,10 +34,10 @@ const containerMap = {
 const container = containerMap[location.pathname]
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
-  const { userStore } = useGlobalStores()
+  const { isLogin } = useGlobalContext()
   const location = useLocation()
 
-  if (!userStore.isLogin) {
+  if (!isLogin) {
     return <Navigate to={paths.login} state={{ from: location }} replace />
   }
 

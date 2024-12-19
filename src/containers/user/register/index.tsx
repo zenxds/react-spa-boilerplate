@@ -1,4 +1,4 @@
-import { observer } from 'mobx-react'
+import React from 'react'
 import { Input, Button, Form } from 'antd'
 import {
   EyeInvisibleOutlined,
@@ -6,42 +6,40 @@ import {
   UserOutlined,
   LockOutlined,
 } from '@ant-design/icons'
+import { useRequest } from 'ahooks'
+import { getQueryParams } from '@zenxds/utils'
 
 import * as services from '@/services'
 import { isUsername, isPassword, isDisabled } from '@/utils/validator'
-import { useLocalStore } from './store'
+import { paths } from '@/constants'
 
 import type { UserRegisterDataType } from '@/types'
 import '../user.global.less'
 
-const Password = observer(() => {
-  const localStore = useLocalStore()
+const Password = () => {
   const [form] = Form.useForm()
+  const [disabled, setDisabled] = React.useState(false)
+
+  const { loading, runAsync: register } = useRequest(
+    async (params: UserRegisterDataType) => {
+      return services.register(params)
+    },
+  )
 
   const handleFieldsChange = () => {
-    localStore.merge({
-      disabled: isDisabled(form),
-    })
+    setDisabled(isDisabled(form))
   }
 
   const onFinish = async (values: UserRegisterDataType) => {
     const { username, password } = values
 
-    localStore.merge({
-      loading: true,
-    })
-
-    const res = await services.register({
+    const res = await register({
       username,
       password,
     })
 
-    localStore.merge({
-      loading: false,
-    })
-
     if (res) {
-      location.href = localStore.redirectUrl as string
+      location.href = getQueryParams().get('backUrl') || '/'
     }
   }
 
@@ -120,24 +118,27 @@ const Password = observer(() => {
         type="primary"
         htmlType="submit"
         className="submit-btn"
-        loading={localStore.loading}
-        disabled={localStore.disabled}
+        loading={loading}
+        disabled={disabled}
       >
         注 册
       </Button>
     </Form>
   )
-})
+}
 
-const Extra = observer(() => {
-  const localStore = useLocalStore()
+const Extra = () => {
+  const queryParams = getQueryParams()
+  const loginUrl = `${paths.login}?backUrl=${encodeURIComponent(
+    queryParams.get('backUrl') || '',
+  )}`
 
   return (
     <div className="more">
-      <a href={localStore.loginUrl}>登录已有账号</a>
+      <a href={loginUrl}>登录已有账号</a>
     </div>
   )
-})
+}
 
 export default function Register() {
   return (

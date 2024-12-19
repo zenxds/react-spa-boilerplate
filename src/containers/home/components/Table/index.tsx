@@ -1,16 +1,12 @@
-import React, { useEffect } from 'react'
-import { reaction, toJS } from 'mobx'
-import { observer } from 'mobx-react'
+import React from 'react'
 import dayjs from 'dayjs'
-import { useRequest } from 'ahooks'
 import { Table, Tooltip, Popconfirm, Button, Space, message } from 'antd'
 import { EditOutlined, DeleteOutlined, CopyOutlined } from '@ant-design/icons'
+import { useAntdTableContext, useModal } from '@zenxds/utils'
 
 import type { TableProps } from 'antd'
 
-import { useDataSourceStore } from '@/stores'
 import * as services from '@/services'
-import { useModal } from '@/hooks'
 import FormModal from '@/components/FormModal'
 
 import ItemForm from '../ItemForm'
@@ -22,42 +18,10 @@ interface RecordType {
   description?: string
 }
 
-export default observer(() => {
-  const { store } = useDataSourceStore()
+export default () => {
+  const { tableProps, search } = useAntdTableContext()
   const editModal = useModal(false)
   const copyModal = useModal(false)
-  const { run: fetchData } = useRequest(
-    async (params?: any) => {
-      params = {
-        pageNo: store.pageNo,
-        pageSize: store.pageSize,
-        ...store.conditionsObject,
-        ...params,
-      }
-
-      store.merge({
-        loading: true,
-      })
-
-      const result = await services.getHomeList(params)
-      if (result) {
-        store.merge({
-          loading: false,
-          pageNo: params.pageNo,
-          pageSize: params.pageSize,
-          dataSource: result.items,
-          total: result.total,
-        })
-      } else {
-        store.merge({
-          loading: false,
-        })
-      }
-    },
-    {
-      manual: true,
-    },
-  )
 
   const handleEdit = (record: any) => {
     editModal.handleOpen(record)
@@ -66,7 +30,7 @@ export default observer(() => {
   const handleEditSuccess = () => {
     message.success('编辑成功')
     editModal.handleClose()
-    fetchData()
+    search?.submit()
   }
 
   const handleCopy = (record: any) => {
@@ -78,19 +42,7 @@ export default observer(() => {
   const handleCopySuccess = () => {
     message.success('新建成功')
     copyModal.handleClose()
-    fetchData({
-      pageNo: 1,
-    })
-  }
-
-  const handleTableChange: TableProps<RecordType>['onChange'] = (
-    pagination,
-  ) => {
-    // filters, sorter
-    fetchData({
-      pageNo: pagination.current,
-      pageSize: pagination.pageSize,
-    })
+    search?.reset()
   }
 
   const submitDelete = async (record: any) => {
@@ -101,46 +53,25 @@ export default observer(() => {
       message.success(`删除${record.name}成功`)
 
       // 当前页全部删除了，切到第一页
-      if (store.dataSource.length === 1) {
-        fetchData({
-          pageNo: 1,
-        })
+      if (tableProps?.dataSource.length === 1) {
+        search?.reset()
       } else {
-        fetchData()
+        search?.submit()
       }
     }
   }
-
-  const pagination = {
-    current: store.pageNo,
-    pageSize: store.pageSize,
-    total: store.total,
-  }
-
-  useEffect(() => {
-    const disposer = reaction(
-      () => {
-        return store.fetchId
-      },
-      () => {
-        fetchData()
-      },
-      {
-        fireImmediately: true,
-      },
-    )
-
-    return () => {
-      disposer()
-    }
-  }, [store, fetchData])
 
   const columns: TableProps<RecordType>['columns'] = [
     {
       title: '序号',
       dataIndex: 'userId',
       render: (text, record, index: number) => {
-        return (store.pageNo - 1) * store.pageSize + index + 1
+        return (
+          (tableProps?.pagination.current - 1) *
+            tableProps?.pagination.pageSize +
+          index +
+          1
+        )
       },
     },
     {
@@ -157,7 +88,7 @@ export default observer(() => {
     {
       title: '更新时间',
       dataIndex: 'updatedAt',
-      render: (val) => {
+      render: val => {
         return dayjs(val).format('YYYY-MM-DD HH:mm:ss')
       },
     },
@@ -183,15 +114,7 @@ export default observer(() => {
 
   return (
     <>
-      <Table
-        loading={store.loading}
-        columns={columns}
-        size="small"
-        rowKey={(record) => record.id}
-        dataSource={toJS(store.dataSource)}
-        pagination={pagination}
-        onChange={handleTableChange}
-      />
+      <Table {...tableProps} columns={columns} />
 
       {editModal.open ? (
         <FormModal
@@ -219,4 +142,4 @@ export default observer(() => {
       ) : null}
     </>
   )
-})
+}

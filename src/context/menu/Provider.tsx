@@ -1,11 +1,13 @@
-import { makeAutoObservable } from 'mobx'
-import { ScheduleOutlined } from '@ant-design/icons'
+import React, { useMemo } from 'react'
 
 import { paths } from '@/constants'
-import type { MenuItemType } from '@/types'
+import { menus } from './constants'
+import { getMenuContext } from './index'
+
+import type { MenuContextType, MenuItemType } from '@/types'
 
 function normalize(arr: MenuItemType[] = [], level = 1) {
-  return arr.map((item) => {
+  return arr.map(item => {
     item.level = level
     item.key = item.code
 
@@ -21,28 +23,17 @@ function normalize(arr: MenuItemType[] = [], level = 1) {
   })
 }
 
-class MenuStore {
-  menus = [
-    {
-      label: '首页',
-      code: 'index',
-      icon: <ScheduleOutlined />,
-    },
-  ]
-
-  constructor() {
-    makeAutoObservable(this)
-  }
-
-  get normalized() {
-    return normalize(this.menus)
-  }
-
-  get pathMap() {
+export function MenuContextProvider({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  const MenuContext = getMenuContext()
+  const pathMap: Record<string, MenuItemType> = useMemo(() => {
     const map: Record<string, MenuItemType> = {}
 
     function walk(list: MenuItemType[]) {
-      list.forEach((item) => {
+      list.forEach(item => {
         if (item.children) {
           walk(item.children)
         }
@@ -57,15 +48,15 @@ class MenuStore {
       })
     }
 
-    walk(this.normalized)
+    walk(normalize(menus))
     return map
-  }
+  }, [])
 
-  get parentMap() {
+  const parentMap: Record<string, string> = useMemo(() => {
     const map: Record<string, string> = {}
 
     function walk(list: MenuItemType[], parentCode?: string) {
-      list.forEach((item) => {
+      list.forEach(item => {
         if (item.children) {
           walk(item.children, item.code)
         }
@@ -76,9 +67,19 @@ class MenuStore {
       })
     }
 
-    walk(this.normalized)
+    walk(normalize(menus))
     return map
-  }
-}
+  }, [])
 
-export default new MenuStore()
+  const contextValue: MenuContextType = useMemo(() => {
+    return {
+      menus: normalize(menus),
+      parentMap,
+      pathMap,
+    }
+  }, [pathMap, parentMap])
+
+  return (
+    <MenuContext.Provider value={contextValue}>{children}</MenuContext.Provider>
+  )
+}

@@ -1,9 +1,8 @@
 import { useState } from 'react'
-import { observer } from 'mobx-react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Menu } from 'antd'
 
-import { useGlobalStores } from '@/stores'
+import { useMenuContext } from '@/context'
 
 /**
  * 进入一些菜单之外的页面
@@ -15,8 +14,7 @@ import { useGlobalStores } from '@/stores'
 function useCurrentPath() {
   const location = useLocation()
   const pathname = location.pathname
-  const { menuStore } = useGlobalStores()
-  const { pathMap } = menuStore
+  const { pathMap } = useMenuContext()
 
   for (const p in pathMap) {
     // 去掉/这种情况
@@ -30,8 +28,7 @@ function useCurrentPath() {
 
 // 一个菜单展开时，它的父菜单也应该展开
 function useOpenKeys() {
-  const { menuStore } = useGlobalStores()
-  const { pathMap, parentMap } = menuStore
+  const { parentMap, pathMap } = useMenuContext()
   const currentPath = useCurrentPath()
   const current = pathMap[currentPath]
   const openKeys = []
@@ -45,9 +42,8 @@ function useOpenKeys() {
   return openKeys
 }
 
-export default observer(() => {
-  const { menuStore } = useGlobalStores()
-  const menus = menuStore.normalized
+export default () => {
+  const { menus } = useMenuContext()
   const defaultOpenKeys = useOpenKeys()
   const [openKeys, setOpenKeys] = useState(defaultOpenKeys)
   const location = useLocation()
@@ -81,4 +77,4 @@ export default observer(() => {
       items={menus as any}
     />
   )
-})
+}
