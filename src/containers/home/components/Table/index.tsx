@@ -98,11 +98,11 @@ export default () => {
       render: (_, record) => {
         return (
           <Space size="middle" className="table-actions">
-            <EditOutlined onClick={handleEdit.bind(this, record)} />
-            <CopyOutlined onClick={handleCopy.bind(this, record)} />
+            <EditOutlined onClick={() => handleEdit(record)} />
+            <CopyOutlined onClick={() => handleCopy(record)} />
             <Popconfirm
               title={`您确定要删除“${record.name}”吗`}
-              onConfirm={submitDelete.bind(this, record)}
+              onConfirm={() => submitDelete(record)}
             >
               <Button icon={<DeleteOutlined />} type="link" />
             </Popconfirm>
