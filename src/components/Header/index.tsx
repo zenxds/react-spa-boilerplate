@@ -6,7 +6,7 @@ import { useGlobalContext } from '@/context'
 import { paths } from '@/constants'
 import './styles.module.less'
 
-export default () => {
+export default function Page() {
   const { user } = useGlobalContext()
   const handleLogout = useCallback(() => {
     location.href = paths.logout

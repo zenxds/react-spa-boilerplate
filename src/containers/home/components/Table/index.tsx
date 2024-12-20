@@ -18,7 +18,7 @@ interface RecordType {
   description?: string
 }
 
-export default () => {
+export default function Page() {
   const { tableProps, search } = useAntdTableContext()
   const editModal = useModal(false)
   const copyModal = useModal(false)

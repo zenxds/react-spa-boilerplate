@@ -9,12 +9,7 @@ import * as services from '@/services'
 
 import ItemForm from '../ItemForm'
 
-const formItemLayout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-}
-
-export default () => {
+export default function Page() {
   const { form, search } = useAntdTableContext()
   const createModal = useModal(false)
 

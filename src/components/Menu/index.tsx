@@ -42,7 +42,7 @@ function useOpenKeys() {
   return openKeys
 }
 
-export default () => {
+export default function Page() {
   const { menus } = useMenuContext()
   const defaultOpenKeys = useOpenKeys()
   const [openKeys, setOpenKeys] = useState(defaultOpenKeys)

@@ -8,7 +8,7 @@ import Toolbar from './components/Toolbar'
 import Table from './components/Table'
 import './styles.module.less'
 
-export default () => {
+export default function Page() {
   const [form] = Form.useForm()
 
   return (
